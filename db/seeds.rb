@@ -34,3 +34,5 @@ demoCharacter2 = Character.create({
     color_scheme: 1,
     user_id: demoUser1.id
 })
+
+console.log("seeding done")
