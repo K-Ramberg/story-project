@@ -4,7 +4,8 @@ import axios from 'axios'
 export default class UserShow extends Component {
 
   state= {
-    user: {}
+    user: {},
+    characters: []
 }
 
 componentDidMount() {
@@ -15,8 +16,10 @@ fetchUser = async () => {
     const userId =  this.props.match.params.id
     try{
         let userResponse = await axios.get(`/api/users/${userId}`)
+        let characterResponse = await axios.get(`/api/users/${userId}/characters`)
         this.setState({
-            user: userResponse.data
+            user: userResponse.data,
+            characters: characterResponse.data
         })
     } catch (err){
         console.error(err)
@@ -24,10 +27,15 @@ fetchUser = async () => {
 }
 
   render() {
-    console.log(this.state)
+    const characterMap = this.state.characters.map((char) => {
+      return(
+        <div key={char.id}>{char.name}</div>
+      )
+    })
     return (
       <div>
         this here be a user
+        {characterMap}
       </div>
     )
   }
