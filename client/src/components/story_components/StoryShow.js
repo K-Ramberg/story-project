@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { EnemyGenerate, FriendGenerate } from './SubCharacterGenerate';
 
 export default class StoryShow extends Component {
 
     state = {
-        story: {}
+        story: {},
+        enemy: {},
+        friend: {
+            name: ''
+        }
     }
 
     componentDidMount() {
@@ -21,6 +26,24 @@ export default class StoryShow extends Component {
             console.error(err)
         }
     }
+    handleFriendAdd = (event) => {
+        event.preventDefault()
+        if(this.state.friend.name === ''){
+        const friendName = FriendGenerate()
+        this.setState({
+            friend: {
+                name: friendName
+            }
+        })}
+    }
+
+    handleStoryStart = (event) => {
+        event.preventDefault()
+        const enemyName = EnemyGenerate()
+        this.setState({
+            enemy : { name: enemyName }
+        })
+    }
 
   render() {
     return (
@@ -28,6 +51,14 @@ export default class StoryShow extends Component {
         <h1>{this.state.story.title}</h1>
         <h3>theme select {this.state.story.theme}</h3>
         <h3>difficulty select {this.state.story.difficulty}</h3>
+        <h6>this is the friend placeholder</h6>
+            <div>{this.state.friend.name}</div>
+        <h6>this is the end of friend placeholder</h6>
+        <button onClick={this.handleFriendAdd}>add friend</button>
+        <h6> this is the enemy placeholder</h6>
+            <div>{this.state.enemy.name}</div>
+            <h6>end of placeholder</h6>
+        <button onClick={this.handleStoryStart}>start</button>
       </div>
     )
   }
