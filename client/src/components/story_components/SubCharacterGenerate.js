@@ -16,3 +16,8 @@ export function FriendGenerate () {
     const name = chance.name({ gender: genderGet})
     return (name)
 }
+
+export function ThemeGenerate () {
+    const themeSelect = chance.integer({min: 1, max: 2})
+    return (themeSelect)
+}

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: 1
+  completed: false
+  story: one
+
+two:
+  number: 1
+  completed: false
+  story: two
