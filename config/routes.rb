@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do 
     resources :users do
-      resources :characters
+      resources :characters, :stories
     end
   end
 end
