@@ -7,11 +7,11 @@ export default class CharacterCreate extends Component {
     state = {
         newCharacter: {
             name: '',
-            occupation: 1,
-            head_element: 1,
-            body_element: 1,
-            leg_element: 1,
-            color_scheme: 1
+            occupation: '',
+            head_element: 0,
+            body_element: 0,
+            leg_element: 0,
+            color_scheme: 0
         }
     }
   
@@ -32,7 +32,7 @@ export default class CharacterCreate extends Component {
     render() {
     return (
       <div>
-        <CharacterForm character={this.state} submit={this.handleFormSubmit} formChange={this.handleFormChange}></CharacterForm>
+        <CharacterForm character={this.state.newCharacter} submit={this.handleFormSubmit} formChange={this.handleFormChange}></CharacterForm>
       </div>
     )
   }

@@ -40,6 +40,7 @@ export default class CharacterShow extends Component {
     return (
       <div>
           {characterDisplay(this.state.character)}
+          <div><Link to={`/users/${this.props.match.params.user_id}/characters/${this.state.character.id}/edit`}>Change up your character</Link></div>
           <Link to={`/users/${this.props.match.params.user_id}`}>Go back to your characters</Link>
       </div>
     )

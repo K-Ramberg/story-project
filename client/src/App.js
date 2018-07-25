@@ -4,6 +4,7 @@ import HomePage from './components/HomePage';
 import UserShow from './components/user_components/UserShow';
 import CharacterShow from './components/character_components/CharacterShow';
 import CharacterCreate from './components/character_components/CharacterCreate';
+import CharacterUpdate from './components/character_components/CharacterUpdate';
 
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
           <Route exact path='/users/:id' component={UserShow}/>
           <Route exact path='/users/:user_id/characters/new' component={CharacterCreate}/>
           <Route exact path='/users/:user_id/characters/:id' component={CharacterShow}/>
+          <Route exact path='/users/:user_id/characters/:id/edit' component={CharacterUpdate}/>
         </Switch>
         </div>
       </Router>
