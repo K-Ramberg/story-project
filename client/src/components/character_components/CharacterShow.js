@@ -25,6 +25,11 @@ export default class CharacterShow extends Component {
         }
     }
 
+    characterDelete = async (id) => {
+        await axios.delete(`/api/users/${this.props.match.params.user_id}/characters/${id}`)
+        this.props.history.push(`/users/${this.props.match.params.user_id}`)
+    }
+
   render() {
       const characterDisplay = (character) => {if (character.occupation === "Princess") {
         return(
@@ -41,6 +46,7 @@ export default class CharacterShow extends Component {
       <div>
           {characterDisplay(this.state.character)}
           <div><Link to={`/users/${this.props.match.params.user_id}/characters/${this.state.character.id}/edit`}>Change up your character</Link></div>
+          <div><button onClick={()=> this.characterDelete(this.state.character.id)}>Remove character</button></div>
           <Link to={`/users/${this.props.match.params.user_id}`}>Go back to your characters</Link>
       </div>
     )

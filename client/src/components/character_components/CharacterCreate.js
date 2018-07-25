@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CharacterForm from './CharacterForm';
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 export default class CharacterCreate extends Component {
@@ -33,6 +34,9 @@ export default class CharacterCreate extends Component {
     return (
       <div>
         <CharacterForm character={this.state.newCharacter} submit={this.handleFormSubmit} formChange={this.handleFormChange}></CharacterForm>
+        <div>
+            <Link to={`/users/${this.props.match.params.user_id}`}>Nevermind</Link>
+        </div>
       </div>
     )
   }
