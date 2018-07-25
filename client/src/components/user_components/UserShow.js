@@ -41,12 +41,13 @@ fetchCharacter = async () => {
         ) 
       }
     })
-
+    
 
     return (
       <div>
         this here be a user
         {characterMap}
+        <Link to={`/users/${this.state.user.id}/characters/new`}>add another character</Link>
       </div>
     )
   }
