@@ -16,7 +16,7 @@ demoCharacter1 = Character.create({
 })
 
 demoCharacter2 = Character.create({
-    name: "Rico the Red",
+    name: "Hank",
     occupation: "Wizard",
     head_element: 3,
     body_element: 3,
@@ -35,4 +35,4 @@ demoCharacter2 = Character.create({
     user_id: demoUser1.id
 })
 
-console.log("seeding done")
+puts "seeding done"

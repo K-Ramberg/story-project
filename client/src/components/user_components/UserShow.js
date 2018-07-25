@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from "react-router-dom"
 import axios from 'axios'
 
 export default class UserShow extends Component {
@@ -9,10 +10,10 @@ export default class UserShow extends Component {
 }
 
 componentDidMount() {
-    this.fetchUser()
+    this.fetchCharacter()
 }  
 
-fetchUser = async () => {
+fetchCharacter = async () => {
     const userId =  this.props.match.params.id
     try{
         let userResponse = await axios.get(`/api/users/${userId}`)
@@ -28,10 +29,20 @@ fetchUser = async () => {
 
   render() {
     const characterMap = this.state.characters.map((char) => {
-      return(
-        <div key={char.id}>{char.name}</div>
-      )
+      let userId = this.state.user.id
+      if (char.occupation === "Princess") {
+        return(
+          <div><Link key={char.id} to={`/users/${userId}/characters/${char.id}`}>{char.occupation} {char.name}</Link></div>
+        )
+      }
+      else if (char.occupation === "Wizard" || char.occupation === "Dinosaur"){
+        return(
+          <div><Link key={char.id} to={`/users/${userId}/characters/${char.id}`}>{char.name} the {char.occupation}</Link></div>
+        ) 
+      }
     })
+
+
     return (
       <div>
         this here be a user
