@@ -32,12 +32,12 @@ fetchCharacter = async () => {
       let userId = this.state.user.id
       if (char.occupation === "Princess") {
         return(
-          <div><Link key={char.id} to={`/users/${userId}/characters/${char.id}`}>{char.occupation} {char.name}</Link></div>
+          <div key={char.id}><Link to={`/users/${userId}/characters/${char.id}`}>{char.occupation} {char.name}</Link></div>
         )
       }
       else if (char.occupation === "Wizard" || char.occupation === "Dinosaur"){
         return(
-          <div><Link key={char.id} to={`/users/${userId}/characters/${char.id}`}>{char.name} the {char.occupation}</Link></div>
+          <div key={char.id}><Link to={`/users/${userId}/characters/${char.id}`}>{char.name} the {char.occupation}</Link></div>
         ) 
       }
     })

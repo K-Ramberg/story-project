@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 export default class CharacterShow extends Component {
 
@@ -12,7 +13,7 @@ export default class CharacterShow extends Component {
     }  
     
     fetchCharacter = async () => {
-        const userId =  this.props.match.params.usder_id
+        const userId =  this.props.match.params.user_id
         const characterId =  this.props.match.params.id
         try{
             let characterResponse = await axios.get(`/api/users/${userId}/characters/${characterId}`)
@@ -39,6 +40,7 @@ export default class CharacterShow extends Component {
     return (
       <div>
           {characterDisplay(this.state.character)}
+          <Link to={`/users/${this.props.match.params.user_id}`}>Go back to your characters</Link>
       </div>
     )
   }
