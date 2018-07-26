@@ -7,6 +7,7 @@ import CharacterCreate from './components/character_components/CharacterCreate';
 import CharacterUpdate from './components/character_components/CharacterUpdate';
 import StoryIndex from './components/story_components/StoryIndex';
 import StoryShow from './components/story_components/StoryShow';
+import PageShow from './components/page_components/PageShow';
 
 
 class App extends Component {
@@ -23,6 +24,7 @@ class App extends Component {
           <Route exact path='/users/:user_id/characters/:id/edit' component={CharacterUpdate}/>
           <Route exact path='/users/:user_id/stories' component={StoryIndex}/>
           <Route exact path='/users/:user_id/stories/:id' component={StoryShow}/>
+          <Route exact path='/users/:user_id/stories/:story_id/pages/:id' component={PageShow}/>
         </Switch>
         </div>
       </Router>

@@ -48,4 +48,52 @@ demoStory2 = Story.create({
     difficulty: 2
 })
 
+demoPage1 = Page.create({
+    number: 1,
+    completed: false,
+    story_id: demoStory1.id
+})
+
+demoPage2 = Page.create({
+    number: 2,
+    completed: false,
+    story_id: demoStory1.id
+})
+
+demoPage3 = Page.create({
+    number: 3,
+    completed: false,
+    story_id: demoStory1.id
+})
+
+demoPage4 = Page.create({
+    number: 4,
+    completed: false,
+    story_id: demoStory1.id
+})
+
+demoPage5 = Page.create({
+    number: 1,
+    completed: false,
+    story_id: demoStory2.id
+})
+
+demoPage6 = Page.create({
+    number: 2,
+    completed: false,
+    story_id: demoStory2.id
+})
+
+demoPage7 = Page.create({
+    number: 3,
+    completed: false,
+    story_id: demoStory2.id
+})
+
+demoPage8 = Page.create({
+    number: 4,
+    completed: false,
+    story_id: demoStory2.id
+})
+
 puts "seeding done"
