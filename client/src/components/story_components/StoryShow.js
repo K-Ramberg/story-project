@@ -112,12 +112,12 @@ export default class StoryShow extends Component {
 
     render() {
 
-        const pageMap = this.state.pages.map((page) => {
+        const pageMap = this.state.pages.sort().map((page) => {
             return (
-                <div key={page.id}>{page.completed === true ?
+                <div key={page.id}>{page.completed === false ?
                     <div>Page {page.number}</div>
                     : <div>
-                        <Link to={{ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`,
+                        <Link to={{ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${page.id}`,
                                     state: { newState: this.state }
                                 }}>
                                 Page {page.number}
@@ -144,6 +144,8 @@ export default class StoryShow extends Component {
                         <div key={character.id}>{characterDisplay(character)}</div>
                     )
         })
+
+        console.log(this.state.pages)
 
         return (
             <div>

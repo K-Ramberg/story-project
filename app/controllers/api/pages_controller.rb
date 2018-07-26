@@ -10,4 +10,16 @@ class Api::PagesController < ApplicationController
         render json: @page
     end
 
+    def update
+        @page = Page.find(params[:id])
+        @page.update(page_params)
+        render json: @page
+    end
+
+    private
+
+    def page_params
+        params.require(:page).permit(:number, :completed)
+    end
+
 end
