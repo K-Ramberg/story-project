@@ -7,6 +7,7 @@ export default class StoryShow extends Component {
 
     state = {
         characters: [],
+        characterInUse: {},
         story: {},
         pages: [],
         enemy: {},
@@ -52,7 +53,6 @@ export default class StoryShow extends Component {
         const themeResult = ThemeGenerate()
         const newPage1Status = { ...this.state.pages }
         newPage1Status[0].completed = true
-        console.log(this.state.pages)
         this.setState({
             enemy: { name: enemyName },
             story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult },
@@ -103,6 +103,12 @@ export default class StoryShow extends Component {
         }
     }
 
+    handleCharacterSelect = (character) => {
+        const newState = {...this.state}
+        newState.characterInUse = character
+        this.setState(newState)
+    }
+
     render() {
 
         const pageMap = this.state.pages.map((page) => {
@@ -117,12 +123,12 @@ export default class StoryShow extends Component {
 
         const characterDisplay = (character) => {if (character.occupation === "Princess") {
             return(
-              <div key={character.id}>{character.occupation} {character.name}</div>
+              <div key={character.id} onClick={()=> this.handleCharacterSelect(character)}>{character.occupation} {character.name}</div>
             )
           }
           else if (character.occupation === "Wizard" || character.occupation === "Dinosaur"){
             return(
-              <div key={character.id}>{character.name} the {character.occupation}</div>
+              <div key={character.id} onClick={()=> this.handleCharacterSelect(character)}>{character.name} the {character.occupation}</div>
             ) 
           }
         }
@@ -144,7 +150,7 @@ export default class StoryShow extends Component {
                     {characterMap}
                 <h3>----------------------</h3>
                 <h2>selected Character</h2>
-                    
+                    {this.state.characterInUse.name}
                 <h2>___________________</h2>
                 <h6>this is the friend placeholder</h6>
                 <div>{this.state.friend.name}</div>
