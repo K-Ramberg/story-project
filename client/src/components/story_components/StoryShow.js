@@ -7,7 +7,7 @@ export default class StoryShow extends Component {
 
     state = {
         characters: [],
-        characterInUse: {},
+        characterInUse: '',
         story: {},
         pages: [],
         enemy: {},
@@ -49,6 +49,7 @@ export default class StoryShow extends Component {
 
     handleStoryStart = (event) => {
         event.preventDefault()
+        if (this.state.characterInUse !== ''){
         const enemyName = EnemyGenerate()
         const themeResult = ThemeGenerate()
         const newPage1Status = { ...this.state.pages }
@@ -56,7 +57,7 @@ export default class StoryShow extends Component {
         this.setState({
             enemy: { name: enemyName },
             story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult },
-        })
+        })} 
     }
 
     handleIncreaseDifficulty = (event) => {
@@ -113,10 +114,15 @@ export default class StoryShow extends Component {
 
         const pageMap = this.state.pages.map((page) => {
             return (
-                <div key={page.id}>{page.completed === false ?
+                <div key={page.id}>{page.completed === true ?
                     <div>Page {page.number}</div>
-                    : <div><Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`}>
-                        Page {page.number}</Link></div>}
+                    : <div>
+                        <Link to={{ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`,
+                                    state: { newState: this.state }
+                                }}>
+                                Page {page.number}
+                            </Link>
+                      </div>}
                 </div>
             )
         })
