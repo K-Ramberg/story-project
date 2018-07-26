@@ -15,7 +15,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-       <h1>I'm here now at app.js <Link to='/'>Home</Link></h1>
+       <h1><Link to='/'>Home</Link></h1>
         <Switch>
           <Route exact path='/' component={HomePage}/>
           <Route exact path='/users/:id' component={UserShow}/>
