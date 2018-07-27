@@ -1,4 +1,5 @@
 const chance = require('chance').Chance()
+
 export function EnemyGenerate () {
     const boolGet = chance.bool()
     const genderGet = chance.gender()
