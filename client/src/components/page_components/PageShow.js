@@ -5,10 +5,11 @@ import axios from 'axios';
 export default class PageShow extends Component {
 
     state = {
-        character: {},
-        enemy: {},
+        characterInUse: {},
         friend: {},
-        page: {}
+        page: {},
+        pages: [],
+        enemy: {}
     }
 
     componentDidMount() {
@@ -17,13 +18,17 @@ export default class PageShow extends Component {
 
     fetchPageInfo = async () => {
         try{
-           const pageInfo = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${this.props.match.params.id}`) 
+           const pageInfo = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`)
+           const allPages = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages`)
            const useCharacter = await this.props.location.state.newState.characterInUse
            const useEnemy = await this.props.location.state.newState.enemy
+           const useFriend = await this.props.location.state.newState.friend
            this.setState({
-            character: useCharacter,
+            characterInUse: useCharacter,
             enemy: useEnemy,
-            page: pageInfo.data
+            page: pageInfo.data,
+            friend: useFriend,
+            pages: allPages.data
         })
         } catch (err) {
             console.error(err)
@@ -35,8 +40,15 @@ export default class PageShow extends Component {
         newPage.completed = !newPage.completed
         this.setState({page: newPage})
         await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`, newPage)
+        console.log(this.state.page.id+1)
+        const redirect = await this.handleRedirect()
     }
     
+    handleRedirect = () => {
+        this.props.history.push({pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.state.page.id+1}`,
+                    state: { newState: this.state } })
+         this.fetchPageInfo()           
+    }
 
   render() {
     const characterDisplay = (character) => {if (character.occupation === "Princess") {
@@ -53,16 +65,17 @@ export default class PageShow extends Component {
 
     const trueFalseMarker = () => {
         if(this.state.page.completed === true){
-            return 'true'
+            return ('true')
         } else { return 'false'}
     }
 
     return (
       <div>
         <h5>completed placeholder: {trueFalseMarker()}</h5>
-        look, a page
-        <h6>{characterDisplay(this.state.character)}</h6>
+        look, a page {this.state.page.number}
+        <h6>{characterDisplay(this.state.characterInUse)}</h6>
         <h6>{this.state.enemy.name}</h6>
+        <h6>{this.state.friend.name}</h6>
         <button onClick={this.handleCompletionChange}>change complete placeholder</button>
         <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>back to story</Link>
       </div>

@@ -23,10 +23,11 @@ export default class StoryShow extends Component {
     }
 
     fetchStoryAndPages = async () => {
+        const userId = this.props.match.params.user_id
         try {
-            let storyResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}`)
-            let pagesResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages`)
-            let charactersResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/characters`)
+            const storyResponse = await axios.get(`/api/users/${userId}/stories/${this.props.match.params.id}`)
+            const pagesResponse = await axios.get(`/api/users/${userId}/stories/${this.props.match.params.id}/pages`)
+            const charactersResponse = await axios.get(`/api/users/${userId}/characters`)
             this.setState({
                 characters: charactersResponse.data,
                 story: storyResponse.data,
@@ -60,13 +61,11 @@ export default class StoryShow extends Component {
         if (this.state.characterInUse !== ''){
         const enemyName = EnemyGenerate()
         const themeResult = ThemeGenerate()
+        this.state.pages[0].completed = true
         this.setState({
             enemy: { name: enemyName },
-            story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult }
+            story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult },
         })} 
-        this.props.history.push({ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${this.state.pages[0].id}`,
-                            state: { newState: this.state }
-                            })
     }
 
     handleIncreaseDifficulty = (event) => {
@@ -114,9 +113,11 @@ export default class StoryShow extends Component {
     }
 
     handleCharacterSelect = (character) => {
-        const newState = {...this.state}
-        newState.characterInUse = character
-        this.setState(newState)
+        let useCharacter = {...this.state.characterInUse}
+        useCharacter = character
+        this.setState({
+            characterInUse: useCharacter
+        })
     }
 
     render() {
