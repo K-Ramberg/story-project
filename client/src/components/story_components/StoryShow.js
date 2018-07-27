@@ -24,13 +24,15 @@ export default class StoryShow extends Component {
 
     fetchStoryAndPages = async () => {
         try {
-            let storyResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}`)
-            let pagesResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages`)
-            let charactersResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/characters`)
+            const storyResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}`)
+            const pagesResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages`)
+            const charactersResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/characters`)
+            const enemyName = await EnemyGenerate()
             this.setState({
                 characters: charactersResponse.data,
                 story: storyResponse.data,
-                pages: pagesResponse.data
+                pages: pagesResponse.data,
+                enemy: {name:enemyName}
             })
             const setFirstPage = await this.setFirstPage()
         } catch (err) {
@@ -55,18 +57,12 @@ export default class StoryShow extends Component {
         }
     }
 
-    handleStoryStart = (event) => {
-        event.preventDefault()
+    handleStoryStart = () => {
         if (this.state.characterInUse !== ''){
-        const enemyName = EnemyGenerate()
-        const themeResult = ThemeGenerate()
-        this.setState({
-            enemy: { name: enemyName },
-            story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult }
-        })} 
         this.props.history.push({ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${this.state.pages[0].id}`,
-                            state: { newState: this.state }
-                            })
+        state: { newState: this.state }
+        }) 
+       }
     }
 
     handleIncreaseDifficulty = (event) => {
@@ -114,9 +110,13 @@ export default class StoryShow extends Component {
     }
 
     handleCharacterSelect = (character) => {
-        const newState = {...this.state}
-        newState.characterInUse = character
-        this.setState(newState)
+        let useCharacter = {...this.state.characterInUse}
+        useCharacter = character
+        const themeResult = ThemeGenerate()
+        this.setState({
+            characterInUse: useCharacter,
+            story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult }
+        })
     }
 
     render() {
@@ -126,7 +126,7 @@ export default class StoryShow extends Component {
 
         const pageMap = sortByPageNumber.map((page) => {
             return (
-                <div key={page.id}>{page.completed === false ?
+                <div key={page.id}>{page.compconsted === false ?
                     <div>Page {page.number}</div>
                     : <div>
                         <Link to={{ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${page.id}`,

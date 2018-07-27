@@ -57,10 +57,11 @@ export default class PageShow extends Component {
         } else { return 'false'}
     }
 
+    console.log(this.props.location.state.newState)
     return (
       <div>
         <h5>completed placeholder: {trueFalseMarker()}</h5>
-        look, a page
+        look, a page {this.state.page.number}
         <h6>{characterDisplay(this.state.character)}</h6>
         <h6>{this.state.enemy.name}</h6>
         <button onClick={this.handleCompletionChange}>change complete placeholder</button>
