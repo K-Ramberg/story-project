@@ -37,11 +37,15 @@ export default class PageShow extends Component {
 
     handleCompletionChange = async (event) => {
         const newPage = {...this.state.page}
+        if(newPage.completed === false ){
         newPage.completed = !newPage.completed
         this.setState({page: newPage})
         await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`, newPage)
-        console.log(this.state.page.id+1)
+        if(this.state.page.number < this.state.pages.length){
         const redirect = await this.handleRedirect()
+            }
+            //need to add story complete redirect to story complete component
+        }
     }
     
     handleRedirect = () => {
@@ -50,7 +54,7 @@ export default class PageShow extends Component {
          this.fetchPageInfo()           
     }
 
-  render() {
+  render(){
     const characterDisplay = (character) => {if (character.occupation === "Princess") {
         return(
           <div key={character.id} onClick={()=> this.handleCharacterSelect(character)}>{character.occupation} {character.name}</div>
