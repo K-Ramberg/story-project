@@ -126,7 +126,7 @@ export default class StoryShow extends Component {
 
         const pageMap = sortByPageNumber.map((page) => {
             return (
-                <div key={page.id}>{page.compconsted === false ?
+                <div key={page.id}>{page.completed === false ?
                     <div>Page {page.number}</div>
                     : <div>
                         <Link to={{ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${page.id}`,

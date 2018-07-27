@@ -9,7 +9,8 @@ export default class PageShow extends Component {
         enemy: {},
         friend: {},
         page: {},
-        nextPage: {}
+        nextPage: {},
+        pages: []
     }
 
     componentDidMount() {
@@ -18,7 +19,9 @@ export default class PageShow extends Component {
 
     fetchPageInfo = async () => {
         try{
-           const pageInfo = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${this.props.match.params.id}`) 
+           const pageInfo = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`)
+           const allPages = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages`)
+           const nextPageInfo = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.location.state.newState.pages[1].id}`)
            const useCharacter = await this.props.location.state.newState.characterInUse
            const useEnemy = await this.props.location.state.newState.enemy
            const useFriend = await this.props.location.state.newState.friend
@@ -26,7 +29,9 @@ export default class PageShow extends Component {
             character: useCharacter,
             enemy: useEnemy,
             page: pageInfo.data,
-            friend: useFriend
+            friend: useFriend,
+            pages: allPages.data,
+            nextPage: nextPageInfo.data
         })
         } catch (err) {
             console.error(err)
@@ -63,9 +68,9 @@ export default class PageShow extends Component {
         } else { return 'false'}
     }
 
-
-    console.log(this.props.location.state.newState)
     console.log(this.state.page)
+    console.log(this.state.nextPage)
+
     return (
       <div>
         <h5>completed placeholder: {trueFalseMarker()}</h5>
