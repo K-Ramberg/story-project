@@ -11,6 +11,7 @@ export default class StoryShow extends Component {
         characterInUse: '',
         story: {},
         pages: [],
+        firstPage: {},
         enemy: {},
         friend: {
             name: ''
@@ -31,9 +32,15 @@ export default class StoryShow extends Component {
                 story: storyResponse.data,
                 pages: pagesResponse.data
             })
+            const setFirstPage = await this.setFirstPage()
         } catch (err) {
             console.error(err)
         }
+    }
+
+    setFirstPage = () => {
+        const firstPage = {...this.state.pages[0]}
+        this.setState({ firstPage })
     }
 
     handleFriendAdd = (event) => {
@@ -53,12 +60,13 @@ export default class StoryShow extends Component {
         if (this.state.characterInUse !== ''){
         const enemyName = EnemyGenerate()
         const themeResult = ThemeGenerate()
-        const newPage1Status = { ...this.state.pages }
-        newPage1Status[0].completed = true
         this.setState({
             enemy: { name: enemyName },
-            story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult },
+            story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult }
         })} 
+        this.props.history.push({ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${this.state.pages[0].id}`,
+                            state: { newState: this.state }
+                            })
     }
 
     handleIncreaseDifficulty = (event) => {
@@ -150,7 +158,11 @@ export default class StoryShow extends Component {
                     )
         })
 
-        console.log(this.state.pages)
+        const startOrContinue = () => {
+            if(this.state.firstPage.number > 1){
+                return 'Continue'
+            } else { return 'Start'}
+        }
 
         return (
             <div>
@@ -172,7 +184,7 @@ export default class StoryShow extends Component {
                 <h6> this is the enemy placeholder</h6>
                 <div>{this.state.enemy.name}</div>
                 <h6>end of placeholder</h6>
-                <button onClick={this.handleStoryStart}>start</button>
+                <button onClick={this.handleStoryStart}>{startOrContinue()}</button>
                 <div>{pageMap}</div>
             </div>
         )

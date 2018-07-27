@@ -7,6 +7,7 @@ export default class PageShow extends Component {
     state = {
         character: {},
         enemy: {},
+        friend: {},
         page: {}
     }
 
@@ -32,7 +33,7 @@ export default class PageShow extends Component {
     handleCompletionChange = async (event) => {
         const newPage = {...this.state.page}
         newPage.completed = !newPage.completed
-        this.setState({page:newPage})
+        this.setState({page: newPage})
         await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`, newPage)
     }
     
