@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 import axios from 'axios'
 import { EnemyGenerate, FriendGenerate, ThemeGenerate } from './SubCharacterGenerate';
 import { Link } from 'react-router-dom'
@@ -111,8 +112,11 @@ export default class StoryShow extends Component {
     }
 
     render() {
+        
+        const sortByPageNumber = _.sortBy(this.state.pages,['page','number'])
+        
 
-        const pageMap = this.state.pages.sort().map((page) => {
+        const pageMap = sortByPageNumber.map((page) => {
             return (
                 <div key={page.id}>{page.completed === false ?
                     <div>Page {page.number}</div>
@@ -126,6 +130,7 @@ export default class StoryShow extends Component {
                 </div>
             )
         })
+
 
         const characterDisplay = (character) => {if (character.occupation === "Princess") {
             return(
