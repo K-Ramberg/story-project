@@ -5,12 +5,11 @@ import axios from 'axios';
 export default class PageShow extends Component {
 
     state = {
-        character: {},
-        enemy: {},
+        characterInUse: {},
         friend: {},
         page: {},
-        nextPage: {},
-        pages: []
+        pages: [],
+        enemy: {}
     }
 
     componentDidMount() {
@@ -21,17 +20,15 @@ export default class PageShow extends Component {
         try{
            const pageInfo = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`)
            const allPages = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages`)
-           const nextPageInfo = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.location.state.newState.pages[1].id}`)
            const useCharacter = await this.props.location.state.newState.characterInUse
            const useEnemy = await this.props.location.state.newState.enemy
            const useFriend = await this.props.location.state.newState.friend
            this.setState({
-            character: useCharacter,
+            characterInUse: useCharacter,
             enemy: useEnemy,
             page: pageInfo.data,
             friend: useFriend,
-            pages: allPages.data,
-            nextPage: nextPageInfo.data
+            pages: allPages.data
         })
         } catch (err) {
             console.error(err)
@@ -43,10 +40,14 @@ export default class PageShow extends Component {
         newPage.completed = !newPage.completed
         this.setState({page: newPage})
         await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`, newPage)
+        console.log(this.state.page.id+1)
+        const redirect = await this.handleRedirect()
     }
-
-    handlePageProgression = () => {
-        console.log('woot')
+    
+    handleRedirect = () => {
+        this.props.history.push({pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.state.page.id+1}`,
+                    state: { newState: this.state } })
+         this.fetchPageInfo()           
     }
 
   render() {
@@ -64,18 +65,15 @@ export default class PageShow extends Component {
 
     const trueFalseMarker = () => {
         if(this.state.page.completed === true){
-            return (<button onClick={this.handlePageProgression}>'true, go to next page'</button>)
+            return ('true')
         } else { return 'false'}
     }
-
-    console.log(this.state.page)
-    console.log(this.state.nextPage)
 
     return (
       <div>
         <h5>completed placeholder: {trueFalseMarker()}</h5>
         look, a page {this.state.page.number}
-        <h6>{characterDisplay(this.state.character)}</h6>
+        <h6>{characterDisplay(this.state.characterInUse)}</h6>
         <h6>{this.state.enemy.name}</h6>
         <h6>{this.state.friend.name}</h6>
         <button onClick={this.handleCompletionChange}>change complete placeholder</button>
