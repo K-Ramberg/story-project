@@ -7,7 +7,11 @@ class Api::PagesController < ApplicationController
 
     def show
         @page = Page.find(params[:id])
-        render json: @page
+        @res = Page.generate
+        render json: {
+            page: @page,
+            question: @res
+        }
     end
 
     def update

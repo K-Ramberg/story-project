@@ -9,7 +9,8 @@ export default class PageShow extends Component {
         friend: {},
         page: {},
         pages: [],
-        enemy: {}
+        enemy: {},
+        mathLy: {}
     }
 
     componentDidMount() {
@@ -23,12 +24,14 @@ export default class PageShow extends Component {
            const useCharacter = await this.props.location.state.newState.characterInUse
            const useEnemy = await this.props.location.state.newState.enemy
            const useFriend = await this.props.location.state.newState.friend
+           console.log(pageInfo.data)
            this.setState({
             characterInUse: useCharacter,
             enemy: useEnemy,
-            page: pageInfo.data,
+            page: pageInfo.data.page,
             friend: useFriend,
-            pages: allPages.data
+            pages: allPages.data,
+            mathLy: pageInfo.data.question
         })
         } catch (err) {
             console.error(err)
@@ -72,7 +75,7 @@ export default class PageShow extends Component {
             return ('true')
         } else { return 'false'}
     }
-
+console.log(this.state)
     return (
       <div>
         <h5>completed placeholder: {trueFalseMarker()}</h5>
@@ -82,6 +85,8 @@ export default class PageShow extends Component {
         <h6>{this.state.friend.name}</h6>
         <button onClick={this.handleCompletionChange}>change complete placeholder</button>
         <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>back to story</Link>
+        
+     
       </div>
     )
   }
