@@ -34,7 +34,8 @@ export default class PageShow extends Component {
                 page: pageInfo.data.page,
                 friend: useFriend,
                 pages: allPages.data,
-                mathLy: pageInfo.data.question
+                mathLy: pageInfo.data.question,
+                answerChances: []
             })
         } catch (err) {
             console.error(err)
@@ -64,7 +65,6 @@ export default class PageShow extends Component {
         }
         { if(this.state.answerChances.length < 2){
             this.state.answerChances.push('wrong')
-            console.log(this.state.answerChances)
         } else {
             this.handleEndStory()
         }
