@@ -85,6 +85,8 @@ console.log(this.state)
         <h6>{this.state.friend.name}</h6>
         <button onClick={this.handleCompletionChange}>change complete placeholder</button>
         <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>back to story</Link>
+        
+     
       </div>
     )
   }

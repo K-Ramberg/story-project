@@ -7,10 +7,10 @@ class Api::PagesController < ApplicationController
 
     def show
         @page = Page.find(params[:id])
-        @question = Page.generate
+        @res = Page.generate
         render json: {
             page: @page,
-            question: @question
+            question: @res
         }
     end
 
