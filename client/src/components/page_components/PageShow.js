@@ -55,7 +55,7 @@ export default class PageShow extends Component {
     }
 
     handleEndStory = () => {
-        console.log('gameover')
+        this.props.history.push(`/users/${this.props.match.params.user_id}/stories/oops`)
     }
  
     handleQuestionAnswer = (index) => {
