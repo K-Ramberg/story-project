@@ -3,7 +3,7 @@ class Page < ApplicationRecord
   include HTTParty
 
   def self.generate
-    response = get("https://math.ly/api/v1/algebra/linear-equations.json")
+    response = get("https://math.ly/api/v1/arithmetic/simple.json")
     return response
   end
 end

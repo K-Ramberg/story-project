@@ -9,6 +9,7 @@ import StoryIndex from './components/story_components/StoryIndex';
 import StoryShow from './components/story_components/StoryShow';
 import PageShow from './components/page_components/PageShow';
 import StoryOverFail from './components/story_components/StoryOverFail';
+import StoryComplete from './components/story_components/StoryComplete';
 
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
           <Route exact path='/users/:user_id/characters/:id/edit' component={CharacterUpdate}/>
           <Route exact path='/users/:user_id/stories' component={StoryIndex}/>
           <Route exact path='/users/:user_id/stories/oops' component={StoryOverFail}/>
+          <Route exact path='/users/:user_id/stories/finished' component={StoryComplete}/>
           <Route exact path='/users/:user_id/stories/:id' component={StoryShow}/>
           <Route exact path='/users/:user_id/stories/:story_id/pages/:id' component={PageShow}/>
         </Switch>

@@ -51,7 +51,7 @@ export default class PageShow extends Component {
             if (this.state.page.number < this.state.pages.length) {
                 const redirect = await this.handleRedirect()
             }
-            //need to add story complete redirect to story complete component
+            this.props.history.push(`/users/${this.props.match.params.user_id}/stories/finished`)
         }
     }
 
