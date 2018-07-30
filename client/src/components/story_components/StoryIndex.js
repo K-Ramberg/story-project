@@ -7,8 +7,7 @@ export default class StoryIndex extends Component {
 
     state = {
         stories: [],
-        user: {},
-        newStory: {}
+        user: {}
     }
 
     componentDidMount() {
@@ -39,14 +38,18 @@ export default class StoryIndex extends Component {
         createStory.title = "another walk through the forest"
          }
         await axios.post(`/api/users/${this.props.match.params.user_id}/stories`, createStory)
-        this.setState({
-            newStory: createStory
-        })
         await this.fetchStories()
+        await this.loopPageAdd()
     } 
 
+    loopPageAdd = () => {
+        for (let i=1; i<=4; i++){
+            this.handleGivePages(this.state.stories[this.state.stories.length-1].id, i)
+        }
+    }
+
     handleGivePages = async (storyId, pageNumber) => {
-        newPage = {
+        const newPage = {
             number: pageNumber,
             completed: false
         }
