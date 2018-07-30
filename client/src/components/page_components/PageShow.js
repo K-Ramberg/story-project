@@ -50,8 +50,10 @@ export default class PageShow extends Component {
             await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`, newPage)
             if (this.state.page.number < this.state.pages.length) {
                 const redirect = await this.handleRedirect()
+            } else {
+                const reset = await this.handleStoryReset()
+                const redirect = await this.props.history.push(`/users/${this.props.match.params.user_id}/stories/finished`)
             }
-            this.props.history.push(`/users/${this.props.match.params.user_id}/stories/finished`)
         }
     }
 
@@ -59,6 +61,14 @@ export default class PageShow extends Component {
         this.props.history.push(`/users/${this.props.match.params.user_id}/stories/oops`)
     }
  
+    handleStoryReset =  () => {
+        this.state.pages.map(async (page) => {
+            const newPage = {...page}
+            newPage.completed = false
+            await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${page.id}`, newPage)
+        })
+    }
+
     handleQuestionAnswer = (index) => {
         if(index === this.state.mathLy.correct_choice){
             this.handleCompletionChange()
