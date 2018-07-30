@@ -42,7 +42,7 @@ export default class PageShow extends Component {
         }
     }
 
-    handleCompletionChange = async (event) => {
+    handleCompletionChange = async () => {
         const newPage = { ...this.state.page }
         if (newPage.completed === false) {
             newPage.completed = !newPage.completed
@@ -51,9 +51,9 @@ export default class PageShow extends Component {
             if (this.state.page.number < this.state.pages.length) {
                 const redirect = await this.handleRedirect()
             } else {
-                const reset = await this.handleStoryReset()
-                const pageArrayReorder = await this.handlePageArrayFix()
-                const redirect = await this.props.history.push(`/users/${this.props.match.params.user_id}/stories/finished`)
+                //const reset = await this.handleStoryReset()
+               // const pageArrayReorder = await this.handlePageArrayFix(this.state.page)
+                const redirect = await this.props.history.push({pathname:`/users/${this.props.match.params.user_id}/stories/finished`, state:{ story:this.props.match.params.story_id}})
             }
         }
     }
@@ -62,20 +62,19 @@ export default class PageShow extends Component {
         this.props.history.push(`/users/${this.props.match.params.user_id}/stories/oops`)
     }
  
-    handleStoryReset =  () => {
-        this.state.pages.map(async (page) => {
-            const newPage = {...page}
-            newPage.completed = false
-            await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${page.id}`, newPage)
-        })
-    }
+    // handleStoryReset =  () => {
+    //     this.state.pages.map(async (page) => {
+    //         const newPage = {...page}
+    //         newPage.completed = false
+    //         await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${page.id}`, newPage)
+    //     })
+    // }
 
-    handlePageArrayFix = async () => {
-        const newPage = { ...this.state.page }
-        newPage.completed = !newPage.completed
-        newPage.completed = !newPage.completed
-        await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`, newPage)
-    }
+    // handlePageArrayFix = async (page) => {
+    //     const newPage = { ...page }
+    //     newPage.completed = await !newPage.completed
+    //     await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${page.id}`, newPage)
+    // }
 
     handleQuestionAnswer = (index) => {
         if(index === this.state.mathLy.correct_choice){
@@ -87,6 +86,7 @@ export default class PageShow extends Component {
             this.handleEndStory()
         }
         }
+        
     }
 
     handleRedirect = () => {
@@ -131,6 +131,8 @@ export default class PageShow extends Component {
             </div>
             )
         }
+
+        console.log(this.state.pages)
 
         return (
             <div>
