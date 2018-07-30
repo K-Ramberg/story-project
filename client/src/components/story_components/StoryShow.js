@@ -110,6 +110,11 @@ export default class StoryShow extends Component {
         })
     }
 
+    handleDifficultyUpdate = async () => {
+        const newDifficulty = {...this.state.story}
+        await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}}`, newDifficulty)
+    } 
+
     render() {
         
         const sortByPageNumber = _.sortBy(this.state.pages,['page','number'])
@@ -120,7 +125,7 @@ export default class StoryShow extends Component {
                 <div key={page.id}>{page.completed === false ?
                     <div>Page {page.number}</div>
                     : <div>
-                        <Link to={{ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${page.id}`,
+                        <Link onClick={this.handleDifficultyUpdate} to={{ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${page.id}`,
                                     state: { newState: this.state }
                                 }}>
                                 Page {page.number}
