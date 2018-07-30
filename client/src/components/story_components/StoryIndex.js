@@ -5,7 +5,8 @@ import axios from 'axios'
 export default class StoryIndex extends Component {
 
     state = {
-        stories: []
+        stories: [],
+        user: {}
     }
 
     componentDidMount() {
@@ -14,9 +15,11 @@ export default class StoryIndex extends Component {
 
     fetchStories = async () => {
         try{
-            let storiesResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/stories`)
+            const storiesResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/stories`)
+            const userResponse = await axios.get(`/api/users/${this.props.match.params.user_id}`)
             this.setState({
-                stories: storiesResponse.data
+                stories: storiesResponse.data,
+                user: userResponse.data
             })
         } catch(err){
             console.error(err)
@@ -32,6 +35,7 @@ export default class StoryIndex extends Component {
     return (
       <div>
         {storyMap}
+        <div>{this.state.user.name} has finished {this.state.user.stories_completed} stories</div>
       </div>
     )
   }
