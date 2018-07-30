@@ -70,44 +70,34 @@ export default class StoryShow extends Component {
 
     handleIncreaseDifficulty = (event) => {
         switch (this.state.story.difficulty) {
-            case 1:
+            case "beginner":
                 this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: 2 }
+                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: "intermediate" }
                 })
                 break;
-            case 2:
+            case "intermediate":
                 this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: 3 }
+                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: "advanced" }
                 })
                 break;
             case 3:
-                this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: 4 }
-                })
-                break;
-            case 4:
                 break;
         }
     }
 
     handleDecreaseDifficulty = (event) => {
         switch (this.state.story.difficulty) {
-            case 4:
+            case "advanced":
                 this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: 3 }
+                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: "intermediate" }
                 })
                 break;
-            case 3:
+            case "intermediate":
                 this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: 2 }
+                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: "beginner" }
                 })
                 break;
-            case 2:
-                this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: 1 }
-                })
-                break;
-            case 1:
+            case "beginner":
                 break;
         }
     }
@@ -120,6 +110,11 @@ export default class StoryShow extends Component {
         })
     }
 
+    handleDifficultyUpdate = async () => {
+        const newDifficulty = {...this.state.story}
+        await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}}`, newDifficulty)
+    } 
+
     render() {
         
         const sortByPageNumber = _.sortBy(this.state.pages,['page','number'])
@@ -130,7 +125,7 @@ export default class StoryShow extends Component {
                 <div key={page.id}>{page.completed === false ?
                     <div>Page {page.number}</div>
                     : <div>
-                        <Link to={{ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${page.id}`,
+                        <Link onClick={this.handleDifficultyUpdate} to={{ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${page.id}`,
                                     state: { newState: this.state }
                                 }}>
                                 Page {page.number}

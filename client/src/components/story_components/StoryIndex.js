@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { ThemeGenerate } from './SubCharacterGenerate';
 
 export default class StoryIndex extends Component {
 
     state = {
-        stories: []
+        stories: [],
+        user: {}
     }
 
     componentDidMount() {
@@ -14,13 +16,48 @@ export default class StoryIndex extends Component {
 
     fetchStories = async () => {
         try{
-            let storiesResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/stories`)
+            const storiesResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/stories`)
+            const userResponse = await axios.get(`/api/users/${this.props.match.params.user_id}`)
             this.setState({
-                stories: storiesResponse.data
+                stories: storiesResponse.data,
+                user: userResponse.data
             })
         } catch(err){
             console.error(err)
         }
+    }
+
+    buildNewStory =async () => {
+        const createStory = {
+            title: "strolling the castle again",
+            theme: 1,
+            difficulty: "beginner"
+        }
+        const randomizer = ThemeGenerate()
+         if(randomizer === 1){
+        createStory.title = "another walk through the forest"
+         }
+        await axios.post(`/api/users/${this.props.match.params.user_id}/stories`, createStory)
+        await this.fetchStories()
+        await this.handleGivePages(this.state.stories[this.state.stories.length-1].id, 1)
+        await this.handleGivePages(this.state.stories[this.state.stories.length-1].id, 2)
+        await this.handleGivePages(this.state.stories[this.state.stories.length-1].id, 3)
+        await this.handleGivePages(this.state.stories[this.state.stories.length-1].id, 4)
+        // await this.loopPageAdd()
+    } 
+
+    // loopPageAdd = () => {
+    //     for(let i=1; i<=4; i++){
+    //         this.handleGivePages(this.state.stories[this.state.stories.length-1].id, i)
+    //     }
+    // }
+
+    handleGivePages = async (storyId, pageNumber) => {
+        const newPage = {
+            number: pageNumber,
+            completed: false
+        }
+        await axios.post(`/api/users/${this.props.match.params.user_id}/stories/${storyId}/pages`, newPage)
     }
 
   render() {
@@ -32,6 +69,8 @@ export default class StoryIndex extends Component {
     return (
       <div>
         {storyMap}
+        <div>{this.state.user.name} has finished {this.state.user.stories_completed} stories</div>
+        <button onClick={this.buildNewStory}>add new story</button>
       </div>
     )
   }

@@ -26,7 +26,7 @@ export default class CharacterCreate extends Component {
 
     handleFormSubmit =  async (event) => {
         event.preventDefault()
-        const newCharResponse = await axios.post(`/api/users/${this.props.match.params.user_id}/characters`, this.state.newCharacter)
+        await axios.post(`/api/users/${this.props.match.params.user_id}/characters`, this.state.newCharacter)
         this.props.history.push(`/users/${this.props.match.params.user_id}`)
     }
 

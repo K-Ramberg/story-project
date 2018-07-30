@@ -1,9 +1,11 @@
 Character.destroy_all
+Page.destroy_all
 User.destroy_all
 Story.destroy_all
 
 demoUser1 = User.create({
-    name: "Demo Dave"
+    name: "Demo Dave",
+    stories_completed: 0
 })
 
 demoCharacter1 = Character.create({
@@ -39,13 +41,13 @@ demoCharacter2 = Character.create({
 demoStory1 = Story.create({
     title: "a walk through the forest",
     theme: 1,
-    difficulty: 1
+    difficulty: "beginner"
 })
 
 demoStory2 = Story.create({
     title: "strolling the castle",
-    theme: 2,
-    difficulty: 2
+    theme: 1,
+    difficulty: "beginner"
 })
 
 demoPage1 = Page.create({

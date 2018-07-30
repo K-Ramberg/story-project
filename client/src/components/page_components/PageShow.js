@@ -44,7 +44,7 @@ export default class PageShow extends Component {
 
     handleCompletionChange = async () => {
         const newPage = { ...this.state.page }
-        if (newPage.completed === false) {
+        // if (newPage.completed === false) {
             newPage.completed = !newPage.completed
             this.setState({ page: newPage })
             await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`, newPage)
@@ -55,11 +55,12 @@ export default class PageShow extends Component {
                // const pageArrayReorder = await this.handlePageArrayFix(this.state.page)
                 const redirect = await this.props.history.push({pathname:`/users/${this.props.match.params.user_id}/stories/finished`, state:{ story:this.props.match.params.story_id}})
             }
-        }
+        // }
     }
 
-    handleEndStory = () => {
-        this.props.history.push(`/users/${this.props.match.params.user_id}/stories/oops`)
+    handleEndStory = async() => {
+        await axios.delete(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`)
+        await this.props.history.push(`/users/${this.props.match.params.user_id}/stories/oops`)
     }
  
     // handleStoryReset =  () => {
@@ -145,7 +146,7 @@ export default class PageShow extends Component {
                 <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>back to story</Link>
                 <h4>___________Question placeholder________________</h4>
                 {questionDisplay()}
-                <div>the anser is {this.state.mathLy.correct_choice}</div>
+                <div>the answer is {this.state.mathLy.correct_choice}</div>
             </div>
         )
     }
