@@ -58,8 +58,9 @@ export default class PageShow extends Component {
         // }
     }
 
-    handleEndStory = () => {
-        this.props.history.push(`/users/${this.props.match.params.user_id}/stories/oops`)
+    handleEndStory = async() => {
+        await axios.delete(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`)
+        await this.props.history.push(`/users/${this.props.match.params.user_id}/stories/oops`)
     }
  
     // handleStoryReset =  () => {
