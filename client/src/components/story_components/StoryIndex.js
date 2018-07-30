@@ -39,14 +39,18 @@ export default class StoryIndex extends Component {
          }
         await axios.post(`/api/users/${this.props.match.params.user_id}/stories`, createStory)
         await this.fetchStories()
-        await this.loopPageAdd()
+        await this.handleGivePages(this.state.stories[this.state.stories.length-1].id, 1)
+        await this.handleGivePages(this.state.stories[this.state.stories.length-1].id, 2)
+        await this.handleGivePages(this.state.stories[this.state.stories.length-1].id, 3)
+        await this.handleGivePages(this.state.stories[this.state.stories.length-1].id, 4)
+        // await this.loopPageAdd()
     } 
 
-    loopPageAdd = () => {
-        for (let i=1; i<=4; i++){
-            this.handleGivePages(this.state.stories[this.state.stories.length-1].id, i)
-        }
-    }
+    // loopPageAdd = () => {
+    //     for(let i=1; i<=4; i++){
+    //         this.handleGivePages(this.state.stories[this.state.stories.length-1].id, i)
+    //     }
+    // }
 
     handleGivePages = async (storyId, pageNumber) => {
         const newPage = {
