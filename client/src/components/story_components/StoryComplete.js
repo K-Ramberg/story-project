@@ -5,8 +5,7 @@ import axios from 'axios'
 export default class StoryComplete extends Component {
 
   state = {
-    user: {},
-    story: {}
+    user: {}
   }
 
   componentDidMount() {
@@ -16,10 +15,8 @@ export default class StoryComplete extends Component {
   fetchEndInfo = async () => {
     try {
       const userResponse = await axios.get(`/api/users/${this.props.match.params.user_id}`)
-      const storyResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.location.state.story}`)
       this.setState({
-        user: userResponse.data,
-        story: storyResponse.data
+        user: userResponse.data
       })
     } catch (err) {
       console.error(err)
@@ -27,14 +24,18 @@ export default class StoryComplete extends Component {
   }
 
   handleEndOfStory = async () => {
-    
+    const updateUser = {...this.state.user}
+    updateUser.stories_completed = updateUser.stories_completed + 1
+    await axios.patch(`/api/users/${this.state.user.id}`, updateUser)
+    await axios.delete(`/api/users/${this.props.match.params.user_id}/stories/${this.props.location.state.story}`)
+    await this.props.history.push(`/users/${this.props.match.params.user_id}/stories`)
   }
 
   render() {
     return (
       <div>
         <h1>WELL DONE</h1>
-        <Link to={`/users/${this.props.match.params.user_id}/stories`}>back to stories</Link>
+        <button onClick={this.handleEndOfStory}>back to stories</button>
       </div>
     )
   }
