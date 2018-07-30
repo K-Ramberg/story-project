@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { Carousel } from 'react-bootstrap'
 
 export default class HomePage extends Component {
 
