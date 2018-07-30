@@ -145,7 +145,7 @@ export default class PageShow extends Component {
                 <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>back to story</Link>
                 <h4>___________Question placeholder________________</h4>
                 {questionDisplay()}
-                <div>the anser is {this.state.mathLy.correct_choice}</div>
+                <div>the answer is {this.state.mathLy.correct_choice}</div>
             </div>
         )
     }
