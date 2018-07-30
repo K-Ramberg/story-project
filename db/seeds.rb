@@ -44,8 +44,8 @@ demoStory1 = Story.create({
 
 demoStory2 = Story.create({
     title: "strolling the castle",
-    theme: 2,
-    difficulty: 2
+    theme: 1,
+    difficulty: 1
 })
 
 demoPage1 = Page.create({

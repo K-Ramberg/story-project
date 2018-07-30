@@ -81,22 +81,12 @@ export default class StoryShow extends Component {
                 })
                 break;
             case 3:
-                this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: 4 }
-                })
-                break;
-            case 4:
                 break;
         }
     }
 
     handleDecreaseDifficulty = (event) => {
         switch (this.state.story.difficulty) {
-            case 4:
-                this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: 3 }
-                })
-                break;
             case 3:
                 this.setState({
                     story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: 2 }
