@@ -39,13 +39,13 @@ demoCharacter2 = Character.create({
 demoStory1 = Story.create({
     title: "a walk through the forest",
     theme: 1,
-    difficulty: 1
+    difficulty: "beginner"
 })
 
 demoStory2 = Story.create({
     title: "strolling the castle",
     theme: 1,
-    difficulty: 1
+    difficulty: "beginner"
 })
 
 demoPage1 = Page.create({

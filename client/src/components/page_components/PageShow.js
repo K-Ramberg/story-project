@@ -44,7 +44,7 @@ export default class PageShow extends Component {
 
     handleCompletionChange = async () => {
         const newPage = { ...this.state.page }
-        if (newPage.completed === false) {
+        // if (newPage.completed === false) {
             newPage.completed = !newPage.completed
             this.setState({ page: newPage })
             await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`, newPage)
@@ -55,7 +55,7 @@ export default class PageShow extends Component {
                // const pageArrayReorder = await this.handlePageArrayFix(this.state.page)
                 const redirect = await this.props.history.push({pathname:`/users/${this.props.match.params.user_id}/stories/finished`, state:{ story:this.props.match.params.story_id}})
             }
-        }
+        // }
     }
 
     handleEndStory = () => {

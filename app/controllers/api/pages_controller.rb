@@ -7,7 +7,8 @@ class Api::PagesController < ApplicationController
 
     def show
         @page = Page.find(params[:id])
-        @res = Page.generate
+        @story = Story.find(params[:story_id])
+        @res = Page.generate "beginner"
         render json: {
             page: @page,
             question: @res
