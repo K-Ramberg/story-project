@@ -70,14 +70,14 @@ export default class StoryShow extends Component {
 
     handleIncreaseDifficulty = (event) => {
         switch (this.state.story.difficulty) {
-            case 1:
+            case "beginner":
                 this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: 2 }
+                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: "intermediate" }
                 })
                 break;
-            case 2:
+            case "intermediate":
                 this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: 3 }
+                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: "advanced" }
                 })
                 break;
             case 3:
@@ -87,17 +87,17 @@ export default class StoryShow extends Component {
 
     handleDecreaseDifficulty = (event) => {
         switch (this.state.story.difficulty) {
-            case 3:
+            case "advanced":
                 this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: 2 }
+                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: "intermediate" }
                 })
                 break;
-            case 2:
+            case "intermediate":
                 this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: 1 }
+                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: "beginner" }
                 })
                 break;
-            case 1:
+            case "beginner":
                 break;
         }
     }
