@@ -16,6 +16,12 @@ class Api::PagesController < ApplicationController
         }
     end
 
+    def create
+        @story = Story.find(params[:story_id])
+        @page = @story.pages.create(page_params)
+        render json: @page
+    end
+
     def update
         @page = Page.find(params[:id])
         @page.update(page_params)

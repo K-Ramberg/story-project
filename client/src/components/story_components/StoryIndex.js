@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { ThemeGenerate } from './SubCharacterGenerate';
 
 export default class StoryIndex extends Component {
 
     state = {
         stories: [],
-        user: {}
+        user: {},
+        newStory: {}
     }
 
     componentDidMount() {
@@ -26,6 +28,27 @@ export default class StoryIndex extends Component {
         }
     }
 
+    buildNewStory =async () => {
+        const createStory = {
+            title: "strolling the castle again",
+            theme: 1,
+            difficulty: "beginner"
+        }
+        const randomizer = ThemeGenerate()
+         if(randomizer === 1){
+        createStory.title = "another walk through the forest"
+         }
+        await axios.post(`/api/users/${this.props.match.params.user_id}/stories`, createStory)
+        this.setState({
+            newStory: createStory
+        })
+        await this.fetchStories()
+    } 
+
+    handleGivePages = (story) => {
+        
+    }
+
   render() {
       const storyMap = this.state.stories.map((story) => {
           return(
@@ -36,6 +59,7 @@ export default class StoryIndex extends Component {
       <div>
         {storyMap}
         <div>{this.state.user.name} has finished {this.state.user.stories_completed} stories</div>
+        <button onClick={this.buildNewStory}>add new story</button>
       </div>
     )
   }
