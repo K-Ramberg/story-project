@@ -52,6 +52,7 @@ export default class PageShow extends Component {
                 const redirect = await this.handleRedirect()
             } else {
                 const reset = await this.handleStoryReset()
+                const pageArrayReorder = await this.handlePageArrayFix()
                 const redirect = await this.props.history.push(`/users/${this.props.match.params.user_id}/stories/finished`)
             }
         }
@@ -67,6 +68,13 @@ export default class PageShow extends Component {
             newPage.completed = false
             await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${page.id}`, newPage)
         })
+    }
+
+    handlePageArrayFix = async () => {
+        const newPage = { ...this.state.page }
+        newPage.completed = !newPage.completed
+        newPage.completed = !newPage.completed
+        await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`, newPage)
     }
 
     handleQuestionAnswer = (index) => {
