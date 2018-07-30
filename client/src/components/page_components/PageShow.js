@@ -44,38 +44,22 @@ export default class PageShow extends Component {
 
     handleCompletionChange = async () => {
         const newPage = { ...this.state.page }
-        // if (newPage.completed === false) {
+        if (newPage.completed === false) {
             newPage.completed = !newPage.completed
             this.setState({ page: newPage })
             await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`, newPage)
             if (this.state.page.number < this.state.pages.length) {
                 const redirect = await this.handleRedirect()
             } else {
-                //const reset = await this.handleStoryReset()
-               // const pageArrayReorder = await this.handlePageArrayFix(this.state.page)
                 const redirect = await this.props.history.push({pathname:`/users/${this.props.match.params.user_id}/stories/finished`, state:{ story:this.props.match.params.story_id}})
             }
-        // }
+        }
     }
 
     handleEndStory = async() => {
         await axios.delete(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`)
         await this.props.history.push(`/users/${this.props.match.params.user_id}/stories/oops`)
     }
- 
-    // handleStoryReset =  () => {
-    //     this.state.pages.map(async (page) => {
-    //         const newPage = {...page}
-    //         newPage.completed = false
-    //         await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${page.id}`, newPage)
-    //     })
-    // }
-
-    // handlePageArrayFix = async (page) => {
-    //     const newPage = { ...page }
-    //     newPage.completed = await !newPage.completed
-    //     await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${page.id}`, newPage)
-    // }
 
     handleQuestionAnswer = (index) => {
         if(index === this.state.mathLy.correct_choice){

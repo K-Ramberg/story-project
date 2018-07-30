@@ -43,14 +43,7 @@ export default class StoryIndex extends Component {
         await this.handleGivePages(this.state.stories[this.state.stories.length-1].id, 2)
         await this.handleGivePages(this.state.stories[this.state.stories.length-1].id, 3)
         await this.handleGivePages(this.state.stories[this.state.stories.length-1].id, 4)
-        // await this.loopPageAdd()
     } 
-
-    // loopPageAdd = () => {
-    //     for(let i=1; i<=4; i++){
-    //         this.handleGivePages(this.state.stories[this.state.stories.length-1].id, i)
-    //     }
-    // }
 
     handleGivePages = async (storyId, pageNumber) => {
         const newPage = {
