@@ -45,8 +45,12 @@ export default class StoryIndex extends Component {
         await this.fetchStories()
     } 
 
-    handleGivePages = (story) => {
-        
+    handleGivePages = async (storyId, pageNumber) => {
+        newPage = {
+            number: pageNumber,
+            completed: false
+        }
+        await axios.post(`/api/users/${this.props.match.params.user_id}/stories/${storyId}/pages`, newPage)
     }
 
   render() {

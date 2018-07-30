@@ -1,4 +1,5 @@
 Character.destroy_all
+Page.destroy_all
 User.destroy_all
 Story.destroy_all
 
