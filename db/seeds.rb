@@ -11,9 +11,9 @@ demoUser1 = User.create({
 demoCharacter1 = Character.create({
     name: "Rainbow",
     occupation: "Princess",
-    head_element: 2,
-    body_element: 2,
-    leg_element: 2,
+    head_element: 1,
+    body_element: 1,
+    leg_element: 1,
     color_scheme: 3,
     user_id: demoUser1.id
 })
@@ -21,19 +21,19 @@ demoCharacter1 = Character.create({
 demoCharacter2 = Character.create({
     name: "Hank",
     occupation: "Wizard",
-    head_element: 3,
-    body_element: 3,
-    leg_element: 3,
+    head_element: 2,
+    body_element: 2,
+    leg_element: 2,
     color_scheme: 2,
     user_id: demoUser1.id
 })
 
-demoCharacter2 = Character.create({
+demoCharacter3 = Character.create({
     name: "Buzz",
     occupation: "Dinosaur",
-    head_element: 1,
-    body_element: 1,
-    leg_element: 1,
+    head_element: 3,
+    body_element: 3,
+    leg_element: 3,
     color_scheme: 1,
     user_id: demoUser1.id
 })

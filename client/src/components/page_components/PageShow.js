@@ -116,23 +116,23 @@ export default class PageShow extends Component {
                 return(<StyleWrapper><PrincessHead/></StyleWrapper>)
             } else if (character.head_element === 2){
                 return(<StyleWrapper><WizardHead/></StyleWrapper>)
-            } else { return(<StyleWrapper><DinoHead/></StyleWrapper>)}
+            } else if(character.head_element === 3){ return(<StyleWrapper><DinoHead/></StyleWrapper>)}
         }
 
         const selectedCharacterBodyDisplay = (character) => {
             if(character.body_element === 1){
                 return(<StyleWrapper><PrincessBody/></StyleWrapper>)
-            } else if (character.head_element === 2){
+            } else if (character.body_element === 2){
                 return(<StyleWrapper><WizardBody/></StyleWrapper>)
-            } else { return(<StyleWrapper><DinoBody/></StyleWrapper>)}
+            } else if(character.body_element === 3){ return(<StyleWrapper><DinoBody/></StyleWrapper>)}
         }
 
         const selectedCharacterLegDisplay = (character) => {
-            if(character.body_element === 1){
+            if(character.leg_element === 1){
                 return(<StyleWrapper><PrincessLegs/></StyleWrapper>)
-            } else if (character.head_element === 2){
+            } else if (character.leg_element === 2){
                 return(<StyleWrapper><WizardLegs/></StyleWrapper>)
-            } else { return(<StyleWrapper><DinoLegs/></StyleWrapper>)}
+            } else if(character.leg_element ){ return(<StyleWrapper><DinoLegs/></StyleWrapper>)}
         }
 
         return (
