@@ -57,47 +57,74 @@ const WizardHead = styled.div`
     display: flex;
     margin-left: 70%;
     justify-content: flex-end;
-    border-radius: 50% 50% 0 0;
+    border-radius: 50% 50% 20% 20%;
     border-left: 10px solid black;
     border-right: 10px solid black;
-    background-color: gray;
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
+    background-color: rgb(50,50,50);
     margin-top: -3vh;
 `
 
 const WizardBody = styled.div`
     height: 5vh;
-    width: 10vw;
+    width: 14vw;
     display: flex;
-    margin-left: 70%;
+    margin-left: 68%;
     justify-content: flex-end;
+    border-radius: 50% 50% 0 0;
+    border-left: 30px solid black;
+    border-right: 30px solid black;
     background-color: gray;
-    border-radius: 20% 20% 0 0;
     margin-top: -3vh;
 `
 
 const WizardLegs = styled.div`
     height: 5vh;
-    width: 12vw;
+    width: 14vw;
     display: flex;
-    margin-left: 69%;
+    margin-left: 68%;
     justify-content: flex-end;
     background-color: gray;
     border-radius: 20% 20% 0 0;
+    border-left: 30px solid black;
+    border-right: 30px solid black;
     margin-top: -3vh;
 `
 
 const DinoHead = styled.div`
     height: 5vh;
+    width: 15vw;
+    display: flex;
+    margin-left: 72%;
+    justify-content: flex-end;
+    border-radius: 30% 100% 45% 10%;
+    background-color: green;
+    margin-top: -3vh;
+`
+const DinoBody = styled.div`
+    height: 5vh;
     width: 10vw;
     display: flex;
     margin-left: 70%;
     justify-content: flex-end;
-    border-radius: 0% 50% 50% 0;
-    border-bottom: 10px solid rgb(0, 100, 0);
+    border-radius: 40% 15% 45% 20%;
     background-color: green;
     margin-top: -3vh;
 `
 
+const DinoLegs = styled.div`
+    height: 5vh;
+    width: 6vw;
+    display: flex;
+    margin-left: 72%;
+    justify-content: flex-end;
+    border-radius: 10% 30% 20% 20%;
+    border-bottom: 15px solid green;
+    border-left: 30px solid green;
+    background-color: none;
+    margin-top: -3vh;
+`
 
 export default class CharacterForm extends Component {
 
@@ -192,10 +219,10 @@ export default class CharacterForm extends Component {
                             <input type="radio" name="body_element" value="1" onChange={this.handleOnchange} checked={this.props.character.body_element == 1} /> 1 <PrincessBody/>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <input type="radio" name="body_element" value="2" onChange={this.handleOnchange} checked={this.props.character.body_element == 2} /> 2
+                            <input type="radio" name="body_element" value="2" onChange={this.handleOnchange} checked={this.props.character.body_element == 2} /> 2 <WizardBody/>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <input type="radio" name="body_element" value="3" onChange={this.handleOnchange} checked={this.props.character.body_element == 3} /> 3
+                            <input type="radio" name="body_element" value="3" onChange={this.handleOnchange} checked={this.props.character.body_element == 3} /> 3 <DinoBody/>
                     </Carousel.Item>
                     </Carousel>
                 </FormWrapper>
@@ -211,29 +238,10 @@ export default class CharacterForm extends Component {
                                 <input type="radio" name="leg_element" value="1" onChange={this.handleOnchange} checked={this.props.character.leg_element == 1} /> 1 <PrincessLegs/>
                         </Carousel.Item>
                         <Carousel.Item>
-                                <input type="radio" name="leg_element" value="2" onChange={this.handleOnchange} checked={this.props.character.leg_element == 2} /> 2
+                                <input type="radio" name="leg_element" value="2" onChange={this.handleOnchange} checked={this.props.character.leg_element == 2} /> 2 <WizardLegs/>>
                         </Carousel.Item>
                         <Carousel.Item>
-                                <input type="radio" name="leg_element" value="3" onChange={this.handleOnchange} checked={this.props.character.leg_element == 3} /> 3
-                    </Carousel.Item>
-                    </Carousel>
-                </FormWrapper>
-                </div>
-                    <div>
-                    <FormWrapper>
-                    <Carousel htmlFor="color_scheme"
-                        activeIndex={index4}
-                        direction={direction4}
-                        onSelect={this.handleSelect4}
-                         >
-                        <Carousel.Item >
-                                <input type="radio" name="color_scheme" value="1" onChange={this.handleOnchange} checked={this.props.character.color_scheme == 1} /> 1
-                        </Carousel.Item>
-                        <Carousel.Item>
-                                <input type="radio" name="color_scheme" value="2" onChange={this.handleOnchange} checked={this.props.character.color_scheme == 2} /> 2
-                        </Carousel.Item>
-                        <Carousel.Item>
-                                <input type="radio" name="color_scheme" value="3" onChange={this.handleOnchange} checked={this.props.character.color_scheme == 3} /> 3
+                                <input type="radio" name="leg_element" value="3" onChange={this.handleOnchange} checked={this.props.character.leg_element == 3} /> 3 <DinoLegs/>
                     </Carousel.Item>
                     </Carousel>
                 </FormWrapper>
