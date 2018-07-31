@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
 import { Carousel } from 'react-bootstrap'
 import styled from 'styled-components'
+import { Stage, Layer, Rect, Text, Circle } from 'react-konva';
 
 const FormWrapper = styled.div`
     line-height: 3vh;
     max-height: 5vh;
     text-align: center;
     .carousel-inner {
-        height: 300px;
+        height: 5vh;
     }
     .carousel-control{
         max-height: 5vh;
+    }
+    .carousel-indicators li{
+        display: block;
     }
 `
 
@@ -53,12 +57,16 @@ export default class CharacterForm extends Component {
             index4: selectedIndex,
             direction4: e.direction
         });
+        console.log('hi')
+    }
+
+    handleOnchange = (event) => {
+        this.props.formChange(event)
     }
 
     render() {
 
         const { index, index2, index3, index4, direction, direction2, direction3, direction4 } = this.state;
-
         return (
             <div>
                 <form onSubmit={this.props.submit}>
@@ -69,9 +77,9 @@ export default class CharacterForm extends Component {
                     <div id="occupation">
                         <label htmlFor="occupation">I am a...</label>
                         <input type="radio" name="occupation" value="Princess" onChange={this.props.formChange} checked={this.props.character.occupation === 'Princess'} />Princess
-                    <input type="radio" name="occupation" value="Wizard" onChange={this.props.formChange} checked={this.props.character.occupation === 'Wizard'} />Wizard
-                    <input type="radio" name="occupation" value="Dinosaur" onChange={this.props.formChange} checked={this.props.character.occupation === 'Dinosaur'} />Dinosaur
-                </div>
+                        <input type="radio" name="occupation" value="Wizard" onChange={this.props.formChange} checked={this.props.character.occupation === 'Wizard'} />Wizard
+                        <input type="radio" name="occupation" value="Dinosaur" onChange={this.props.formChange} checked={this.props.character.occupation === 'Dinosaur'} />Dinosaur
+                    </div>
                     <div>
                     <FormWrapper>
                     <Carousel htmlFor="head_element"
@@ -80,17 +88,17 @@ export default class CharacterForm extends Component {
                         onSelect={this.handleSelect}
                          >
                         <Carousel.Item >
-                            <input type="radio" name="head_element" value="1" onChange={this.props.formChange} checked={this.props.character.head_element == 1} /> 1
+                            <input type="radio" name="head_element" value="1" onChange={this.handleOnchange} checked={this.props.character.head_element == 1} /> 1
                         </Carousel.Item>
                         <Carousel.Item>
-                            <input type="radio" name="head_element" value="2" onChange={this.props.formChange} checked={this.props.character.head_element == 2} /> 2
+                            <input type="radio" name="head_element" value="2" onChange={this.handleOnchange} checked={this.props.character.head_element == 2} /> 2
                         </Carousel.Item>
                         <Carousel.Item>
-                            <input type="radio" name="head_element" value="3" onChange={this.props.formChange} checked={this.props.character.head_element == 3} /> 3
-                    </Carousel.Item>
-                    </Carousel>
-                </FormWrapper>
-                </div>
+                            <input type="radio" name="head_element" value="3" onChange={this.handleOnchange} checked={this.props.character.head_element == 3} /> 3
+                        </Carousel.Item>
+                     </Carousel>
+                    </FormWrapper>
+                    </div>
                     <div>
                     <FormWrapper>
                     <Carousel htmlFor="body_element"
@@ -99,13 +107,13 @@ export default class CharacterForm extends Component {
                         onSelect={this.handleSelect2}
                          >
                         <Carousel.Item >
-                            <input type="radio" name="body_element" value="1" onChange={this.props.formChange} checked={this.props.character.body_element == 1} /> 1
+                            <input type="radio" name="body_element" value="1" onChange={this.handleOnchange} checked={this.props.character.body_element == 1} /> 1
                         </Carousel.Item>
                         <Carousel.Item>
-                            <input type="radio" name="body_element" value="2" onChange={this.props.formChange} checked={this.props.character.body_element == 2} /> 2
+                            <input type="radio" name="body_element" value="2" onChange={this.handleOnchange} checked={this.props.character.body_element == 2} /> 2
                         </Carousel.Item>
                         <Carousel.Item>
-                            <input type="radio" name="body_element" value="3" onChange={this.props.formChange} checked={this.props.character.body_element == 3} /> 3
+                            <input type="radio" name="body_element" value="3" onChange={this.handleOnchange} checked={this.props.character.body_element == 3} /> 3
                     </Carousel.Item>
                     </Carousel>
                 </FormWrapper>
@@ -118,13 +126,13 @@ export default class CharacterForm extends Component {
                         onSelect={this.handleSelect3}
                          >
                         <Carousel.Item >
-                                <input type="radio" name="leg_element" value="1" onChange={this.props.formChange} checked={this.props.character.leg_element == 1} /> 1
+                                <input type="radio" name="leg_element" value="1" onChange={this.handleOnchange} checked={this.props.character.leg_element == 1} /> 1
                         </Carousel.Item>
                         <Carousel.Item>
-                                <input type="radio" name="leg_element" value="2" onChange={this.props.formChange} checked={this.props.character.leg_element == 2} /> 2
+                                <input type="radio" name="leg_element" value="2" onChange={this.handleOnchange} checked={this.props.character.leg_element == 2} /> 2
                         </Carousel.Item>
                         <Carousel.Item>
-                                <input type="radio" name="leg_element" value="3" onChange={this.props.formChange} checked={this.props.character.leg_element == 3} /> 3
+                                <input type="radio" name="leg_element" value="3" onChange={this.handleOnchange} checked={this.props.character.leg_element == 3} /> 3
                     </Carousel.Item>
                     </Carousel>
                 </FormWrapper>
@@ -137,13 +145,13 @@ export default class CharacterForm extends Component {
                         onSelect={this.handleSelect4}
                          >
                         <Carousel.Item >
-                                <input type="radio" name="color_scheme" value="1" onChange={this.props.formChange} checked={this.props.character.color_scheme == 1} /> 1
+                                <input type="radio" name="color_scheme" value="1" onChange={this.handleOnchange} checked={this.props.character.color_scheme == 1} /> 1
                         </Carousel.Item>
                         <Carousel.Item>
-                                <input type="radio" name="color_scheme" value="2" onChange={this.props.formChange} checked={this.props.character.color_scheme == 2} /> 2
+                                <input type="radio" name="color_scheme" value="2" onChange={this.handleOnchange} checked={this.props.character.color_scheme == 2} /> 2
                         </Carousel.Item>
                         <Carousel.Item>
-                                <input type="radio" name="color_scheme" value="3" onChange={this.props.formChange} checked={this.props.character.color_scheme == 3} /> 3
+                                <input type="radio" name="color_scheme" value="3" onChange={this.handleOnchange} checked={this.props.character.color_scheme == 3} /> 3
                     </Carousel.Item>
                     </Carousel>
                 </FormWrapper>

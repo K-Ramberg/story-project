@@ -35,7 +35,7 @@ export default class CharacterUpdate extends Component {
 
     handleFormSubmit =  async (event) => {
         event.preventDefault()
-        const charUpdateResponse = await axios.patch(`/api/users/${this.props.match.params.user_id}/characters/${this.state.character.id}`, this.state.character)
+        await axios.patch(`/api/users/${this.props.match.params.user_id}/characters/${this.state.character.id}`, this.state.character)
         this.props.history.push(`/users/${this.props.match.params.user_id}/characters/${this.state.character.id}`)
     }
 
