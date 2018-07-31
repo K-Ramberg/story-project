@@ -31,10 +31,10 @@ This application had a general direction of what it intended to do, but a lack o
 #### Languages, Libraries, packages, etc.
 - React
 - Ruby on Rails
--Axios
--Styled Components
--lodash
--chancejs
--mathjax
--Math.ly
--Bootstrap
+- Axios
+- Styled Components
+- lodash
+- chancejs
+- mathjax
+- Math.ly
+- Bootstrap
