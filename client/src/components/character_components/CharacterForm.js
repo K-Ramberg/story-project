@@ -14,7 +14,7 @@ const FormWrapper = styled.div`
         max-height: 5vh;
     }
     .carousel-indicators{
-        z-index: -5;
+        display: none;
     }
 `
 
@@ -26,7 +26,78 @@ const PrincessHead = styled.div`
     justify-content: flex-end;
     border-radius: 50%;
     background-color: pink;
+    margin-top: -3vh;
 `
+
+const PrincessBody = styled.div`
+    height: 5vh;
+    width: 10vw;
+    display: flex;
+    margin-left: 70%;
+    justify-content: flex-end;
+    background-color: pink;
+    border-radius: 20% 20% 0 0;
+    margin-top: -3vh;
+`
+
+const PrincessLegs = styled.div`
+    height: 5vh;
+    width: 12vw;
+    display: flex;
+    margin-left: 69%;
+    justify-content: flex-end;
+    background-color: pink;
+    border-radius: 20% 20% 0 0;
+    margin-top: -3vh;
+`
+
+const WizardHead = styled.div`
+    height: 5vh;
+    width: 10vw;
+    display: flex;
+    margin-left: 70%;
+    justify-content: flex-end;
+    border-radius: 50% 50% 0 0;
+    border-left: 10px solid black;
+    border-right: 10px solid black;
+    background-color: gray;
+    margin-top: -3vh;
+`
+
+const WizardBody = styled.div`
+    height: 5vh;
+    width: 10vw;
+    display: flex;
+    margin-left: 70%;
+    justify-content: flex-end;
+    background-color: gray;
+    border-radius: 20% 20% 0 0;
+    margin-top: -3vh;
+`
+
+const WizardLegs = styled.div`
+    height: 5vh;
+    width: 12vw;
+    display: flex;
+    margin-left: 69%;
+    justify-content: flex-end;
+    background-color: gray;
+    border-radius: 20% 20% 0 0;
+    margin-top: -3vh;
+`
+
+const DinoHead = styled.div`
+    height: 5vh;
+    width: 10vw;
+    display: flex;
+    margin-left: 70%;
+    justify-content: flex-end;
+    border-radius: 0% 50% 50% 0;
+    border-bottom: 10px solid rgb(0, 100, 0);
+    background-color: green;
+    margin-top: -3vh;
+`
+
 
 export default class CharacterForm extends Component {
 
@@ -102,10 +173,10 @@ export default class CharacterForm extends Component {
                             <input type="radio" name="head_element" value="1" onChange={this.handleOnchange} checked={this.props.character.head_element == 1} /> 1 <PrincessHead/>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <input type="radio" name="head_element" value="2" onChange={this.handleOnchange} checked={this.props.character.head_element == 2} /> 2
+                            <input type="radio" name="head_element" value="2" onChange={this.handleOnchange} checked={this.props.character.head_element == 2} /> 2 <WizardHead/>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <input type="radio" name="head_element" value="3" onChange={this.handleOnchange} checked={this.props.character.head_element == 3} /> 3
+                            <input type="radio" name="head_element" value="3" onChange={this.handleOnchange} checked={this.props.character.head_element == 3} /> 3 <DinoHead/>
                         </Carousel.Item>
                      </Carousel>
                     </FormWrapper>
@@ -118,7 +189,7 @@ export default class CharacterForm extends Component {
                         onSelect={this.handleSelect2}
                          >
                         <Carousel.Item >
-                            <input type="radio" name="body_element" value="1" onChange={this.handleOnchange} checked={this.props.character.body_element == 1} /> 1
+                            <input type="radio" name="body_element" value="1" onChange={this.handleOnchange} checked={this.props.character.body_element == 1} /> 1 <PrincessBody/>
                         </Carousel.Item>
                         <Carousel.Item>
                             <input type="radio" name="body_element" value="2" onChange={this.handleOnchange} checked={this.props.character.body_element == 2} /> 2
@@ -137,7 +208,7 @@ export default class CharacterForm extends Component {
                         onSelect={this.handleSelect3}
                          >
                         <Carousel.Item >
-                                <input type="radio" name="leg_element" value="1" onChange={this.handleOnchange} checked={this.props.character.leg_element == 1} /> 1
+                                <input type="radio" name="leg_element" value="1" onChange={this.handleOnchange} checked={this.props.character.leg_element == 1} /> 1 <PrincessLegs/>
                         </Carousel.Item>
                         <Carousel.Item>
                                 <input type="radio" name="leg_element" value="2" onChange={this.handleOnchange} checked={this.props.character.leg_element == 2} /> 2
