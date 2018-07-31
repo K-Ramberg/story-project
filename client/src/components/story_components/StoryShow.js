@@ -4,7 +4,6 @@ import axios from 'axios'
 import { EnemyGenerate, FriendGenerate, ThemeGenerate } from './SubCharacterGenerate';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { Carousel } from 'react-bootstrap'
 import { PrincessHead, PrincessBody, PrincessLegs, WizardHead, WizardBody, WizardLegs, DinoHead, DinoBody, DinoLegs, StyleWrapper} from '../character_components/CharacterStyles' 
 
 
