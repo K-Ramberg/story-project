@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { Carousel } from 'react-bootstrap'
 
 export default class HomePage extends Component {
 
@@ -33,7 +34,7 @@ export default class HomePage extends Component {
 
     return (
       <div>
-        <h5>Welcome to the home page component right here</h5>
+        <h5>Welcome to Mathland. Make a Character to complete stories with the power of Math!</h5>
         {userMap}
       </div>
     )

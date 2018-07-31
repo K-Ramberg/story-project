@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import MathJax from 'react-mathjax-preview'
+import { PrincessHead, PrincessBody, PrincessLegs, WizardHead, WizardBody, WizardLegs, DinoHead, DinoBody, DinoLegs, StyleWrapper} from '../character_components/CharacterStyles' 
 
 export default class PageShow extends Component {
 
@@ -96,41 +97,56 @@ export default class PageShow extends Component {
             }
         }
 
-        const trueFalseMarker = () => {
-            if (this.state.page.completed === true) {
-                return ('true')
-            } else { return 'false' }
-        }
-
         const answerMap = this.state.mathLy.choices.map((choice, i) => {
             return (
-                <div key={i} onClick={()=>this.handleQuestionAnswer(i)}>{i}. <MathJax math={choice} /></div>
+                <div key={i} onClick={()=>this.handleQuestionAnswer(i)}>{i+1}. <MathJax math={choice} /></div>
             )
         })
 
         const questionDisplay = () => {
             return (<div>
-                <h5>{this.state.mathLy.category}</h5>
-                <MathJax math={this.state.mathLy.question}/>
+                What is ...<MathJax math={this.state.mathLy.question}/>
                 <h5>{answerMap}</h5>
             </div>
             )
+        }   
+
+        const selectedCharacterHeadDisplay = (character) => {
+            if(character.head_element === 1){
+                return(<StyleWrapper><PrincessHead/></StyleWrapper>)
+            } else if (character.head_element === 2){
+                return(<StyleWrapper><WizardHead/></StyleWrapper>)
+            } else { return(<StyleWrapper><DinoHead/></StyleWrapper>)}
         }
 
-        console.log(this.state.pages)
+        const selectedCharacterBodyDisplay = (character) => {
+            if(character.body_element === 1){
+                return(<StyleWrapper><PrincessBody/></StyleWrapper>)
+            } else if (character.head_element === 2){
+                return(<StyleWrapper><WizardBody/></StyleWrapper>)
+            } else { return(<StyleWrapper><DinoBody/></StyleWrapper>)}
+        }
+
+        const selectedCharacterLegDisplay = (character) => {
+            if(character.body_element === 1){
+                return(<StyleWrapper><PrincessLegs/></StyleWrapper>)
+            } else if (character.head_element === 2){
+                return(<StyleWrapper><WizardLegs/></StyleWrapper>)
+            } else { return(<StyleWrapper><DinoLegs/></StyleWrapper>)}
+        }
 
         return (
             <div>
-                <h5>completed placeholder: {trueFalseMarker()}</h5>
-                look, a page {this.state.page.number}
+                <h2>Page {this.state.page.number}</h2>
                 <h6>{characterDisplay(this.state.characterInUse)}</h6>
+                {selectedCharacterHeadDisplay(this.state.characterInUse)}
+                {selectedCharacterBodyDisplay(this.state.characterInUse)}
+                {selectedCharacterLegDisplay(this.state.characterInUse)}
                 <h6>{this.state.enemy.name}</h6>
-                <h6>{this.state.friend.name}</h6>
-                <button onClick={this.handleCompletionChange}>change complete placeholder</button>
-                <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>back to story</Link>
-                <h4>___________Question placeholder________________</h4>
+                <h4>________________________</h4>
                 {questionDisplay()}
-                <div>the answer is {this.state.mathLy.correct_choice}</div>
+                <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>Turn Back!</Link>
+                <div>Demo que(the answer is {this.state.mathLy.correct_choice + 1})</div>
             </div>
         )
     }

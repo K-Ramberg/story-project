@@ -3,6 +3,23 @@ import _ from 'lodash'
 import axios from 'axios'
 import { EnemyGenerate, FriendGenerate, ThemeGenerate } from './SubCharacterGenerate';
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { PrincessHead, PrincessBody, PrincessLegs, WizardHead, WizardBody, WizardLegs, DinoHead, DinoBody, DinoLegs, StyleWrapper} from '../character_components/CharacterStyles' 
+
+
+const Selector = styled.div`
+        font-size: 20px;
+        font-weight: 700;
+    button {
+        height: 25px;
+    }
+    .less {
+        background-color: green;
+    }
+    .more {
+        background-color: red;
+    }
+`
 
 export default class StoryShow extends Component {
 
@@ -156,30 +173,47 @@ export default class StoryShow extends Component {
 
         const startOrContinue = () => {
             if(this.state.firstPage.number > 1){
-                return 'Continue'
-            } else { return 'Start'}
+                return 'Continue Story'
+            } else { return 'Start Story'}
+        }
+
+        const selectedCharacterHeadDisplay = (character) => {
+                if(character.head_element === 1){
+                    return(<StyleWrapper><PrincessHead/></StyleWrapper>)
+                } else if (character.head_element === 2){
+                    return(<StyleWrapper><WizardHead/></StyleWrapper>)
+                } else { return(<StyleWrapper><DinoHead/></StyleWrapper>)}
+        }
+
+        const selectedCharacterBodyDisplay = (character) => {
+            if(character.body_element === 1){
+                return(<StyleWrapper><PrincessBody/></StyleWrapper>)
+            } else if (character.head_element === 2){
+                return(<StyleWrapper><WizardBody/></StyleWrapper>)
+            } else { return(<StyleWrapper><DinoBody/></StyleWrapper>)}
+        }
+
+        const selectedCharacterLegDisplay = (character) => {
+            if(character.body_element === 1){
+                return(<StyleWrapper><PrincessLegs/></StyleWrapper>)
+            } else if (character.head_element === 2){
+                return(<StyleWrapper><WizardLegs/></StyleWrapper>)
+            } else { return(<StyleWrapper><DinoLegs/></StyleWrapper>)}
         }
 
         return (
             <div>
-                <h1><Link to={`/users/${this.props.match.params.user_id}/stories`}>{this.state.story.title}</Link></h1>
-                <h3>theme placeholder {this.state.story.theme}</h3>
-                <h3>difficulty select <button onClick={this.handleDecreaseDifficulty}> "-" </button>
+                <h1>{this.state.story.title}</h1>
+                <Link to={`/users/${this.props.match.params.user_id}/stories`}>back to stories</Link>
+                <Selector>Difficulty: <button className="less" onClick={this.handleDecreaseDifficulty}></button>
                     {this.state.story.difficulty}
-                    <button onClick={this.handleIncreaseDifficulty}> "+" </button></h3>
-                <h3>user characters------</h3>
+                    <button className="more" onClick={this.handleIncreaseDifficulty}></button></Selector>
+                <h5>---Pick a Character to Use---</h5>
                     {characterMap}
-                <h3>----------------------</h3>
-                <h2>selected Character</h2>
-                    {this.state.characterInUse.name}
-                <h2>___________________</h2>
-                <h6>this is the friend placeholder</h6>
-                <div>{this.state.friend.name}</div>
-                <h6>this is the end of friend placeholder</h6>
-                <button onClick={this.handleFriendAdd}>add friend</button>
-                <h6> this is the enemy placeholder</h6>
-                <div>{this.state.enemy.name}</div>
-                <h6>end of placeholder</h6>
+                <h2>selected Character:</h2>
+                    {selectedCharacterHeadDisplay(this.state.characterInUse)}
+                    {selectedCharacterBodyDisplay(this.state.characterInUse)}
+                    {selectedCharacterLegDisplay(this.state.characterInUse)}
                 <button onClick={this.handleStoryStart}>{startOrContinue()}</button>
                 <div>{pageMap}</div>
             </div>
