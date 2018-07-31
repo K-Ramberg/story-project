@@ -5,7 +5,7 @@ import { EnemyGenerate, FriendGenerate, ThemeGenerate } from './SubCharacterGene
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Carousel } from 'react-bootstrap'
-import { PrincessHead, PrincessBody, PrincessLegs, WizardHead, WizardBody, WizardLegs, DinoHead, DinoBody, DinoLegs} from '../character_components/CharacterStyles' 
+import { PrincessHead, PrincessBody, PrincessLegs, WizardHead, WizardBody, WizardLegs, DinoHead, DinoBody, DinoLegs, StyleWrapper} from '../character_components/CharacterStyles' 
 
 
 const Selector = styled.div`
@@ -178,6 +178,30 @@ export default class StoryShow extends Component {
             } else { return 'Start Story'}
         }
 
+        const selectedCharacterHeadDisplay = (character) => {
+                if(character.head_element === 1){
+                    return(<StyleWrapper><PrincessHead/></StyleWrapper>)
+                } else if (character.head_element === 2){
+                    return(<StyleWrapper><WizardHead/></StyleWrapper>)
+                } else { return(<StyleWrapper><DinoHead/></StyleWrapper>)}
+        }
+
+        const selectedCharacterBodyDisplay = (character) => {
+            if(character.body_element === 1){
+                return(<StyleWrapper><PrincessBody/></StyleWrapper>)
+            } else if (character.head_element === 2){
+                return(<StyleWrapper><WizardBody/></StyleWrapper>)
+            } else { return(<StyleWrapper><DinoBody/></StyleWrapper>)}
+        }
+
+        const selectedCharacterLegDisplay = (character) => {
+            if(character.body_element === 1){
+                return(<StyleWrapper><PrincessLegs/></StyleWrapper>)
+            } else if (character.head_element === 2){
+                return(<StyleWrapper><WizardLegs/></StyleWrapper>)
+            } else { return(<StyleWrapper><DinoLegs/></StyleWrapper>)}
+        }
+
         return (
             <div>
                 <h1>{this.state.story.title}</h1>
@@ -185,12 +209,12 @@ export default class StoryShow extends Component {
                 <Selector>Difficulty: <button className="less" onClick={this.handleDecreaseDifficulty}></button>
                     {this.state.story.difficulty}
                     <button className="more" onClick={this.handleIncreaseDifficulty}></button></Selector>
-                <h3>user characters------</h3>
+                <h5>---Pick a Character to Use---</h5>
                     {characterMap}
-                <h3>----------------------</h3>
-                <h2>selected Character</h2>
-                    {this.state.characterInUse.name}
-                <h2>___________________</h2>
+                <h2>selected Character:</h2>
+                    {selectedCharacterHeadDisplay(this.state.characterInUse)}
+                    {selectedCharacterBodyDisplay(this.state.characterInUse)}
+                    {selectedCharacterLegDisplay(this.state.characterInUse)}
                 <button onClick={this.handleStoryStart}>{startOrContinue()}</button>
                 <div>{pageMap}</div>
             </div>

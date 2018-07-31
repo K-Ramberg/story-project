@@ -106,7 +106,12 @@ const DinoLegs = styled.div`
     background-color: none;
     margin-top: -3vh;
 `
+const StyleWrapper = styled.div`
+    min-height: 5vh;
+    display: flex;
+    height: 5vh;
+`
 
 export {PrincessHead,PrincessBody, PrincessLegs, 
         WizardHead, WizardBody, WizardLegs, 
-    DinoHead, DinoBody, DinoLegs}
+    DinoHead, DinoBody, DinoLegs, StyleWrapper}

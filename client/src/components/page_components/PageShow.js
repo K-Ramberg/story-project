@@ -121,16 +121,14 @@ export default class PageShow extends Component {
 
         return (
             <div>
-                <h5>completed placeholder: {trueFalseMarker()}</h5>
-                look, a page {this.state.page.number}
+                <h2>Page {this.state.page.number}</h2>
                 <h6>{characterDisplay(this.state.characterInUse)}</h6>
                 <h6>{this.state.enemy.name}</h6>
                 <h6>{this.state.friend.name}</h6>
-                <button onClick={this.handleCompletionChange}>change complete placeholder</button>
-                <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>back to story</Link>
-                <h4>___________Question placeholder________________</h4>
+                <h4>________________________</h4>
                 {questionDisplay()}
-                <div>the answer is {this.state.mathLy.correct_choice}</div>
+                <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>Turn Back!</Link>
+                <div>Demo que(the answer is {this.state.mathLy.correct_choice})</div>
             </div>
         )
     }
