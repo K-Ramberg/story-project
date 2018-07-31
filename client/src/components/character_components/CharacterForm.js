@@ -13,9 +13,19 @@ const FormWrapper = styled.div`
     .carousel-control{
         max-height: 5vh;
     }
-    .carousel-indicators li{
-        display: block;
+    .carousel-indicators{
+        z-index: -5;
     }
+`
+
+const PrincessHead = styled.div`
+    height: 5vh;
+    width: 10vw;
+    display: flex;
+    margin-left: 70%;
+    justify-content: flex-end;
+    border-radius: 50%;
+    background-color: pink;
 `
 
 export default class CharacterForm extends Component {
@@ -62,6 +72,7 @@ export default class CharacterForm extends Component {
 
     handleOnchange = (event) => {
         this.props.formChange(event)
+        
     }
 
     render() {
@@ -88,7 +99,7 @@ export default class CharacterForm extends Component {
                         onSelect={this.handleSelect}
                          >
                         <Carousel.Item >
-                            <input type="radio" name="head_element" value="1" onChange={this.handleOnchange} checked={this.props.character.head_element == 1} /> 1
+                            <input type="radio" name="head_element" value="1" onChange={this.handleOnchange} checked={this.props.character.head_element == 1} /> 1 <PrincessHead/>
                         </Carousel.Item>
                         <Carousel.Item>
                             <input type="radio" name="head_element" value="2" onChange={this.handleOnchange} checked={this.props.character.head_element == 2} /> 2

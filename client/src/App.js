@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import styled from 'styled-components'
 import HomePage from './components/HomePage';
 import UserShow from './components/user_components/UserShow';
 import CharacterShow from './components/character_components/CharacterShow';
@@ -10,26 +11,25 @@ import StoryShow from './components/story_components/StoryShow';
 import PageShow from './components/page_components/PageShow';
 import StoryOverFail from './components/story_components/StoryOverFail';
 import StoryComplete from './components/story_components/StoryComplete';
-import { MenuItem, Navbar, NavDropdown, NavItem, Nav } from 'react-bootstrap'
+import { Navbar } from 'react-bootstrap'
 
+const StyledNav= styled(Navbar)`
+  background-color: rgb(180,230,180);
+`
 
 class App extends Component {
   render() {
     return (
       <Router>
         <div>
-          <Navbar>
+          <StyledNav>
             <Navbar.Header>
               <Navbar.Brand>
-                <h1>Mathlandia</h1>
+                <h1>Mathland</h1>
               </Navbar.Brand>
             </Navbar.Header>
-            <Nav>
-              <NavItem eventKey={1} href="#">
-                <h1><Link to='/'>Home</Link></h1>
-              </NavItem>
-            </Nav>
-          </Navbar>
+                <h4><Link to='/'>Home</Link></h4>
+          </StyledNav>
         <Switch>
             <Route exact path='/' component={HomePage} />
             <Route exact path='/users/:id' component={UserShow} />
