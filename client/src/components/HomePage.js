@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
+import CircleTest from './konva_shapes/CircleTest';
+
+
 
 const Welcome = styled.div`
     margin: 5vw;
@@ -53,6 +56,7 @@ export default class HomePage extends Component {
         <h5>Welcome to Mathland. Make a Character to complete stories with the power of Math!</h5>
         <h3>User:</h3>
         {userMap}
+        <CircleTest/>
       </Welcome>
     )
   }
