@@ -14,7 +14,16 @@ import StoryComplete from './components/story_components/StoryComplete';
 import { Navbar } from 'react-bootstrap'
 
 const StyledNav= styled(Navbar)`
-  background-color: rgb(180,230,180);
+  background-color: rgb(150,220,150);
+  box-shadow: 2px 2px 4px 2px rgb(3,3,3);
+`
+
+const Test = styled.h1`
+  &&&{
+    color: rgb(241,241,241);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 10vh;
+  }
 `
 
 class App extends Component {
@@ -25,7 +34,7 @@ class App extends Component {
           <StyledNav>
             <Navbar.Header>
               <Navbar.Brand>
-                <h1>Mathland</h1>
+                <Test>Mathland</Test>
               </Navbar.Brand>
             </Navbar.Header>
                 <h4><Link to='/'>Home</Link></h4>
