@@ -1,7 +1,23 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { Carousel } from 'react-bootstrap'
+import styled from 'styled-components'
+
+const Welcome = styled.div`
+    margin: 5vw;
+    color: rgb(30,30,30);
+    a {
+        font-size: 3vh;
+        h4 {
+            display: none;
+        }
+    }
+    a:hover {
+        text-decoration: none;
+        h4{ display: inline;}
+    }
+
+`
 
 export default class HomePage extends Component {
 
@@ -28,15 +44,16 @@ export default class HomePage extends Component {
 
     const userMap = this.state.users.map((user) => {
         return(
-            <Link key={user.id} to={`/users/${user.id}`}>{user.name}</Link>
+            <Link key={user.id} to={`/users/${user.id}`}>{user.name} <h4>></h4></Link>
         )
     })
 
     return (
-      <div>
+      <Welcome>
         <h5>Welcome to Mathland. Make a Character to complete stories with the power of Math!</h5>
+        <h3>User:</h3>
         {userMap}
-      </div>
+      </Welcome>
     )
   }
 }

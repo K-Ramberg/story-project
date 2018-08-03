@@ -4,7 +4,7 @@ User.destroy_all
 Story.destroy_all
 
 demoUser1 = User.create({
-    name: "Demo Dave",
+    name: "Demo",
     stories_completed: 0
 })
 
