@@ -18,11 +18,20 @@ const StyledNav= styled(Navbar)`
   box-shadow: 2px 2px 4px 2px rgb(3,3,3);
 `
 
-const Test = styled.h1`
+const Title = styled.h1`
   &&&{
     color: rgb(241,241,241);
     font-family: 'Work Sans', sans-serif;
     font-size: 10vh;
+  }
+`
+const NavOption = styled.h4`
+  &&&{
+    text-align: right;
+    a{
+      color: rgb(218, 247, 237);
+      font-family: 'Work Sans', sans-serif;
+    }
   }
 `
 
@@ -34,10 +43,10 @@ class App extends Component {
           <StyledNav>
             <Navbar.Header>
               <Navbar.Brand>
-                <Test>Mathland</Test>
+                <Title>Mathland</Title>
               </Navbar.Brand>
             </Navbar.Header>
-                <h4><Link to='/'>Home</Link></h4>
+                <NavOption><Link to='/'>Home</Link></NavOption>
           </StyledNav>
         <Switch>
             <Route exact path='/' component={HomePage} />
