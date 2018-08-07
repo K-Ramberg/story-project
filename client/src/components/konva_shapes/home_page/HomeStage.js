@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import Konva from "konva";
-import { Stage, Layer, Circle, Text } from "react-konva";
+import { Stage, Layer, Star } from "react-konva";
+import PlusSign from "./PlusSign";
+import Multiply from "./Multiply";
+import RightParenth from "./RightParenth";
+import LeftParenth from "./LeftParenth";
 
-class ColorFunction extends React.Component {
+class StarPlacer extends React.Component {
   state = {
     color: "green"
   };
@@ -13,11 +17,13 @@ class ColorFunction extends React.Component {
   };
   render() {
     return (
-      <Circle
+      <Star
         draggable={true}
         x={40}
         y={50}
-        height={60}
+        innerRadius={40}
+        outerRadius={20}
+        rotation={40}
         fill={this.state.color}
         shadowBlur={5}
         onClick={this.handleClick}
@@ -26,13 +32,16 @@ class ColorFunction extends React.Component {
   }
 }
 
-export default class CircleTest extends Component {
+export default class HomeStage extends Component {
   render() {
     return (
       <Stage width={window.innerWidth} height={window.innerHeight}>
         <Layer>
-          <Text text="Try click on rect" />
-          <ColorFunction />
+          <StarPlacer/>
+          <PlusSign/>
+          <Multiply/>
+          <RightParenth/>
+          <LeftParenth/>
         </Layer>
       </Stage>
     );
