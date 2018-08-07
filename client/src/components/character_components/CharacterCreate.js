@@ -44,6 +44,12 @@ export default class CharacterCreate extends Component {
         this.setState(newState)
     }
 
+    handleHeadIndex = (indexVal) => {
+        const newState = {...this.state}
+        newState.newCharacter.head_element = indexVal
+        this.setState(newState)
+    }
+
     handleBodyIndex = (indexVal) => {
         const newState = {...this.state}
         newState.newCharacter.body_element = indexVal
@@ -65,7 +71,7 @@ export default class CharacterCreate extends Component {
     render() {
     return (
       <FormPageWrapper>
-        <CharacterForm character={this.state.newCharacter} passCharacter={this.passCharacter} submit={this.handleFormSubmit} formChange={this.handleFormChange} user={this.props.match.params.user_id} handleLegIndex={this.handleLegIndex} handleBodyIndex={this.handleBodyIndex}></CharacterForm>
+        <CharacterForm character={this.state.newCharacter} passCharacter={this.passCharacter} submit={this.handleFormSubmit} formChange={this.handleFormChange} user={this.props.match.params.user_id} handleLegIndex={this.handleLegIndex} handleBodyIndex={this.handleBodyIndex} handleHeadIndex={this.handleHeadIndex}></CharacterForm>
         <div>
             <Link to={`/users/${this.props.match.params.user_id}`}>Nevermind<h4>!</h4></Link>
         </div>

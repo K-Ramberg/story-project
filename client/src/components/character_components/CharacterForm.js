@@ -68,6 +68,8 @@ export default class CharacterForm extends Component {
             index: selectedIndex,
             direction: e.direction
         });
+        const newStateIndex = selectedIndex + 1
+        this.props.handleHeadIndex(newStateIndex)
     }
 
     handleSelect2 = (selectedIndex, e) => {
