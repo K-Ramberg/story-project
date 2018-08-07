@@ -36,10 +36,14 @@ const OccupationWrapper = styled.div`
         background-color: rgb(100,230,97);
     }
 `
+const FormSelector = styled.button`
+    width: 100%;
+`
 
 export default class CharacterForm extends Component {
 
     state = {
+        character: {},
         index: 0,
         direction: null,
         index2: 0,
@@ -49,6 +53,15 @@ export default class CharacterForm extends Component {
         index4: 0,
         direction4: null
     };
+
+    componentDidMount = async () => {
+        const character = await this.props.passCharacter()
+        this.setState({
+            index: character.head_element-1,
+            index2: character.body_element-1,
+            index3: character.leg_element-1
+        })
+    }
 
     handleSelect = (selectedIndex, e) => {
         this.setState({
@@ -69,7 +82,6 @@ export default class CharacterForm extends Component {
             index3: selectedIndex,
             direction3: e.direction
         });
-
     }
 
     handleSelect4 = (selectedIndex, e) => {
@@ -81,9 +93,7 @@ export default class CharacterForm extends Component {
     }
 
     handleOnchange = (event) => {
-        
         this.props.formChange(event)
-        
     }
 
     handleOccupationSelection = (occupation) => {
@@ -92,12 +102,18 @@ export default class CharacterForm extends Component {
         }
     }
 
+    handleLegSelection =(value) => {
+        if(value === this.props.character.leg_element){
+            return true
+        }
+    }
+
     testFunction = (e) => {
-        console.log(e.target.value)
+        e.preventDefault()
+        console.log(e.target.name)
     }
 
     render() {
-        console.log(this.state.index3)
         const { index, index2, index3, index4, direction, direction2, direction3, direction4 } = this.state;
         return (
             <div>
@@ -150,28 +166,27 @@ export default class CharacterForm extends Component {
                     </Carousel>
                 </FormWrapper>
                 </div>
-                    <div>
-                    <FormWrapper
-                        name="leg_element"
-                        value={index3+1}
-                        onClick={this.handleOnchange}>
+                <div>
+                    <FormWrapper>
                     <Carousel htmlFor="leg_element"
                         activeIndex={index3}
                         direction={direction3}
                         onSelect={this.handleSelect3}
-                        onClick={this.testFunction}
                          >
-                        <Carousel.Item >
-                                <input type="radio" name="leg_element" value="1" onChange={this.handleOnchange} checked={this.props.character.leg_element == 1} /> 1 <PrincessLegs/>
+                        <Carousel.Item>
+                                <input type="radio" name="leg_element" value="1" onChange={this.handleOnchange} checked={this.handleLegSelection(1)} /> 1
+                                <PrincessLegs/>
                         </Carousel.Item>
                         <Carousel.Item>
-                                <input type="radio" name="leg_element" value="2" onChange={this.handleOnchange} checked={this.props.character.leg_element == 2} /> 2 <WizardLegs/>>
+                                <input type="radio" name="leg_element" value="2" onChange={this.handleOnchange} checked={this.handleLegSelection(2)} /> 2 
+                                <WizardLegs/>
                         </Carousel.Item>
                         <Carousel.Item>
-                                <input type="radio" name="leg_element" value="3" onChange={this.handleOnchange} checked={this.props.character.leg_element == 3} /> 3 <DinoLegs/>
-                    </Carousel.Item>
+                                <input type="radio" name="leg_element" value="3" onClick={this.handleOnchange} checked={this.handleLegSelection(3)} /> 3 
+                                <DinoLegs/>
+                        </Carousel.Item>
                     </Carousel>
-                </FormWrapper>
+                    </FormWrapper>
                 </div>
                     <button type="submit">Let's Go!</button>
                 </form>

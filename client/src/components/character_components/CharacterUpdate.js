@@ -20,7 +20,14 @@ const FormPageWrapper = styled.div`
 export default class CharacterUpdate extends Component {
 
     state = {
-        character: {}
+        character: {
+            name: '',
+            occupation: '',
+            head_element: 0,
+            body_element: 0,
+            leg_element: 0,
+            color_scheme: 0
+        }
     }
 
     componentDidMount() {
@@ -37,6 +44,12 @@ export default class CharacterUpdate extends Component {
         } catch (err){
             console.error(err)
         }
+    }
+
+    passCharacter = async () => {
+        let characterResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/characters/${this.props.match.params.id}`)
+        const character = await characterResponse.data
+        return character
     }
 
     handleFormChange = (event) => {
@@ -57,7 +70,7 @@ export default class CharacterUpdate extends Component {
     render() {
     return (
       <FormPageWrapper>
-        <CharacterForm character={this.state.character} submit={this.handleFormSubmit} formChange={this.handleFormChange}></CharacterForm>
+        <CharacterForm character={this.state.character} passCharacter={this.passCharacter} submit={this.handleFormSubmit} formChange={this.handleFormChange} user={this.props.match.params.user_id}></CharacterForm>
         <div>
         <Link to={`/users/${this.props.match.params.user_id}/characters/${this.state.character.id}`}>Nevermind<h4>!</h4></Link>
         </div>
