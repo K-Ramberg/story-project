@@ -61,6 +61,18 @@ export default class CharacterUpdate extends Component {
         this.setState(newState)
     }
 
+    handleBodyIndex = (indexVal) => {
+        const newState = {...this.state}
+        newState.character.body_element = indexVal
+        this.setState(newState)
+    }
+
+    handleLegIndex = (indexVal) => {
+        const newState = {...this.state}
+        newState.character.leg_element = indexVal
+        this.setState(newState)
+    }
+
     handleFormSubmit =  async (event) => {
         event.preventDefault()
         await axios.patch(`/api/users/${this.props.match.params.user_id}/characters/${this.state.character.id}`, this.state.character)
@@ -70,7 +82,7 @@ export default class CharacterUpdate extends Component {
     render() {
     return (
       <FormPageWrapper>
-        <CharacterForm character={this.state.character} passCharacter={this.passCharacter} submit={this.handleFormSubmit} formChange={this.handleFormChange} user={this.props.match.params.user_id}></CharacterForm>
+        <CharacterForm character={this.state.character} passCharacter={this.passCharacter} submit={this.handleFormSubmit} formChange={this.handleFormChange} user={this.props.match.params.user_id} handleLegIndex={this.handleLegIndex} handleBodyIndex={this.handleBodyIndex}></CharacterForm>
         <div>
         <Link to={`/users/${this.props.match.params.user_id}/characters/${this.state.character.id}`}>Nevermind<h4>!</h4></Link>
         </div>

@@ -44,6 +44,18 @@ export default class CharacterCreate extends Component {
         this.setState(newState)
     }
 
+    handleBodyIndex = (indexVal) => {
+        const newState = {...this.state}
+        newState.newCharacter.body_element = indexVal
+        this.setState(newState)
+    }
+
+    handleLegIndex = (indexVal) => {
+        const newState = {...this.state}
+        newState.newCharacter.leg_element = indexVal
+        this.setState(newState)
+    }
+
     handleFormSubmit =  async (event) => {
         event.preventDefault()
         await axios.post(`/api/users/${this.props.match.params.user_id}/characters`, this.state.newCharacter)
@@ -53,7 +65,7 @@ export default class CharacterCreate extends Component {
     render() {
     return (
       <FormPageWrapper>
-        <CharacterForm character={this.state.newCharacter} passCharacter={this.passCharacter} submit={this.handleFormSubmit} formChange={this.handleFormChange} user={this.props.match.params.user_id}></CharacterForm>
+        <CharacterForm character={this.state.newCharacter} passCharacter={this.passCharacter} submit={this.handleFormSubmit} formChange={this.handleFormChange} user={this.props.match.params.user_id} handleLegIndex={this.handleLegIndex} handleBodyIndex={this.handleBodyIndex}></CharacterForm>
         <div>
             <Link to={`/users/${this.props.match.params.user_id}`}>Nevermind<h4>!</h4></Link>
         </div>

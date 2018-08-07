@@ -75,6 +75,8 @@ export default class CharacterForm extends Component {
             index2: selectedIndex,
             direction2: e.direction
         });
+        const newStateIndex = selectedIndex + 1
+        this.props.handleBodyIndex(newStateIndex)
     }
 
     handleSelect3 = (selectedIndex, e) => {
@@ -82,15 +84,17 @@ export default class CharacterForm extends Component {
             index3: selectedIndex,
             direction3: e.direction
         });
+        const newStateIndex = selectedIndex + 1
+        this.props.handleLegIndex(newStateIndex)
     }
 
-    handleSelect4 = (selectedIndex, e) => {
-        this.setState({
-            index4: selectedIndex,
-            direction4: e.direction
-        });
-        console.log('hi')
-    }
+    // handleSelect4 = (selectedIndex, e) => {
+    //     this.setState({
+    //         index4: selectedIndex,
+    //         direction4: e.direction
+    //     });
+    //     console.log('hi')
+    // }
 
     handleOnchange = (event) => {
         this.props.formChange(event)
