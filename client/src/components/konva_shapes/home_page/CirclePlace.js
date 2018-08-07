@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Konva from "konva";
 import { Circle } from "react-konva";
 

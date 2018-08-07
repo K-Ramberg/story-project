@@ -54,7 +54,6 @@ export default class HomePage extends Component {
     return (
       <Welcome>
         <h5>Welcome to Mathland. Make a Character to complete stories with the power of Math!</h5>
-        <h3>User:</h3>
         {userMap}
         <HomeStage/>
       </Welcome>

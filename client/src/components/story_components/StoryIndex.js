@@ -59,6 +59,7 @@ export default class StoryIndex extends Component {
             <div key={story.id}><Link to={`/users/${this.props.match.params.user_id}/stories/${story.id}`}>{story.title}</Link></div>
           )
       })
+      console.log(this.props)
     return (
       <div>
         {storyMap}
