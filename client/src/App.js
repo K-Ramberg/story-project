@@ -23,6 +23,9 @@ const Title = styled.h1`
     color: rgb(241,241,241);
     font-family: 'Work Sans', sans-serif;
     font-size: 10vh;
+    @media(min-height: 830px){
+      font-size: 70px;
+    }
   }
 `
 const NavOption = styled.h4`

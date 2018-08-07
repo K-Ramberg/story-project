@@ -53,6 +53,11 @@ export default class StoryIndex extends Component {
         await axios.post(`/api/users/${this.props.match.params.user_id}/stories/${storyId}/pages`, newPage)
     }
 
+    handleGoBack = (event) =>{
+        event.preventDefault()
+        this.props.history.goBack()
+    }
+
   render() {
       const storyMap = this.state.stories.map((story) => {
           return(
@@ -65,6 +70,7 @@ export default class StoryIndex extends Component {
         {storyMap}
         <div>{this.state.user.name} has finished {this.state.user.stories_completed} stories</div>
         <button onClick={this.buildNewStory}>add new story</button>
+        <button onClick={this.handleGoBack}>back</button>
       </div>
     )
   }
