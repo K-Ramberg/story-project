@@ -17,6 +17,23 @@ const FormWrapper = styled.div`
         display: none;
     }
 `
+const NameWrapper = styled.div`
+    margin-left: 5vw;
+    input {
+        margin-left: 3vw;
+        text-align-last: center;
+        background-color: rgb(250,250,250);
+    }
+`
+
+const OccupationWrapper = styled.div`
+    margin-left: 5vw;
+    input {
+        margin-left: 3vw;
+        margin-right: 1vw;
+    }
+`
+
 export default class CharacterForm extends Component {
 
     state = {
@@ -60,8 +77,13 @@ export default class CharacterForm extends Component {
     }
 
     handleOnchange = (event) => {
+        
         this.props.formChange(event)
         
+    }
+
+    testFunction = () => {
+        console.log('yo')
     }
 
     render() {
@@ -70,16 +92,16 @@ export default class CharacterForm extends Component {
         return (
             <div>
                 <form onSubmit={this.props.submit}>
-                    <div>
+                    <NameWrapper>
                         <label htmlFor="name">Call me...</label>
                         <input type="text" name="name" value={this.props.character.name} placeholder="my name is" onChange={this.props.formChange} />
-                    </div>
-                    <div id="occupation">
+                    </NameWrapper>
+                    <OccupationWrapper id="occupation">
                         <label htmlFor="occupation">I am a...</label>
                         <input type="radio" name="occupation" value="Princess" onChange={this.props.formChange} checked={this.props.character.occupation === 'Princess'} />Princess
                         <input type="radio" name="occupation" value="Wizard" onChange={this.props.formChange} checked={this.props.character.occupation === 'Wizard'} />Wizard
                         <input type="radio" name="occupation" value="Dinosaur" onChange={this.props.formChange} checked={this.props.character.occupation === 'Dinosaur'} />Dinosaur
-                    </div>
+                    </OccupationWrapper>
                     <div>
                     <FormWrapper>
                     <Carousel htmlFor="head_element"
@@ -106,7 +128,7 @@ export default class CharacterForm extends Component {
                         direction={direction2}
                         onSelect={this.handleSelect2}
                          >
-                        <Carousel.Item >
+                        <Carousel.Item onClick={this.testFunction}>
                             <input type="radio" name="body_element" value="1" onChange={this.handleOnchange} checked={this.props.character.body_element == 1} /> 1 <PrincessBody/>
                         </Carousel.Item>
                         <Carousel.Item>
