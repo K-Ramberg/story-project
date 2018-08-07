@@ -5,10 +5,14 @@ import PlusSign from "./PlusSign";
 import Multiply from "./Multiply";
 import RightParenth from "./RightParenth";
 import LeftParenth from "./LeftParenth";
+import CirclePlace from "./CirclePlace";
+import RectPlace from "./RectPlace";
+import Divide from "./Divide";
+import Subtract from "./Subtract";
 
 class StarPlacer extends React.Component {
   state = {
-    color: "green"
+    color: Konva.Util.getRandomColor()
   };
   handleClick = () => {
     this.setState({
@@ -42,6 +46,10 @@ export default class HomeStage extends Component {
           <Multiply/>
           <RightParenth/>
           <LeftParenth/>
+          <CirclePlace/>
+          <RectPlace/>
+          <Divide/>
+          <Subtract/>
         </Layer>
       </Stage>
     );

@@ -4,7 +4,7 @@ import { Shape } from "react-konva";
 
  export default class RightParenth extends React.Component {
     state = {
-      color: "Orange"
+      color: Konva.Util.getRandomColor()
     };
     handleClick = () => {
       this.setState({

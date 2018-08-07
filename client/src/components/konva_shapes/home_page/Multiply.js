@@ -4,7 +4,7 @@ import { Shape } from "react-konva";
 
  export default class Multiply extends React.Component {
     state = {
-      color: "Gray"
+      color: Konva.Util.getRandomColor()
     };
     handleClick = () => {
       this.setState({

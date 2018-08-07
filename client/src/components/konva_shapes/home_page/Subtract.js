@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Konva from "konva";
 import { Shape } from "react-konva";
 
- export default class LeftParenth extends React.Component {
+ export default class Subtract extends React.Component {
     state = {
       color: Konva.Util.getRandomColor()
     };
@@ -17,18 +17,18 @@ import { Shape } from "react-konva";
             sceneFunc={(context, shape) => {
                 context.beginPath();
                 context.moveTo(0,0);
-                context.quadraticCurveTo(-20,30,0,60)
-                context.lineTo(10, 60);
-                context.quadraticCurveTo(-10, 30, 10, 0)
+                context.lineTo(0, 10);
+                context.lineTo(60, 10);
+                context.lineTo(60, 0);
                 context.closePath();
-                context.fillStrokeShape(shape);
+              context.fillStrokeShape(shape);
             }}
           fill={this.state.color}
           shadowBlur={5}
           onClick={this.handleClick}
           draggable={true}
-          x={20}
-          y={130}
+          x={340}
+          y={160}
         />
       );
     }

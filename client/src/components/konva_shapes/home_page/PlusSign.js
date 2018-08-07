@@ -4,7 +4,7 @@ import { Shape } from "react-konva";
 
  export default class PlusSign extends React.Component {
     state = {
-      color: "blue"
+      color: Konva.Util.getRandomColor()
     };
     handleClick = () => {
       this.setState({
@@ -36,7 +36,7 @@ import { Shape } from "react-konva";
           onClick={this.handleClick}
           draggable={true}
           x={120}
-          y={100}
+          y={90}
         />
       );
     }
