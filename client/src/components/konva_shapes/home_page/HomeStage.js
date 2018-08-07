@@ -9,6 +9,7 @@ import CirclePlace from "./CirclePlace";
 import RectPlace from "./RectPlace";
 import Divide from "./Divide";
 import Subtract from "./Subtract";
+import TestGroup from "./TestGroup";
 
 class StarPlacer extends React.Component {
   state = {
@@ -50,6 +51,7 @@ export default class HomeStage extends Component {
           <RectPlace/>
           <Divide/>
           <Subtract/>
+          <TestGroup/>
         </Layer>
       </Stage>
     );

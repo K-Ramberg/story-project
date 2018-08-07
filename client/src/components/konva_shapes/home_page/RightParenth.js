@@ -26,7 +26,7 @@ import { Shape } from "react-konva";
           fill={this.state.color}
           shadowBlur={5}
           onClick={this.handleClick}
-          draggable={true}
+          // draggable={true}
           x={60}
           y={130}
         />
