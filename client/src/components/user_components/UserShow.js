@@ -70,7 +70,6 @@ fetchCharacter = async () => {
       }
     })
     
-
     return (
       <CharIndex>
         <h2>{this.state.user.name} Characters</h2>

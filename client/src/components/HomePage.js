@@ -4,8 +4,6 @@ import axios from 'axios'
 import styled from 'styled-components'
 import HomeStage from './konva_shapes/home_page/HomeStage';
 
-
-
 const Welcome = styled.div`
     margin: 5vw;
     color: rgb(30,30,30);
