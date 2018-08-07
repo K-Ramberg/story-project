@@ -31,6 +31,7 @@ export default class CharacterCreate extends Component {
     }
   
     handleFormChange = (event) => {
+        event.preventDefault()
         const inputName = event.target.name
         const userInput = event.target.value
         const newState = {...this.state}
