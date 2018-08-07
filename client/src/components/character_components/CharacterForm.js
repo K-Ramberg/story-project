@@ -4,14 +4,15 @@ import styled from 'styled-components'
 import { PrincessHead, PrincessBody, PrincessLegs, WizardHead, WizardBody, WizardLegs, DinoHead, DinoBody, DinoLegs} from './CharacterStyles' 
 
 const FormWrapper = styled.div`
-    line-height: 3vh;
-    max-height: 5vh;
-    text-align: center;
+    margin-bottom: 3vh;
+`
+
+const FormInternalWrapper = styled.div`
     .carousel-inner {
-        height: 5vh;
+        height: 50px;
     }
     .carousel-control{
-        max-height: 5vh;
+        max-height: 50px;
     }
     .carousel-indicators{
         display: none;
@@ -27,7 +28,7 @@ const NameWrapper = styled.div`
 `
 
 const OccupationWrapper = styled.div`
-    margin: 2vh 0;
+    margin: 5vh 0;
     margin-left: 5vw;
     label {
         margin-right: 4vw;
@@ -122,7 +123,7 @@ export default class CharacterForm extends Component {
     render() {
         const { index, index2, index3, index4, direction, direction2, direction3, direction4 } = this.state;
         return (
-            <div>
+            <FormWrapper>
                 <form onSubmit={this.props.submit}>
                     <NameWrapper>
                         <label htmlFor="name">Call me...</label>
@@ -135,68 +136,65 @@ export default class CharacterForm extends Component {
                         <button className={this.handleOccupationSelection('Dinosaur')} name="occupation" value="Dinosaur" onClick={this.props.formChange}>Dinosaur</button>
                     </OccupationWrapper>
                     <div>
-                    <FormWrapper>
+                    <FormInternalWrapper>
                     <Carousel htmlFor="head_element"
                         activeIndex={index}
                         direction={direction}
                         onSelect={this.handleSelect}
                          >
                         <Carousel.Item >
-                            <input type="radio" name="head_element" value="1" onChange={this.handleOnchange} checked={this.props.character.head_element == 1} /> 1 <PrincessHead/>
+                            <PrincessHead/>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <input type="radio" name="head_element" value="2" onChange={this.handleOnchange} checked={this.props.character.head_element == 2} /> 2 <WizardHead/>
+                            <WizardHead/>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <input type="radio" name="head_element" value="3" onChange={this.handleOnchange} checked={this.props.character.head_element == 3} /> 3 <DinoHead/>
+                            <DinoHead/>
                         </Carousel.Item>
                      </Carousel>
-                    </FormWrapper>
+                    </FormInternalWrapper>
                     </div>
                     <div>
-                    <FormWrapper>
+                    <FormInternalWrapper>
                     <Carousel htmlFor="body_element"
                         activeIndex={index2}
                         direction={direction2}
                         onSelect={this.handleSelect2}
                          >
                         <Carousel.Item>
-                            <input type="radio" name="body_element" value="1" onChange={this.handleOnchange} checked={this.props.character.body_element == 1} /> 1 <PrincessBody/>
+                            <PrincessBody/>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <input type="radio" name="body_element" value="2" onChange={this.handleOnchange} checked={this.props.character.body_element == 2} /> 2 <WizardBody/>
+                            <WizardBody/>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <input type="radio" name="body_element" value="3" onChange={this.handleOnchange} checked={this.props.character.body_element == 3} /> 3 <DinoBody/>
+                            <DinoBody/>
                     </Carousel.Item>
                     </Carousel>
-                </FormWrapper>
+                </FormInternalWrapper>
                 </div>
                 <div>
-                    <FormWrapper>
+                    <FormInternalWrapper>
                     <Carousel htmlFor="leg_element"
                         activeIndex={index3}
                         direction={direction3}
                         onSelect={this.handleSelect3}
                          >
-                        <Carousel.Item>
-                                <input type="radio" name="leg_element" value="1" onChange={this.handleOnchange} checked={this.handleLegSelection(1)} /> 1
+                        <Carousel.Item>                               
                                 <PrincessLegs/>
                         </Carousel.Item>
-                        <Carousel.Item>
-                                <input type="radio" name="leg_element" value="2" onChange={this.handleOnchange} checked={this.handleLegSelection(2)} /> 2 
+                        <Carousel.Item>                            
                                 <WizardLegs/>
                         </Carousel.Item>
                         <Carousel.Item>
-                                <input type="radio" name="leg_element" value="3" onClick={this.handleOnchange} checked={this.handleLegSelection(3)} /> 3 
                                 <DinoLegs/>
                         </Carousel.Item>
                     </Carousel>
-                    </FormWrapper>
+                    </FormInternalWrapper>
                 </div>
                     <button type="submit">Let's Go!</button>
                 </form>
-            </div>
+            </FormWrapper>
         )
     }
 }
