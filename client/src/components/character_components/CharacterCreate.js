@@ -23,18 +23,42 @@ export default class CharacterCreate extends Component {
         newCharacter: {
             name: '',
             occupation: '',
-            head_element: 0,
-            body_element: 0,
-            leg_element: 0,
-            color_scheme: 0
+            head_element: 1,
+            body_element: 1,
+            leg_element: 1,
+            color_scheme: 1
         }
+    }
+
+    passCharacter = async () => {
+        const character = await {...this.state.newCharacter}
+        return character
     }
   
     handleFormChange = (event) => {
+        event.preventDefault()
         const inputName = event.target.name
         const userInput = event.target.value
         const newState = {...this.state}
         newState.newCharacter[inputName] = userInput
+        this.setState(newState)
+    }
+
+    handleHeadIndex = (indexVal) => {
+        const newState = {...this.state}
+        newState.newCharacter.head_element = indexVal
+        this.setState(newState)
+    }
+
+    handleBodyIndex = (indexVal) => {
+        const newState = {...this.state}
+        newState.newCharacter.body_element = indexVal
+        this.setState(newState)
+    }
+
+    handleLegIndex = (indexVal) => {
+        const newState = {...this.state}
+        newState.newCharacter.leg_element = indexVal
         this.setState(newState)
     }
 
@@ -47,7 +71,7 @@ export default class CharacterCreate extends Component {
     render() {
     return (
       <FormPageWrapper>
-        <CharacterForm character={this.state.newCharacter} submit={this.handleFormSubmit} formChange={this.handleFormChange}></CharacterForm>
+        <CharacterForm character={this.state.newCharacter} passCharacter={this.passCharacter} submit={this.handleFormSubmit} formChange={this.handleFormChange} user={this.props.match.params.user_id} handleLegIndex={this.handleLegIndex} handleBodyIndex={this.handleBodyIndex} handleHeadIndex={this.handleHeadIndex}></CharacterForm>
         <div>
             <Link to={`/users/${this.props.match.params.user_id}`}>Nevermind<h4>!</h4></Link>
         </div>
