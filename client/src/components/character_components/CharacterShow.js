@@ -13,10 +13,31 @@ import DinoBody from '../konva_shapes/character_shapes/DinoBody';
 import DinoLegs from '../konva_shapes/character_shapes/DinoLegs';
 import { Stage, Layer } from "react-konva";
 
+const Welcome = styled.div`
+    margin: 5vw;
+    color: rgb(30,30,30);
+`
+
 const CharName = styled.div`
     color: rgb(240,130,130);
     font-size: 3rem;
 `
+
+const Navigations = styled.div`
+    a{
+        margin-bottom: 3vh;
+        display: block;
+        font-size: 2rem;
+      h4{ display:none;} 
+    }
+    a:hover{
+      text-decoration: none;
+      h4{
+        display: inline;
+        font-size: 1.5rem;
+        }
+    }
+  `
 
 export default class CharacterShow extends Component {
 
@@ -85,21 +106,23 @@ export default class CharacterShow extends Component {
         }
 
         return (
-            <div>
+            <Welcome>
                 <CharName>
                     {characterDisplay(this.state.character)}
                 </CharName>
-                <Stage width={window.innerWidth} height={window.innerHeight}>
+                <Stage width={window.innerWidth} height={400}>
                     <Layer>
                         {selectedCharacterLegDisplay(this.state.character)}
                         {selectedCharacterBodyDisplay(this.state.character)}
                         {selectedCharacterHeadDisplay(this.state.character)}
                     </Layer>
                 </Stage>
-                <div><Link to={`/users/${this.props.match.params.user_id}/characters/${this.state.character.id}/edit`}>Change up your character</Link></div>
-                <div><button onClick={() => this.characterDelete(this.state.character.id)}>Remove character</button></div>
-                <Link to={`/users/${this.props.match.params.user_id}`}>Go back to your characters</Link>
-            </div>
+                <Navigations>
+                    <Link to={`/users/${this.props.match.params.user_id}/characters/${this.state.character.id}/edit`}>Change up {this.state.character.name} <h4>></h4></Link>
+                    <Link to={`/users/${this.props.match.params.user_id}`}>Go back to your characters <h4>></h4></Link>
+                    <div><button onClick={() => this.characterDelete(this.state.character.id)}>Remove character</button></div>
+                </Navigations>
+            </Welcome>
         )
     }
 }

@@ -17,7 +17,6 @@ const Welcome = styled.div`
         text-decoration: none;
         h4{ display: inline;}
     }
-
 `
 
 export default class HomePage extends Component {

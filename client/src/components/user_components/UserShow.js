@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 
+const Welcome = styled.div`
+    margin: 5vw;
+    color: rgb(30,30,30);
+`
+
 const CharIndex = styled.div`
   div{
     a{
@@ -71,12 +76,14 @@ fetchCharacter = async () => {
     })
     
     return (
-      <CharIndex>
-        <h2>{this.state.user.name} Characters</h2>
-        {characterMap}
-        <div><Link to={`/users/${this.state.user.id}/characters/new`}>add another character <h4>></h4></Link></div>
-        <div><Link to={`/users/${this.state.user.id}/stories`}>Go to Stories <h4>></h4></Link></div>
-      </CharIndex>
+      <Welcome>
+        <CharIndex>
+          <h2>{this.state.user.name} Characters</h2>
+          {characterMap}
+          <div><Link to={`/users/${this.state.user.id}/characters/new`}>add another character <h4>></h4></Link></div>
+          <div><Link to={`/users/${this.state.user.id}/stories`}>Go to Stories <h4>></h4></Link></div>
+        </CharIndex>
+      </Welcome>
     )
   }
 }
