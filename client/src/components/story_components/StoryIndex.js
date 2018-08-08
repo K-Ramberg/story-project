@@ -92,12 +92,20 @@ export default class StoryIndex extends Component {
             <div key={story.id}><Link to={`/users/${this.props.match.params.user_id}/stories/${story.id}`}>{story.title} <h4>></h4></Link></div>
           )
       })
-      console.log(this.props)
+
+      const storyPlace = () => {
+          if(this.state.user.stories_completed === 1 ){
+              return "Story"
+          }{
+              return "Stories"
+          }
+      }
+
     return (
       <StorySort>
         <button onClick={this.buildNewStory}>Add new story</button>
         {storyMap}
-        <CompletionMeter>{this.state.user.name} has finished {this.state.user.stories_completed} stories</CompletionMeter>
+        <CompletionMeter>{this.state.user.name} has finished {this.state.user.stories_completed} {storyPlace()}</CompletionMeter>
         <button onClick={this.handleGoBack}>Back to Characters</button>
       </StorySort>
     )
