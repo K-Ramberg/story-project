@@ -23,6 +23,14 @@ const StoryWrapper = styled.div`
         color: rgb(240,130,130);
         margin-bottom: 2vh;
     }
+    div {
+        font-size: 1.5rem;
+    }
+    .difficulty {
+        text-align: center;
+        font-size: 2rem;
+        color: rgb(100,100,250);
+    }
     a{
         margin-top: 3vh;
         display: block;
@@ -38,7 +46,25 @@ const StoryWrapper = styled.div`
     }
 `
 
-const FormInternalWrapper = styled.div`
+const CarouselWrapper1 = styled.div`
+    .carousel-inner {
+        height: 50px;
+        text-align:center;
+        div {
+            margin-top: 3vh;
+            font-size: 2rem;
+        }
+        margin-bottom: 2vh;
+    }
+    .carousel-control{
+        max-height: 50px;
+    }
+    .carousel-indicators{
+        display: none;
+    }
+`
+
+const CarouselWrapper2 = styled.div`
     .carousel-inner {
         height: 50px;
         text-align:center;
@@ -69,7 +95,9 @@ export default class StoryShow extends Component {
             name: ''
         },
         index: 0,
-        direction: null
+        direction: null,
+        index2: 0,
+        direction2: null
     }
 
     componentDidMount() {
@@ -163,6 +191,14 @@ export default class StoryShow extends Component {
         }
     }
 
+    handleSelect2 = (selectedIndex, e) => {
+        this.setState({
+            index2: selectedIndex,
+            direction2: e.direction
+        });
+        const newStateIndex = selectedIndex
+    }
+
     render() {
         const sortByPageNumber = _.sortBy(this.state.pages,['page','number'])
         
@@ -195,7 +231,9 @@ export default class StoryShow extends Component {
 
         const characterMap = this.state.characters.map((character) => {
                     return(
+                        <Carousel.Item>
                         <div key={character.id}>{characterDisplay(character)}</div>
+                        </Carousel.Item>
                     )
         })
 
@@ -229,30 +267,39 @@ export default class StoryShow extends Component {
             } else if(character.leg_element ){ return(<DinoLegs/>)}
         }
 
-        const { index, direction } = this.state
+        const { index, index2, direction, direction2 } = this.state
 
         return (
             <StoryWrapper>
                 <h1>{this.state.story.title}</h1>
-                <FormInternalWrapper>
+                <div className="difficulty" >Select the Story Difficulty</div>
+                <CarouselWrapper1>
                 <Carousel htmlFor="head_element"
                         activeIndex={index}
                         direction={direction}
                         onSelect={this.handleSelect}
                          >
                         <Carousel.Item >
-                            <div>beginner</div>
+                            <div>Beginner</div>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <div>intermediate</div>
+                            <div>Intermediate</div>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <div>advanced</div>
+                            <div>Advanced</div>
                         </Carousel.Item>
                      </Carousel>
-                     </FormInternalWrapper>
-                <h5>---Pick a Character to Use---</h5>
-                    {characterMap}
+                     </CarouselWrapper1>
+                <div className="difficulty">Choose a Character</div>
+                <CarouselWrapper2>
+                <Carousel htmlFor="head_element"
+                        activeIndex={index2}
+                        direction={direction2}
+                        onSelect={this.handleSelect2}
+                         >
+                         {characterMap}
+                        </Carousel> 
+                </CarouselWrapper2>        
                 <h2>selected Character:</h2>
                     {selectedCharacterHeadDisplay(this.state.characterInUse)}
                     {selectedCharacterBodyDisplay(this.state.characterInUse)}
