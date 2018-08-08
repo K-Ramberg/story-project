@@ -34,6 +34,17 @@ import { Shape, Group, Circle } from "react-konva";
               fill={this.state.color}
               x={35}
               y={48}
+              shadowBlur={4}
+            />
+            <Shape
+              sceneFunc={(context, shape) => {
+                context.beginPath();
+                context.moveTo(20, 45);
+                context.quadraticCurveTo(30, 25, 35, 45)
+                context.fillStrokeShape(shape);
+              }}
+              shadowBlur={2}
+              fill="Beige"
             />
             <Shape
               sceneFunc={(context, shape) => {
@@ -62,33 +73,26 @@ import { Shape, Group, Circle } from "react-konva";
           shadowBlur={2}
           onClick={this.handleClick}
           />
-          <Shape
-              sceneFunc={(context, shape) => {
-                context.beginPath();
-                context.moveTo(20, 45);
-                context.quadraticCurveTo(30, 20, 35, 45)
-                context.fillStrokeShape(shape);
-              }}
-              fill="White"
-            />
             <Shape
               sceneFunc={(context, shape) => {
                 context.beginPath();
                 context.moveTo(40, 45);
-                context.quadraticCurveTo(50, 20, 55, 45)
+                context.quadraticCurveTo(50, 25, 55, 45)
                 context.fillStrokeShape(shape);
               }}
-              fill="White"
+              shadowBlur={2}
+              fill="Beige"
             />
             <Shape
               sceneFunc={(context, shape) => {
                 context.beginPath();
                 context.moveTo(25, 58);
                 context.lineTo(50, 58);
-                context.quadraticCurveTo(30, 90, 25, 58)
+                context.quadraticCurveTo(30, 80, 25, 58)
                 context.closePath();
                 context.fillStrokeShape(shape);
               }}
+              shadowBlur={2}
               fill="pink"
             />
         </Group>
