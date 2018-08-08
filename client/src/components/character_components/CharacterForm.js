@@ -5,28 +5,52 @@ import PrincessHead from '../konva_shapes/character_shapes/PrincessHead';
 import WizardHead from '../konva_shapes/character_shapes/WizardHead' 
 import DinoHead from '../konva_shapes/character_shapes/DinoHead'
 import { Stage, Layer } from "react-konva";
-import PrincessBody from '../konva_shapes/character_shapes/PrincessBody';
-import WizardBody from '../konva_shapes/character_shapes/WizardBody';
-import PrincessLegs from '../konva_shapes/character_shapes/PrincessLegs';
-import WizardLegs from '../konva_shapes/character_shapes/WizardLegs';
-import DinoBody from '../konva_shapes/character_shapes/DinoBody';
-import DinoLegs from '../konva_shapes/character_shapes/DinoLegs';
+import PrincessBody from '../konva_shapes/character_shapes/FormPBody';
+import WizardBody from '../konva_shapes/character_shapes/FormWBody';
+import PrincessLegs from '../konva_shapes/character_shapes/FormPLegs';
+import WizardLegs from '../konva_shapes/character_shapes/FormWLegs';
+import DinoBody from '../konva_shapes/character_shapes/FormDBody';
+import DinoLegs from '../konva_shapes/character_shapes/FormDLegs';
 
 const FormWrapper = styled.div`
     margin-bottom: 3vh;
 `
 
-const FormInternalWrapper = styled.div`
+const FormInternalWrapper1 = styled.div`
     .carousel-inner {
-        height: 300px;
+        height: 100px;
     }
     .carousel-control{
-        max-height: 300px;
+        max-height: 100px;
     }
     .carousel-indicators{
         display: none;
     }
 `
+
+const FormInternalWrapper2 = styled.div`
+    .carousel-inner {
+        height: 80px;
+    }
+    .carousel-control{
+        max-height: 80px;
+    }
+    .carousel-indicators{
+        display: none;
+    }
+`
+const FormInternalWrapper3 = styled.div`
+    .carousel-inner {
+        height: 100px;
+    }
+    .carousel-control{
+        max-height: 100px;
+    }
+    .carousel-indicators{
+        display: none;
+    }
+`
+
 const NameWrapper = styled.div`
     margin-left: 5vw;
     input {
@@ -135,7 +159,7 @@ export default class CharacterForm extends Component {
                         <button className={this.handleOccupationSelection('Dinosaur')} name="occupation" value="Dinosaur" onClick={this.props.formChange}>Dinosaur</button>
                     </OccupationWrapper>
                     <div>
-                    <FormInternalWrapper>
+                    <FormInternalWrapper1>
                     <Carousel htmlFor="head_element"
                         activeIndex={index}
                         direction={direction}
@@ -163,10 +187,10 @@ export default class CharacterForm extends Component {
                             </Stage>
                         </Carousel.Item>
                      </Carousel>
-                    </FormInternalWrapper>
+                    </FormInternalWrapper1>
                     </div>
                     <div>
-                    <FormInternalWrapper>
+                    <FormInternalWrapper2>
                     <Carousel htmlFor="body_element"
                         activeIndex={index2}
                         direction={direction2}
@@ -194,10 +218,10 @@ export default class CharacterForm extends Component {
                             </Stage>
                     </Carousel.Item>
                     </Carousel>
-                </FormInternalWrapper>
+                </FormInternalWrapper2>
                 </div>
                 <div>
-                    <FormInternalWrapper>
+                    <FormInternalWrapper3>
                     <Carousel htmlFor="leg_element"
                         activeIndex={index3}
                         direction={direction3}
@@ -225,7 +249,7 @@ export default class CharacterForm extends Component {
                             </Stage>
                         </Carousel.Item>
                     </Carousel>
-                    </FormInternalWrapper>
+                    </FormInternalWrapper3>
                 </div>
                     <button type="submit">Let's Go!</button>
                 </form>
