@@ -2,7 +2,7 @@ import React from "react";
 import Konva from "konva";
 import { Shape, Group, Circle } from "react-konva";
 
- export default class PrincessHead extends React.Component {
+ export default class WizardHead extends React.Component {
     state = {
       color: Konva.Util.getRandomColor()
     };

@@ -2,7 +2,7 @@ import React from "react";
 import Konva from "konva";
 import { Shape, Group } from "react-konva";
 
- export default class PrincessHead extends React.Component {
+ export default class DinoHead extends React.Component {
     render() {
       return (
         <Group
