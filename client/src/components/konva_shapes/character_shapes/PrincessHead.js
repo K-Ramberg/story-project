@@ -55,6 +55,7 @@ import { Shape, Group, Circle } from "react-konva";
                 context.fillStrokeShape(shape);
               }}
               fill="pink"
+              shadowBlur={1}
             />
         <Shape
             sceneFunc={(context, shape) => {

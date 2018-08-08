@@ -10,6 +10,7 @@ import RectPlace from "./RectPlace";
 import Divide from "./Divide";
 import Subtract from "./Subtract";
 import PrincessHead from "../character_shapes/PrincessHead"
+import WizardHead from "../character_shapes/WizardHead"
 
 
 class StarPlacer extends React.Component {
@@ -53,6 +54,7 @@ export default class HomeStage extends Component {
           <Divide/>
           <Subtract/>
          <PrincessHead/>
+         <WizardHead/>
         </Layer>
       </Stage>
     );
