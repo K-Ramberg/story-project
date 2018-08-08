@@ -2,7 +2,7 @@ import React from "react";
 import Konva from "konva";
 import { Shape, Group } from "react-konva";
 
- export default class PrincessHead extends React.Component {
+ export default class WizardBody extends React.Component {
     render() {
       return (
         <Group
@@ -10,42 +10,46 @@ import { Shape, Group } from "react-konva";
           x={220}
           y={20}
         >
-        <Shape
+          <Shape
               sceneFunc={(context, shape) => {
                 context.beginPath();
-                context.moveTo(15, 20);
-                context.quadraticCurveTo(-10, 30,10, 65);
-                context.quadraticCurveTo(5, 75, 30, 80);
-                context.quadraticCurveTo(100, 70, 90, 60);
-                context.lineTo(50, 53);
-                context.lineTo(100, 50);
-                context.quadraticCurveTo(100, -5, 55, 15);
-                context.lineTo(55, 15);
+                context.moveTo(20, 80);
+                context.lineTo(5, 85);
+                context.lineTo(10, 155);
+                context.lineTo(60, 155);
+                context.lineTo(65, 85);
+                context.lineTo(50, 80)
                 context.closePath();
                 context.fillStrokeShape(shape);
               }}
-              fill="#2B9E49"
               shadowBlur={2}
+              fill="Gray"
             />
             <Shape
               sceneFunc={(context, shape) => {
                 context.beginPath();
-                context.moveTo(15, 40);
-                context.quadraticCurveTo(20, 15, 35, 35)
+                context.moveTo(25, 80);
+                context.lineTo(25, 155);
+                context.lineTo(45, 155);
+                context.lineTo(45, 80)
+                context.closePath();
                 context.fillStrokeShape(shape);
               }}
               shadowBlur={2}
-              fill="Beige"
+              fill="#ADA8AA"
             />
             <Shape
               sceneFunc={(context, shape) => {
                 context.beginPath();
-                context.moveTo(65, 28);
-                context.quadraticCurveTo(80, 10, 85, 25)
+                context.moveTo(8, 145);
+                context.lineTo(10, 155);
+                context.lineTo(60, 155);
+                context.lineTo(62, 145)
+                context.closePath();
                 context.fillStrokeShape(shape);
               }}
               shadowBlur={2}
-              fill="Black"
+              fill="#787375"
             />
         </Group>
       );

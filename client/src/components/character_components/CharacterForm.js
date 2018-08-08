@@ -5,6 +5,12 @@ import PrincessHead from '../konva_shapes/character_shapes/PrincessHead';
 import WizardHead from '../konva_shapes/character_shapes/WizardHead' 
 import DinoHead from '../konva_shapes/character_shapes/DinoHead'
 import { Stage, Layer } from "react-konva";
+import PrincessBody from '../konva_shapes/character_shapes/PrincessBody';
+import WizardBody from '../konva_shapes/character_shapes/WizardBody';
+import PrincessLegs from '../konva_shapes/character_shapes/PrincessLegs';
+import WizardLegs from '../konva_shapes/character_shapes/WizardLegs';
+import DinoBody from '../konva_shapes/character_shapes/DinoBody';
+import DinoLegs from '../konva_shapes/character_shapes/DinoLegs';
 
 const FormWrapper = styled.div`
     margin-bottom: 3vh;
@@ -12,10 +18,10 @@ const FormWrapper = styled.div`
 
 const FormInternalWrapper = styled.div`
     .carousel-inner {
-        height: 100px;
+        height: 300px;
     }
     .carousel-control{
-        max-height: 100px;
+        max-height: 300px;
     }
     .carousel-indicators{
         display: none;
@@ -167,13 +173,25 @@ export default class CharacterForm extends Component {
                         onSelect={this.handleSelect2}
                          >
                         <Carousel.Item>
-                            
+                        <Stage width={window.innerWidth} height={window.innerHeight}>
+                                <Layer>
+                                    <PrincessBody/>
+                                </Layer>
+                            </Stage>
                         </Carousel.Item>
                         <Carousel.Item>
-                            
+                        <Stage width={window.innerWidth} height={window.innerHeight}>
+                                <Layer>
+                                    <WizardBody/>
+                                </Layer>
+                            </Stage>
                         </Carousel.Item>
                         <Carousel.Item>
-                            
+                        <Stage width={window.innerWidth} height={window.innerHeight}>
+                                <Layer>
+                                    <DinoBody/>
+                                </Layer>
+                            </Stage>
                     </Carousel.Item>
                     </Carousel>
                 </FormInternalWrapper>
@@ -186,13 +204,25 @@ export default class CharacterForm extends Component {
                         onSelect={this.handleSelect3}
                          >
                         <Carousel.Item>                               
-                                
+                        <Stage width={window.innerWidth} height={window.innerHeight}>
+                                <Layer>
+                                    <PrincessLegs/>
+                                </Layer>
+                            </Stage>
                         </Carousel.Item>
                         <Carousel.Item>                            
-                               
+                        <Stage width={window.innerWidth} height={window.innerHeight}>
+                                <Layer>
+                                    <WizardLegs/>
+                                </Layer>
+                            </Stage>
                         </Carousel.Item>
                         <Carousel.Item>
-                               
+                        <Stage width={window.innerWidth} height={window.innerHeight}>
+                                <Layer>
+                                    <DinoLegs/>
+                                </Layer>
+                            </Stage>
                         </Carousel.Item>
                     </Carousel>
                     </FormInternalWrapper>
