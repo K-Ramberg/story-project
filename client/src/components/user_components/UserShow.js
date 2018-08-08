@@ -9,12 +9,13 @@ import { Stage, Layer } from "react-konva";
 
 const Welcome = styled.div`
     margin: 5vw;
+    margin-top: 2vh;
     color: rgb(30,30,30);
 `
 
 const CharIndex = styled.div`
   div{
-    margin-top: 2vh;
+    margin-top: 1vh;
     a{
       h4{ display:none;} 
       font-size: 2rem;
@@ -39,7 +40,21 @@ const CharIndex = styled.div`
       }
     }  
   }
-  margin-bottom: 4vh;
+  .storyNav { 
+        h4{ display:none;} 
+        font-size: 2.5rem;
+        background-color: rgb(218, 247, 166);
+        padding: 1vh;
+        border-radius: 5%;
+        box-shadow: 2px 2px 4px 2px rgb(3,3,3);
+      }
+      a:hover{
+        text-decoration: none;
+        h4{
+          display: inline;
+          font-size: 2rem;
+          }
+      }
 `
 
 export default class UserShow extends Component {
@@ -106,10 +121,10 @@ fetchCharacter = async () => {
     return (
       <Welcome>
         <CharIndex>
-          <h2>{this.state.user.name} Characters</h2>
-          {characterMap}
+          <h3>{this.state.user.name} Characters</h3>  
           <div><Link to={`/users/${this.state.user.id}/characters/new`}>Create a new Character <h4>></h4></Link></div>
-          <div><Link to={`/users/${this.state.user.id}/stories`}>Go to Stories <h4>></h4></Link></div>
+          {characterMap} 
+          <Link className="storyNav" to={`/users/${this.state.user.id}/stories`}>Go to Stories <h4>></h4></Link>       
         </CharIndex>
       </Welcome>
     )
