@@ -45,7 +45,6 @@ const CharIndex = styled.div`
         font-size: 2.5rem;
         background-color: rgb(218, 247, 166);
         padding: 1vh;
-        border-radius: 5%;
         box-shadow: 2px 2px 4px 2px rgb(3,3,3);
       }
       a:hover{
