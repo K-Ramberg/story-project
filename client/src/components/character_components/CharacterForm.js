@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Carousel } from 'react-bootstrap'
 import styled from 'styled-components'
-import PrincessHead from '../konva_shapes/character_shapes/DinoHead';
+import PrincessHead from '../konva_shapes/character_shapes/PrincessHead';
 import WizardHead from '../konva_shapes/character_shapes/WizardHead' 
 import DinoHead from '../konva_shapes/character_shapes/DinoHead'
+import { Stage, Layer } from "react-konva";
 
 const FormWrapper = styled.div`
     margin-bottom: 3vh;
@@ -11,10 +12,10 @@ const FormWrapper = styled.div`
 
 const FormInternalWrapper = styled.div`
     .carousel-inner {
-        height: 50px;
+        height: 100px;
     }
     .carousel-control{
-        max-height: 50px;
+        max-height: 100px;
     }
     .carousel-indicators{
         display: none;
@@ -52,9 +53,7 @@ export default class CharacterForm extends Component {
         index2: 0,
         direction2: null,
         index3: 0,
-        direction3: null,
-        index4: 0,
-        direction4: null
+        direction3: null
     };
 
     componentDidMount = async () => {
@@ -93,14 +92,6 @@ export default class CharacterForm extends Component {
         this.props.handleLegIndex(newStateIndex)
     }
 
-    // handleSelect4 = (selectedIndex, e) => {
-    //     this.setState({
-    //         index4: selectedIndex,
-    //         direction4: e.direction
-    //     });
-    //     console.log('hi')
-    // }
-
     handleOnchange = (event) => {
         this.props.formChange(event)
     }
@@ -123,7 +114,7 @@ export default class CharacterForm extends Component {
     }
 
     render() {
-        const { index, index2, index3, index4, direction, direction2, direction3, direction4 } = this.state;
+        const { index, index2, index3, direction, direction2, direction3 } = this.state;
         return (
             <FormWrapper>
                 <form onSubmit={this.props.submit}>
@@ -145,13 +136,25 @@ export default class CharacterForm extends Component {
                         onSelect={this.handleSelect}
                          >
                         <Carousel.Item >
-                            <PrincessHead/>
+                            <Stage width={window.innerWidth} height={window.innerHeight}>
+                                <Layer>
+                                    <PrincessHead/>
+                                </Layer>
+                            </Stage>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <WizardHead/>
+                            <Stage width={window.innerWidth} height={window.innerHeight}>
+                                <Layer>
+                                    <WizardHead/>
+                                </Layer>
+                            </Stage>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <DinoHead/>
+                            <Stage width={window.innerWidth} height={window.innerHeight}>
+                                <Layer>
+                                    <DinoHead/>
+                                </Layer>
+                            </Stage>
                         </Carousel.Item>
                      </Carousel>
                     </FormInternalWrapper>

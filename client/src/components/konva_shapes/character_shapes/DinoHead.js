@@ -15,8 +15,8 @@ import { Shape, Group, Circle } from "react-konva";
       return (
         <Group
           draggable={true}
-          x={180}
-          y={430}
+          x={220}
+          y={20}
         >
         <Shape
               sceneFunc={(context, shape) => {
