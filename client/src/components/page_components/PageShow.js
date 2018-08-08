@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import MathJax from 'react-mathjax-preview'
-import { PrincessHead, PrincessBody, PrincessLegs, WizardHead, WizardBody, WizardLegs, DinoHead, DinoBody, DinoLegs, StyleWrapper} from '../character_components/CharacterStyles' 
 
 export default class PageShow extends Component {
 
@@ -112,27 +111,27 @@ export default class PageShow extends Component {
         }   
 
         const selectedCharacterHeadDisplay = (character) => {
-            if(character.head_element === 1){
-                return(<StyleWrapper><PrincessHead/></StyleWrapper>)
-            } else if (character.head_element === 2){
-                return(<StyleWrapper><WizardHead/></StyleWrapper>)
-            } else if(character.head_element === 3){ return(<StyleWrapper><DinoHead/></StyleWrapper>)}
+            // if(character.head_element === 1){
+            //     return(<StyleWrapper><PrincessHead/></StyleWrapper>)
+            // } else if (character.head_element === 2){
+            //     return(<StyleWrapper><WizardHead/></StyleWrapper>)
+            // } else if(character.head_element === 3){ return(<StyleWrapper><DinoHead/></StyleWrapper>)}
         }
 
         const selectedCharacterBodyDisplay = (character) => {
-            if(character.body_element === 1){
-                return(<StyleWrapper><PrincessBody/></StyleWrapper>)
-            } else if (character.body_element === 2){
-                return(<StyleWrapper><WizardBody/></StyleWrapper>)
-            } else if(character.body_element === 3){ return(<StyleWrapper><DinoBody/></StyleWrapper>)}
+            // if(character.body_element === 1){
+            //     return(<StyleWrapper><PrincessBody/></StyleWrapper>)
+            // } else if (character.body_element === 2){
+            //     return(<StyleWrapper><WizardBody/></StyleWrapper>)
+            // } else if(character.body_element === 3){ return(<StyleWrapper><DinoBody/></StyleWrapper>)}
         }
 
         const selectedCharacterLegDisplay = (character) => {
-            if(character.leg_element === 1){
-                return(<StyleWrapper><PrincessLegs/></StyleWrapper>)
-            } else if (character.leg_element === 2){
-                return(<StyleWrapper><WizardLegs/></StyleWrapper>)
-            } else if(character.leg_element ){ return(<StyleWrapper><DinoLegs/></StyleWrapper>)}
+            // if(character.leg_element === 1){
+            //     return(<StyleWrapper><PrincessLegs/></StyleWrapper>)
+            // } else if (character.leg_element === 2){
+            //     return(<StyleWrapper><WizardLegs/></StyleWrapper>)
+            // } else if(character.leg_element ){ return(<StyleWrapper><DinoLegs/></StyleWrapper>)}
         }
 
         return (

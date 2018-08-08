@@ -9,9 +9,6 @@ import CirclePlace from "./CirclePlace";
 import RectPlace from "./RectPlace";
 import Divide from "./Divide";
 import Subtract from "./Subtract";
-import PrincessHead from "../character_shapes/PrincessHead"
-import WizardHead from "../character_shapes/WizardHead"
-import DinoHead from "../character_shapes/DinoHead"
 
 class StarPlacer extends React.Component {
   state = {
@@ -53,9 +50,6 @@ export default class HomeStage extends Component {
           <RectPlace/>
           <Divide/>
           <Subtract/>
-         <PrincessHead/>
-         <WizardHead/>
-         <DinoHead/>
         </Layer>
       </Stage>
     );

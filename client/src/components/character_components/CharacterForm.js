@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Carousel } from 'react-bootstrap'
 import styled from 'styled-components'
-import { PrincessHead, PrincessBody, PrincessLegs, WizardHead, WizardBody, WizardLegs, DinoHead, DinoBody, DinoLegs} from './CharacterStyles' 
+import PrincessHead from '../konva_shapes/character_shapes/DinoHead';
+import WizardHead from '../konva_shapes/character_shapes/WizardHead' 
+import DinoHead from '../konva_shapes/character_shapes/DinoHead'
 
 const FormWrapper = styled.div`
     margin-bottom: 3vh;
@@ -162,13 +164,13 @@ export default class CharacterForm extends Component {
                         onSelect={this.handleSelect2}
                          >
                         <Carousel.Item>
-                            <PrincessBody/>
+                            
                         </Carousel.Item>
                         <Carousel.Item>
-                            <WizardBody/>
+                            
                         </Carousel.Item>
                         <Carousel.Item>
-                            <DinoBody/>
+                            
                     </Carousel.Item>
                     </Carousel>
                 </FormInternalWrapper>
@@ -181,13 +183,13 @@ export default class CharacterForm extends Component {
                         onSelect={this.handleSelect3}
                          >
                         <Carousel.Item>                               
-                                <PrincessLegs/>
+                                
                         </Carousel.Item>
                         <Carousel.Item>                            
-                                <WizardLegs/>
+                               
                         </Carousel.Item>
                         <Carousel.Item>
-                                <DinoLegs/>
+                               
                         </Carousel.Item>
                     </Carousel>
                     </FormInternalWrapper>
