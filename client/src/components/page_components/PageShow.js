@@ -166,15 +166,15 @@ export default class PageShow extends Component {
 
     render() {
 
-        const modalIntro = (numberOfPages) => {
-            switch(this.state.page.number){
+        const modalIntro = (pageNumber) => {
+            switch(pageNumber){
                 case 1:
                     return ("Welcome to page 1")
                 break;
                 default:
                     return ("Keep Going")
                 break;
-                case 4:
+                case this.state.pages.length:
                     return ("Welcome to the last page")
                 break;
             }
@@ -240,7 +240,7 @@ export default class PageShow extends Component {
                                 <Modal.Header>
                                     <Modal.Title>{this.state.page.number}</Modal.Title>
                                 </Modal.Header>
-                                <Modal.Body>{modalIntro()}</Modal.Body>
+                                <Modal.Body>{modalIntro(this.state.page.number)}</Modal.Body>
                                 <Modal.Footer>
                                     <Button onClick={this.changeModalDisplay}>Close</Button>
                                 </Modal.Footer>
