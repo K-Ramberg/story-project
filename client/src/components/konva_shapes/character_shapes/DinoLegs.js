@@ -10,6 +10,18 @@ import { Shape, Group} from "react-konva";
           x={220}
           y={20}
         >
+        <Shape
+              sceneFunc={(context, shape) => {
+                context.beginPath();
+                context.moveTo(10, 160);
+                context.quadraticCurveTo(-20, 190, -40, 230);
+                context.lineTo(70, 165);
+                context.closePath();
+                context.fillStrokeShape(shape);
+              }}
+              shadowBlur={2}
+              fill="#2B9E49"
+            />
              <Shape
               sceneFunc={(context, shape) => {
                 context.beginPath();

@@ -3,6 +3,16 @@ import { Link } from 'react-router-dom'
 import axios from 'axios';
 import MathJax from 'react-mathjax-preview'
 import styled from 'styled-components'
+import PrincessHead from '../konva_shapes/character_shapes/PrincessHead';
+import WizardHead from '../konva_shapes/character_shapes/WizardHead' 
+import DinoHead from '../konva_shapes/character_shapes/DinoHead'
+import PrincessBody from '../konva_shapes/character_shapes/PrincessBody';
+import WizardBody from '../konva_shapes/character_shapes/WizardBody';
+import PrincessLegs from '../konva_shapes/character_shapes/PrincessLegs';
+import WizardLegs from '../konva_shapes/character_shapes/WizardLegs';
+import DinoBody from '../konva_shapes/character_shapes/DinoBody';
+import DinoLegs from '../konva_shapes/character_shapes/DinoLegs';
+import { Stage, Layer } from "react-konva";
 
 const PageWrapper = styled.div`
     margin: 5vw;
@@ -10,6 +20,7 @@ const PageWrapper = styled.div`
     h2 {
         color: rgb(240,130,130);
         margin-bottom: 2vh;
+        font-size: 2rem;
     }
     div {
         font-size: 1.5rem;
@@ -166,27 +177,27 @@ export default class PageShow extends Component {
         }   
 
         const selectedCharacterHeadDisplay = (character) => {
-            // if(character.head_element === 1){
-            //     return(<StyleWrapper><PrincessHead/></StyleWrapper>)
-            // } else if (character.head_element === 2){
-            //     return(<StyleWrapper><WizardHead/></StyleWrapper>)
-            // } else if(character.head_element === 3){ return(<StyleWrapper><DinoHead/></StyleWrapper>)}
+            if(character.head_element === 1){
+                return(<PrincessHead/>)
+            } else if (character.head_element === 2){
+                return(<WizardHead/>)
+            } else if(character.head_element === 3){ return(<DinoHead/>)}
         }
 
         const selectedCharacterBodyDisplay = (character) => {
-            // if(character.body_element === 1){
-            //     return(<StyleWrapper><PrincessBody/></StyleWrapper>)
-            // } else if (character.body_element === 2){
-            //     return(<StyleWrapper><WizardBody/></StyleWrapper>)
-            // } else if(character.body_element === 3){ return(<StyleWrapper><DinoBody/></StyleWrapper>)}
+            if(character.body_element === 1){
+                return(<PrincessBody/>)
+            } else if (character.body_element === 2){
+                return(<WizardBody/>)
+            } else if(character.body_element === 3){ return(<DinoBody/>)}
         }
 
         const selectedCharacterLegDisplay = (character) => {
-            // if(character.leg_element === 1){
-            //     return(<StyleWrapper><PrincessLegs/></StyleWrapper>)
-            // } else if (character.leg_element === 2){
-            //     return(<StyleWrapper><WizardLegs/></StyleWrapper>)
-            // } else if(character.leg_element ){ return(<StyleWrapper><DinoLegs/></StyleWrapper>)}
+            if(character.leg_element === 1){
+                return(<PrincessLegs/>)
+            } else if (character.leg_element === 2){
+                return(<WizardLegs/>)
+            } else if(character.leg_element ){ return(<DinoLegs/>)}
         }
 
         return (
@@ -204,6 +215,13 @@ export default class PageShow extends Component {
                     </div>
                     <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>Turn Back<h4>!</h4></Link>
                     <div className={this.handleCompletedDisplay()}>Demo que(the answer is {this.state.mathLy.correct_choice + 1})</div>
+                    <Stage width={window.innerWidth} height={window.innerHeight}>
+                            <Layer>
+                                {selectedCharacterBodyDisplay(this.state.characterInUse)}
+                                {selectedCharacterHeadDisplay(this.state.characterInUse)}
+                                {selectedCharacterLegDisplay(this.state.characterInUse)}
+                            </Layer>
+                        </Stage>
                 </PageWrapper>
                 <CompletedWrapper>
                     <h2 className={this.handleCompletedDisplay()}>Page  {this.state.page.number} has already been completed! Please turn back to the story page to continue the story.</h2>
