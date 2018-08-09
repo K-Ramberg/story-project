@@ -19,7 +19,7 @@ import { Stage, Layer } from "react-konva";
 const StoryWrapper = styled.div`
     margin: 5vw;
     color: rgb(30,30,30);
-    h1 {
+    h2 {
         color: rgb(240,130,130);
         margin-bottom: 2vh;
     }
@@ -43,6 +43,17 @@ const StoryWrapper = styled.div`
         display: inline;
         font-size: 1.5rem;
         }
+    }
+    button {
+        margin: 1vh auto;
+    }
+    .page-ready {
+        background-color: rgb(218, 247, 166);
+        padding: 1vh;
+        box-shadow: 2px 2px 4px 2px rgb(3,3,3);
+    }
+    .page-not-ready {
+        display: none;
     }
 `
 
@@ -127,6 +138,10 @@ export default class StoryShow extends Component {
         this.setState({ firstPage })
     }
 
+    handlePageClass = (page) => {
+        return (page.completed === false ? "page-not-ready" : "page-ready")
+    }
+
     handleFriendAdd = (event) => {
         event.preventDefault()
         if (this.state.friend.name === '') {
@@ -204,17 +219,12 @@ export default class StoryShow extends Component {
         
         const pageMap = sortByPageNumber.map((page) => {
             return (
-                <div key={page.id}>{page.completed === false ?
-                    <div>Page {page.number}</div>
-                    : <div>
-                        <Link onClick={this.handleDifficultyUpdate} to={{ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${page.id}`,
+                    <Link key={page.id} className={this.handlePageClass(page)} onClick={this.handleDifficultyUpdate} to={{ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${page.id}`,
                                     state: { newState: this.state }
                                 }}>
-                                Page {page.number}
-                            </Link>
-                      </div>}
-                </div>
-            )
+                                Page {page.number} <h4>></h4>
+                        </Link>
+                    )
         })
 
         const selectedCharacterHeadDisplay = (character) => {
@@ -278,7 +288,7 @@ export default class StoryShow extends Component {
 
         return (
             <StoryWrapper>
-                <h1>{this.state.story.title}</h1>
+                <h2>{this.state.story.title}</h2>
                 <div className="difficulty" >Select the Story Difficulty</div>
                 <CarouselWrapper1>
                 <Carousel htmlFor="head_element"
@@ -307,10 +317,6 @@ export default class StoryShow extends Component {
                          {characterMap}
                         </Carousel> 
                 </CarouselWrapper2>        
-                <h2>selected Character: {this.state.characterInUse.name}</h2>
-                    {selectedCharacterHeadDisplay(this.state.characterInUse)}
-                    {selectedCharacterBodyDisplay(this.state.characterInUse)}
-                    {selectedCharacterLegDisplay(this.state.characterInUse)}
                 <button onClick={this.handleStoryStart}>{startOrContinue()}</button>
                 <div>{pageMap}</div>
                 <Link to={`/users/${this.props.match.params.user_id}/stories`}> Go back to stories <h4>></h4></Link>
