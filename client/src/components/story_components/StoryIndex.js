@@ -101,6 +101,8 @@ export default class StoryIndex extends Component {
           }
       }
 
+      console.log(this.state.stories)
+
     return (
       <StorySort>
         <button onClick={this.buildNewStory}>Add new story</button>

@@ -155,14 +155,13 @@ export default class StoryShow extends Component {
     }
 
     handleStoryStart = () => {
-        if (this.state.characterInUse !== ''){
         const enemyName = EnemyGenerate()
         const themeResult = ThemeGenerate()
         this.state.pages[0].completed = true
         this.setState({
             enemy: { name: enemyName },
             story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult },
-        })} 
+        })
     }
 
     handleCharacterSelect = (index) => {
@@ -285,6 +284,8 @@ export default class StoryShow extends Component {
         }
 
         const { index, index2, direction, direction2 } = this.state
+
+        console.log(this.state.pages)
 
         return (
             <StoryWrapper>
