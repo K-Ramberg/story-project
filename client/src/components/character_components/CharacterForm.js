@@ -14,6 +14,10 @@ import DinoLegs from '../konva_shapes/character_shapes/FormDLegs';
 
 const FormWrapper = styled.div`
     margin-bottom: 3vh;
+    width: 90vw;
+    @media(min-width: 600px){
+        width: 560px;
+    }
 `
 
 const FormInternalWrapper1 = styled.div`
