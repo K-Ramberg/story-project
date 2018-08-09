@@ -4,7 +4,7 @@ import axios from 'axios';
 import MathJax from 'react-mathjax-preview'
 import styled from 'styled-components'
 import PrincessHead from '../konva_shapes/character_shapes/PrincessHead';
-import WizardHead from '../konva_shapes/character_shapes/WizardHead' 
+import WizardHead from '../konva_shapes/character_shapes/WizardHead'
 import DinoHead from '../konva_shapes/character_shapes/DinoHead'
 import PrincessBody from '../konva_shapes/character_shapes/PrincessBody';
 import WizardBody from '../konva_shapes/character_shapes/WizardBody';
@@ -13,6 +13,7 @@ import WizardLegs from '../konva_shapes/character_shapes/WizardLegs';
 import DinoBody from '../konva_shapes/character_shapes/DinoBody';
 import DinoLegs from '../konva_shapes/character_shapes/DinoLegs';
 import { Stage, Layer } from "react-konva";
+import { Modal, Button } from 'react-bootstrap'
 
 const PageWrapper = styled.div`
     margin: 5vw;
@@ -49,9 +50,9 @@ const PageWrapper = styled.div`
     .completed {
         display: none;
     }
-   ` 
+   `
 
-   const CompletedWrapper = styled.div`
+const CompletedWrapper = styled.div`
     margin: 5vw;
     color: rgb(30,30,30);
     h2 {
@@ -111,27 +112,28 @@ export default class PageShow extends Component {
             if (this.state.page.number < this.state.pages.length) {
                 const redirect = await this.handleRedirect()
             } else {
-                const redirect = await this.props.history.push({pathname:`/users/${this.props.match.params.user_id}/stories/finished`, state:{ story:this.props.match.params.story_id}})
+                const redirect = await this.props.history.push({ pathname: `/users/${this.props.match.params.user_id}/stories/finished`, state: { story: this.props.match.params.story_id } })
             }
         }
     }
 
-    handleEndStory = async() => {
+    handleEndStory = async () => {
         await axios.delete(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`)
         await this.props.history.push(`/users/${this.props.match.params.user_id}/stories/oops`)
     }
 
     handleQuestionAnswer = (index) => {
-        if(index === this.state.mathLy.correct_choice){
+        if (index === this.state.mathLy.correct_choice) {
             this.handleCompletionChange()
         }
-        { if(this.state.answerChances.length < 2){
-            this.state.answerChances.push('wrong')
-        } else {
-            this.handleEndStory()
+        {
+            if (this.state.answerChances.length < 2) {
+                this.state.answerChances.push('wrong')
+            } else {
+                this.handleEndStory()
+            }
         }
-        }
-        
+
     }
 
     handleRedirect = () => {
@@ -143,10 +145,11 @@ export default class PageShow extends Component {
     }
 
     handleCompletedDisplay = () => {
-        if(this.state.page.completed === true){
+        if (this.state.page.completed === true) {
             return "completed"
-        } else {  return "incomplete" }
+        } else { return "incomplete" }
     }
+
 
     render() {
         const characterDisplay = (character) => {
@@ -164,69 +167,77 @@ export default class PageShow extends Component {
 
         const answerMap = this.state.mathLy.choices.map((choice, i) => {
             return (
-                <div key={i} onClick={()=>this.handleQuestionAnswer(i)}>{i+1}. <MathJax math={choice} /></div>
+                <div key={i} onClick={() => this.handleQuestionAnswer(i)}>{i + 1}. <MathJax math={choice} /></div>
             )
         })
 
         const questionDisplay = () => {
             return (<div>
-                What is ...<MathJax math={this.state.mathLy.question}/>
+                What is ...<MathJax math={this.state.mathLy.question} />
                 <h5>{answerMap}</h5>
             </div>
             )
-        }   
+        }
 
         const selectedCharacterHeadDisplay = (character) => {
-            if(character.head_element === 1){
-                return(<PrincessHead/>)
-            } else if (character.head_element === 2){
-                return(<WizardHead/>)
-            } else if(character.head_element === 3){ return(<DinoHead/>)}
+            if (character.head_element === 1) {
+                return (<PrincessHead />)
+            } else if (character.head_element === 2) {
+                return (<WizardHead />)
+            } else if (character.head_element === 3) { return (<DinoHead />) }
         }
 
         const selectedCharacterBodyDisplay = (character) => {
-            if(character.body_element === 1){
-                return(<PrincessBody/>)
-            } else if (character.body_element === 2){
-                return(<WizardBody/>)
-            } else if(character.body_element === 3){ return(<DinoBody/>)}
+            if (character.body_element === 1) {
+                return (<PrincessBody />)
+            } else if (character.body_element === 2) {
+                return (<WizardBody />)
+            } else if (character.body_element === 3) { return (<DinoBody />) }
         }
 
         const selectedCharacterLegDisplay = (character) => {
-            if(character.leg_element === 1){
-                return(<PrincessLegs/>)
-            } else if (character.leg_element === 2){
-                return(<WizardLegs/>)
-            } else if(character.leg_element ){ return(<DinoLegs/>)}
+            if (character.leg_element === 1) {
+                return (<PrincessLegs />)
+            } else if (character.leg_element === 2) {
+                return (<WizardLegs />)
+            } else if (character.leg_element) { return (<DinoLegs />) }
         }
 
         return (
             <div>
                 <PageWrapper>
                     <div className={this.handleCompletedDisplay()}>
+                        <div className="static-modal">
+                            <Modal.Dialog>
+                                <Modal.Header>
+                                    <Modal.Title>{this.state.page.number}</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>One fine body...</Modal.Body>
+                                <Modal.Footer>
+                                    <Button >Close</Button>
+                                </Modal.Footer>
+                            </Modal.Dialog>
+                        </div>;
                         <h2>Page {this.state.page.number}</h2>
                         <h6>{characterDisplay(this.state.characterInUse)}</h6>
-                        {selectedCharacterHeadDisplay(this.state.characterInUse)}
-                        {selectedCharacterBodyDisplay(this.state.characterInUse)}
-                        {selectedCharacterLegDisplay(this.state.characterInUse)}
                         <h6>{this.state.enemy.name}</h6>
                         <h4>________________________</h4>
                         {questionDisplay()}
-                    </div>
-                    <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>Turn Back<h4>!</h4></Link>
-                    <div className={this.handleCompletedDisplay()}>Demo que(the answer is {this.state.mathLy.correct_choice + 1})</div>
-                    <Stage width={window.innerWidth} height={window.innerHeight}>
+                        <div>Demo que(the answer is {this.state.mathLy.correct_choice + 1})</div>
+                        <Stage width={window.innerWidth} height={window.innerHeight}>
                             <Layer>
                                 {selectedCharacterBodyDisplay(this.state.characterInUse)}
                                 {selectedCharacterHeadDisplay(this.state.characterInUse)}
                                 {selectedCharacterLegDisplay(this.state.characterInUse)}
                             </Layer>
                         </Stage>
+                    </div>
+                    <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>Turn Back<h4>!</h4></Link>
                 </PageWrapper>
                 <CompletedWrapper>
                     <h2 className={this.handleCompletedDisplay()}>Page  {this.state.page.number} has already been completed! Please turn back to the story page to continue the story.</h2>
                 </CompletedWrapper>
-             </div>   
+            </div>
         )
     }
 }
