@@ -66,7 +66,7 @@ const CarouselWrapper1 = styled.div`
 
 const CarouselWrapper2 = styled.div`
     .carousel-inner {
-        height: 50px;
+        height: 350px;
         text-align:center;
         div {
             margin-top: 3vh;
@@ -75,7 +75,7 @@ const CarouselWrapper2 = styled.div`
         margin-bottom: 2vh;
     }
     .carousel-control{
-        max-height: 50px;
+        max-height: 350px;
     }
     .carousel-indicators{
         display: none;
@@ -217,39 +217,13 @@ export default class StoryShow extends Component {
             )
         })
 
-        const characterDisplay = (character) => {if (character.occupation === "Princess") {
-            return(
-              <div key={character.id} onClick={()=> this.handleCharacterSelect(character)}>{character.occupation} {character.name}</div>
-            )
-          }
-          else if (character.occupation === "Wizard" || character.occupation === "Dinosaur"){
-            return(
-              <div key={character.id} onClick={()=> this.handleCharacterSelect(character)}>{character.name} the {character.occupation}</div>
-            ) 
-          }
-        }
-
-        const characterMap = this.state.characters.map((character) => {
-                    return(
-                        <Carousel.Item>
-                        <div key={character.id}>{characterDisplay(character)}</div>
-                        </Carousel.Item>
-                    )
-        })
-
-        const startOrContinue = () => {
-            if(this.state.firstPage.number > 1){
-                return 'Continue Story'
-            } else { return 'Start Story'}
-        }
-
         const selectedCharacterHeadDisplay = (character) => {
-                if(character.head_element === 1){
-                    return(<PrincessHead/>)
-                } else if (character.head_element === 2){
-                    return(<WizardHead/>)
-                } else if(character.head_element === 3){ return(<DinoHead/>)}
-        }
+            if(character.head_element === 1){
+                return(<PrincessHead/>)
+            } else if (character.head_element === 2){
+                return(<WizardHead/>)
+            } else if(character.head_element === 3){ return(<DinoHead/>)}
+    }
 
         const selectedCharacterBodyDisplay = (character) => {
             if(character.body_element === 1){
@@ -265,6 +239,39 @@ export default class StoryShow extends Component {
             } else if (character.leg_element === 2){
                 return(<WizardLegs/>)
             } else if(character.leg_element ){ return(<DinoLegs/>)}
+        }
+
+        const characterDisplay = (character) => {if (character.occupation === "Princess") {
+            return(
+              <div key={character.id} onClick={()=> this.handleCharacterSelect(character)}>{character.occupation} {character.name}</div>
+            )
+          }
+          else if (character.occupation === "Wizard" || character.occupation === "Dinosaur"){
+            return(
+              <div key={character.id} onClick={()=> this.handleCharacterSelect(character)}>{character.name} the {character.occupation}</div>
+            ) 
+          }
+        }
+
+        const characterMap = this.state.characters.map((character, i) => {
+                    return(
+                        <Carousel.Item key={i}>
+                        <div>{characterDisplay(character)}</div>
+                        <Stage width={window.innerWidth} height={window.innerHeight}>
+                            <Layer>
+                                {selectedCharacterBodyDisplay(character)}
+                                {selectedCharacterHeadDisplay(character)}
+                                {selectedCharacterLegDisplay(character)}
+                            </Layer>
+                        </Stage>
+                        </Carousel.Item>
+                    )
+        })
+
+        const startOrContinue = () => {
+            if(this.state.firstPage.number > 1){
+                return 'Continue Story'
+            } else { return 'Start Story'}
         }
 
         const { index, index2, direction, direction2 } = this.state
@@ -300,7 +307,7 @@ export default class StoryShow extends Component {
                          {characterMap}
                         </Carousel> 
                 </CarouselWrapper2>        
-                <h2>selected Character:</h2>
+                <h2>selected Character: {this.state.characterInUse.name}</h2>
                     {selectedCharacterHeadDisplay(this.state.characterInUse)}
                     {selectedCharacterBodyDisplay(this.state.characterInUse)}
                     {selectedCharacterLegDisplay(this.state.characterInUse)}

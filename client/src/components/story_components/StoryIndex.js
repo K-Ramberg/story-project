@@ -83,7 +83,7 @@ export default class StoryIndex extends Component {
 
     handleGoBack = (event) =>{
         event.preventDefault()
-        this.props.history.goBack()
+        this.props.history.push(`/users/${this.props.match.params.user_id}`)
     }
 
   render() {
