@@ -75,7 +75,8 @@ export default class PageShow extends Component {
         mathLy: {
             choices: []
         },
-        answerChances: []
+        answerChances: [],
+        modalDisplay: false
     }
 
     componentDidMount() {
@@ -150,6 +151,17 @@ export default class PageShow extends Component {
         } else { return "incomplete" }
     }
 
+    handleModalDisplay = () => {
+        if (this.state.modalDisplay === true) {
+            return "invisible"
+        } else { return "visible" }
+    }
+
+    changeModalDisplay = () => {
+        this.setState({
+            modalDisplay: true
+        })
+    }
 
     render() {
         const characterDisplay = (character) => {
@@ -207,14 +219,14 @@ export default class PageShow extends Component {
             <div>
                 <PageWrapper>
                     <div className={this.handleCompletedDisplay()}>
-                        <div className="static-modal">
+                        <div className={`static-modal ${this.handleModalDisplay()}`}>
                             <Modal.Dialog>
                                 <Modal.Header>
                                     <Modal.Title>{this.state.page.number}</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>One fine body...</Modal.Body>
                                 <Modal.Footer>
-                                    <Button >Close</Button>
+                                    <Button onClick={this.changeModalDisplay}>Close</Button>
                                 </Modal.Footer>
                             </Modal.Dialog>
                         </div>;
