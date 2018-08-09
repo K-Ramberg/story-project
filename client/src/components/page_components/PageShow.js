@@ -97,7 +97,8 @@ export default class PageShow extends Component {
                 friend: useFriend,
                 pages: allPages.data,
                 mathLy: pageInfo.data.question,
-                answerChances: []
+                answerChances: [],
+                modalDisplay: false
             })
         } catch (err) {
             console.error(err)
@@ -164,6 +165,21 @@ export default class PageShow extends Component {
     }
 
     render() {
+
+        const modalIntro = (numberOfPages) => {
+            switch(this.state.page.number){
+                case 1:
+                    return ("Welcome to page 1")
+                break;
+                default:
+                    return ("Keep Going")
+                break;
+                case 4:
+                    return ("Welcome to the last page")
+                break;
+            }
+        }
+
         const characterDisplay = (character) => {
             if (character.occupation === "Princess") {
                 return (
@@ -224,12 +240,12 @@ export default class PageShow extends Component {
                                 <Modal.Header>
                                     <Modal.Title>{this.state.page.number}</Modal.Title>
                                 </Modal.Header>
-                                <Modal.Body>One fine body...</Modal.Body>
+                                <Modal.Body>{modalIntro()}</Modal.Body>
                                 <Modal.Footer>
                                     <Button onClick={this.changeModalDisplay}>Close</Button>
                                 </Modal.Footer>
                             </Modal.Dialog>
-                        </div>;
+                        </div>
                         <h2>Page {this.state.page.number}</h2>
                         <h6>{characterDisplay(this.state.characterInUse)}</h6>
                         <h6>{this.state.enemy.name}</h6>
