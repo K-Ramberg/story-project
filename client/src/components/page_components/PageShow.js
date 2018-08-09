@@ -2,6 +2,55 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import MathJax from 'react-mathjax-preview'
+import styled from 'styled-components'
+
+const PageWrapper = styled.div`
+    margin: 5vw;
+    color: rgb(30,30,30);
+    h2 {
+        color: rgb(240,130,130);
+        margin-bottom: 2vh;
+    }
+    div {
+        font-size: 1.5rem;
+    }
+    .difficulty {
+        text-align: center;
+        font-size: 2rem;
+        color: rgb(100,100,250);
+    }
+    a{
+        margin-top: 3vh;
+        display: block;
+        font-size: 2rem;
+      h4{ display:none;} 
+    }
+    a:hover{
+      text-decoration: none;
+      h4{
+        display: inline;
+        font-size: 2rem;
+        }
+    }
+    button {
+        margin: 1vh auto;
+    }
+    .completed {
+        display: none;
+    }
+   ` 
+
+   const CompletedWrapper = styled.div`
+    margin: 5vw;
+    color: rgb(30,30,30);
+    h2 {
+        color: rgb(240,130,130);
+        margin-bottom: 2vh;
+    }
+    .incomplete {
+        display: none;
+    }
+   `
 
 export default class PageShow extends Component {
 
@@ -82,6 +131,12 @@ export default class PageShow extends Component {
         this.fetchPageInfo()
     }
 
+    handleCompletedDisplay = () => {
+        if(this.state.page.completed === true){
+            return "completed"
+        } else {  return "incomplete" }
+    }
+
     render() {
         const characterDisplay = (character) => {
             if (character.occupation === "Princess") {
@@ -136,17 +191,24 @@ export default class PageShow extends Component {
 
         return (
             <div>
-                <h2>Page {this.state.page.number}</h2>
-                <h6>{characterDisplay(this.state.characterInUse)}</h6>
-                {selectedCharacterHeadDisplay(this.state.characterInUse)}
-                {selectedCharacterBodyDisplay(this.state.characterInUse)}
-                {selectedCharacterLegDisplay(this.state.characterInUse)}
-                <h6>{this.state.enemy.name}</h6>
-                <h4>________________________</h4>
-                {questionDisplay()}
-                <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>Turn Back!</Link>
-                <div>Demo que(the answer is {this.state.mathLy.correct_choice + 1})</div>
-            </div>
+                <PageWrapper>
+                    <div className={this.handleCompletedDisplay()}>
+                        <h2>Page {this.state.page.number}</h2>
+                        <h6>{characterDisplay(this.state.characterInUse)}</h6>
+                        {selectedCharacterHeadDisplay(this.state.characterInUse)}
+                        {selectedCharacterBodyDisplay(this.state.characterInUse)}
+                        {selectedCharacterLegDisplay(this.state.characterInUse)}
+                        <h6>{this.state.enemy.name}</h6>
+                        <h4>________________________</h4>
+                        {questionDisplay()}
+                    </div>
+                    <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>Turn Back<h4>!</h4></Link>
+                    <div className={this.handleCompletedDisplay()}>Demo que(the answer is {this.state.mathLy.correct_choice + 1})</div>
+                </PageWrapper>
+                <CompletedWrapper>
+                    <h2 className={this.handleCompletedDisplay()}>Page  {this.state.page.number} has already been completed! Please turn back to the story page to continue the story.</h2>
+                </CompletedWrapper>
+             </div>   
         )
     }
 }

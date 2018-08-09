@@ -55,6 +55,10 @@ const StoryWrapper = styled.div`
     .page-not-ready {
         display: none;
     }
+    width: 90vw;
+    @media(min-width: 600px){
+        width: 560px;
+    }
 `
 
 const CarouselWrapper1 = styled.div`
@@ -284,8 +288,6 @@ export default class StoryShow extends Component {
         }
 
         const { index, index2, direction, direction2 } = this.state
-
-        console.log(this.state.pages)
 
         return (
             <StoryWrapper>
