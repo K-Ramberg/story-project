@@ -13,10 +13,15 @@ import DinoBody from '../konva_shapes/character_shapes/FormDBody';
 import DinoLegs from '../konva_shapes/character_shapes/FormDLegs';
 
 const FormWrapper = styled.div`
-    margin-bottom: 3vh;
+    margin: 5vw;
     width: 90vw;
     @media(min-width: 600px){
         width: 560px;
+    }
+    form {
+        .lets-go {
+            margin-left: 5vw;
+        }
     }
 `
 
@@ -73,9 +78,6 @@ const OccupationWrapper = styled.div`
     .selected {
         background-color: rgb(100,230,97);
     }
-`
-const FormSelector = styled.button`
-    width: 100%;
 `
 
 export default class CharacterForm extends Component {
@@ -255,7 +257,7 @@ export default class CharacterForm extends Component {
                     </Carousel>
                     </FormInternalWrapper3>
                 </div>
-                    <button type="submit">Let's Go!</button>
+                    <button className="lets-go" type="submit">Let's Go!</button>
                 </form>
             </FormWrapper>
         )

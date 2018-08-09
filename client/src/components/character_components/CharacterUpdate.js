@@ -7,6 +7,7 @@ import styled from 'styled-components'
 const FormPageWrapper = styled.div`
     div {
         a {
+            margin-left: 5vw;
             h4 {display:none;}
         }
         a:hover {
