@@ -100,8 +100,9 @@ export default class StoryShow extends Component {
         direction2: null
     }
 
-    componentDidMount() {
-        this.fetchStoryAndPages()
+    componentDidMount = async () => {
+       await this.fetchStoryAndPages()
+       await this.handleCharacterSelect(0)
     }
 
     fetchStoryAndPages = async () => {
@@ -115,7 +116,7 @@ export default class StoryShow extends Component {
                 story: storyResponse.data,
                 pages: pagesResponse.data
             })
-            const setFirstPage = await this.setFirstPage()
+            await this.setFirstPage()
         } catch (err) {
             console.error(err)
         }
@@ -149,9 +150,8 @@ export default class StoryShow extends Component {
         })} 
     }
 
-    handleCharacterSelect = (character) => {
-        let useCharacter = {...this.state.characterInUse}
-        useCharacter = character
+    handleCharacterSelect = (index) => {
+        const useCharacter = {...this.state.characters[index]}
         this.setState({
             characterInUse: useCharacter
         })
@@ -191,12 +191,12 @@ export default class StoryShow extends Component {
         }
     }
 
-    handleSelect2 = (selectedIndex, e) => {
+    handleSelect2 = async (selectedIndex, e) => {
         this.setState({
             index2: selectedIndex,
             direction2: e.direction
         });
-        const newStateIndex = selectedIndex
+        await this.handleCharacterSelect(selectedIndex)
     }
 
     render() {
@@ -243,12 +243,12 @@ export default class StoryShow extends Component {
 
         const characterDisplay = (character) => {if (character.occupation === "Princess") {
             return(
-              <div key={character.id} onClick={()=> this.handleCharacterSelect(character)}>{character.occupation} {character.name}</div>
+              <div key={character.id}>{character.occupation} {character.name}</div>
             )
           }
           else if (character.occupation === "Wizard" || character.occupation === "Dinosaur"){
             return(
-              <div key={character.id} onClick={()=> this.handleCharacterSelect(character)}>{character.name} the {character.occupation}</div>
+              <div key={character.id}>{character.name} the {character.occupation}</div>
             ) 
           }
         }
@@ -302,7 +302,7 @@ export default class StoryShow extends Component {
                 <Carousel htmlFor="head_element"
                         activeIndex={index2}
                         direction={direction2}
-                        onSelect={this.handleSelect2}
+                        onSelect={this.handleSelect2}   
                          >
                          {characterMap}
                         </Carousel> 
