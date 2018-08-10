@@ -250,7 +250,7 @@ export default class PageShow extends Component {
                                 <Modal.Header>
                                     <Modal.Title>{this.state.page.number}</Modal.Title>
                                 </Modal.Header>
-                                <Modal.Body>{modalIntro(this.state.page.number)}</Modal.Body>
+                                <Modal.Body>{modalIntro(this.state.page.number)} {this.state.enemy.name}</Modal.Body>
                                 <Modal.Footer>
                                     <Button onClick={this.changeModalDisplay}>Close</Button>
                                 </Modal.Footer>
