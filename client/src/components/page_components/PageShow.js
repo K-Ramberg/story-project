@@ -50,6 +50,16 @@ const PageWrapper = styled.div`
     .completed {
         display: none;
     }
+    .modal-dialog {
+        width: 94vw;
+        height: 90vh;
+    }
+    .modal-content {
+        height: 95vh;
+    }
+    .modal-body {
+        height: 75vh;
+    }
    `
 
 const CompletedWrapper = styled.div`
@@ -252,7 +262,7 @@ export default class PageShow extends Component {
                         <h4>________________________</h4>
                         {questionDisplay()}
                         <div>Demo que(the answer is {this.state.mathLy.correct_choice + 1})</div>
-                        <Stage width={window.innerWidth} height={window.innerHeight}>
+                        <Stage width={window.innerWidth} height={290}>
                             <Layer>
                                 {selectedCharacterBodyDisplay(this.state.characterInUse)}
                                 {selectedCharacterHeadDisplay(this.state.characterInUse)}
