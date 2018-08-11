@@ -16,7 +16,7 @@ import MaleHead from '../konva_shapes/sub_char_shapes/MaleHead'
 import FemaleHead from '../konva_shapes/sub_char_shapes/FemaleHead'
 import Mustache from '../konva_shapes/sub_char_shapes/Mustache'
 import Glasses from '../konva_shapes/sub_char_shapes/Glasses'
-import DrHat from '../konva_shapes/sub_char_shapes/DrHat'
+import FemaleDrHat from '../konva_shapes/sub_char_shapes/FemaleDrHat'
 import { Stage, Layer, Group } from "react-konva";
 import { Modal, Button } from 'react-bootstrap'
 

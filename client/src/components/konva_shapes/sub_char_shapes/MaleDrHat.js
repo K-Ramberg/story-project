@@ -2,7 +2,7 @@ import React from "react";
 import Konva from "konva";
 import { Shape, Group } from "react-konva";
 
- export default class DrHat extends React.Component {
+ export default class MaleDrHat extends React.Component {
     state = {
       color: Konva.Util.getRandomColor()
     };
@@ -17,17 +17,15 @@ import { Shape, Group } from "react-konva";
           x={220}
           y={20}
         >
-        Shape
+        <Shape
             sceneFunc={(context, shape) => {
               context.beginPath();
-              context.moveTo(8,25);
-              context.lineTo(8, 30);
-              context.lineTo(63, 30);
-              context.lineTo(63, 25);
-              context.lineTo(50, 25);
+              context.moveTo(10,10);
+              context.lineTo(12, 29);
+              context.lineTo(58, 29);
+              context.lineTo(60, 10);
               context.lineTo(50, 10);
               context.lineTo(25, 10);
-              context.lineTo(25, 25);
               context.closePath();
               context.fillStrokeShape(shape);
             }}
