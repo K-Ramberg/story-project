@@ -360,7 +360,7 @@ export default class PageShow extends Component {
         const occupationResponse = (occupation) => {
             if(this.state.storyScenario === "forest"){
                 if(occupation === "Princess"){
-                    return "Hello M'Lady! We NEVER get royalty out here, what brings you to this neck of the woods? allow me to introduce myself, I am "
+                    return "Hello M'Lady! We NEVER get royalty out here, what brings your highness to this neck of the woods? allow me to introduce myself, I am "
                 }
                 if(occupation === "Wizard"){
                     return "Good day Wizard! What brings you around to this cabin? Have you also come for the delicious home-baked rolls? I did too. My name is "
@@ -369,7 +369,15 @@ export default class PageShow extends Component {
                     return "WHOA! I didn't expect to see walking-talking DINOSAUR today. Did you smell the delicious rolls and come running? i was just stopping by. My name is "
                 }
             } else if(this.state.storyScenario === "castle"){
-                
+                if(occupation === "Princess"){
+                    return "Hello Princess! Out for a castle stroll? The kitchen was just finishing up with some pies, so I obliged myself to step in. If you don't remember me, I am "
+                }
+                if(occupation === "Wizard"){
+                    return "Good day Wizard! Stopping by the kitchen? They just finished with a round of pies, but I'm sure you knew that. I'm sure you also remember that I am "
+                }
+                if(occupation === "Dinosaur"){
+                    return "WOW! You must be that castle dinosaur everyone talks about. I bet you smelled the pie didn't you? My friends in teh village won't beleive this! By the way, I am "
+                }
             }
         }
 
