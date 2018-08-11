@@ -17,6 +17,10 @@ import FemaleHead from '../konva_shapes/sub_char_shapes/FemaleHead'
 import Mustache from '../konva_shapes/sub_char_shapes/Mustache'
 import Glasses from '../konva_shapes/sub_char_shapes/Glasses'
 import FemaleDrHat from '../konva_shapes/sub_char_shapes/FemaleDrHat'
+import MaleDrHat from '../konva_shapes/sub_char_shapes/MaleDrHat'
+import MrsHead from '../konva_shapes/sub_char_shapes/MrsHead'
+import MrsHat from '../konva_shapes/sub_char_shapes/MrsHat'
+import YoungMaleHead from '../konva_shapes/sub_char_shapes/YoungMaleHead'
 import { Stage, Layer, Group } from "react-konva";
 import { Modal, Button } from 'react-bootstrap'
 
@@ -86,7 +90,9 @@ export default class PageShow extends Component {
         friend: {},
         page: {},
         pages: [],
-        enemy: {},
+        enemy: {
+            name: ''
+        },
         mathLy: {
             choices: []
         },
@@ -251,25 +257,51 @@ export default class PageShow extends Component {
         const enemyDisplay = (enemy) => {
             if(enemy.gender === "Male"){
                 if(enemy.prefix === true){
-                    return(
-                        <Group>
-                            <MaleHead/>
-                            <Mustache/>
-                        </Group>
-                    )
+                    if(enemy.name.startsWith("Mr.")){
+                        return(
+                            <Group>
+                                <MaleHead/>
+                                <Mustache/>
+                            </Group>
+                        )
+                    } else if(enemy.name.startsWith("Dr.")){
+                        return(
+                            <Group>
+                                <MaleHead/>
+                                <MaleDrHat/>
+                            </Group>
+                        )
+                    }  
                 }{
                     return (
-                    <MaleHead/>
+                    <YoungMaleHead/>
                 )
                 }
             } {
                 if(enemy.prefix === true){
-                    return(
-                        <Group>
-                            <FemaleHead/>
-                            <Glasses/>
-                        </Group>
-                    )
+                    if(enemy.name.startsWith("Miss")){
+                        return(
+                            <Group>
+                                <FemaleHead/>
+                                <Glasses/>
+                            </Group>
+                        )
+                    } else if(enemy.name.startsWith("Mrs.")){
+                        return(
+                            <Group>
+                                <MrsHead/>
+                                <MrsHat/>
+                            </Group>
+                        )
+                    } else if(enemy.name.startsWith("Dr.")){
+                        return(
+                            <Group>
+                                <MrsHead/>
+                                <Glasses/>
+                                <FemaleDrHat/>
+                            </Group>
+                        )
+                    }       
                 }{
                     return (
                     <FemaleHead/>
@@ -278,6 +310,13 @@ export default class PageShow extends Component {
             }
         }
 
+        const startsTest = (name) => {
+        if(name.startsWith("Dr.") === true){
+            return("It's a dr.")
+        }{
+            return("not a dr.")
+        }
+        }
         return (
             <div>
                 <PageWrapper> 
