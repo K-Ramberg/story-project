@@ -105,7 +105,8 @@ export default class PageShow extends Component {
         },
         answerChances: [],
         modalDisplay: false,
-        introDisplay: true
+        introDisplay: true,
+        storyScenario: ''
     }
 
     componentDidMount() {
@@ -342,6 +343,36 @@ export default class PageShow extends Component {
             }
         }
 
+        const introTitleMatch = (title) => {
+            if(title.includes("forest")){
+                return " near the Mathland forest, they sudenly came upon a cabin, from which someone burst through the door, brigning with them a wonderfully savory smell!"
+                this.setState({
+                    storyScenario: "forest"
+                })
+            } else if(title.includes("castle")){
+                return  " about Mathland castle, they were passing the kitchen when the door burst open!"
+                this.setState({
+                    storyScenario: "castle"
+                })
+            }
+        }
+
+        const occupationResponse = (occupation) => {
+            if(this.state.storyScenario === "forest"){
+                if(occupation === "Princess"){
+                    return "Hello M'Lady! We NEVER get royalty out here, what brings you to this neck of the woods? allow me to introduce myself, I am "
+                }
+                if(occupation === "Wizard"){
+                    return "Good day Wizard! What brings you around to this cabin? Have you also come for the delicious home-baked rolls? I did too. My name is "
+                }
+                if(occupation === "Dinosaur"){
+                    return "WHOA! I didn't expect to see walking-talking DINOSAUR today. Did you smell the delicious rolls and come running? i was just stopping by. My name is "
+                }
+            } else if(this.state.storyScenario === "castle"){
+                
+            }
+        }
+
         return (
             <div>
                 <PageWrapper> 
@@ -352,8 +383,9 @@ export default class PageShow extends Component {
                                         <Modal.Title> Our Story Begins...</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
-
-                                        <div>{this.state.enemy.name}</div>
+                                        One day, when {characterDisplay(this.state.characterInUse)} was walking 
+                                        {introTitleMatch(this.state.storyTitle)} 
+                                        <p>{this.state.enemy.name}</p>
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <Button onClick={this.changeIntroDisplay}>Close</Button>
