@@ -12,7 +12,12 @@ import PrincessLegs from '../konva_shapes/character_shapes/PrincessLegs';
 import WizardLegs from '../konva_shapes/character_shapes/WizardLegs';
 import DinoBody from '../konva_shapes/character_shapes/DinoBody';
 import DinoLegs from '../konva_shapes/character_shapes/DinoLegs';
-import { Stage, Layer } from "react-konva";
+import MaleHead from '../konva_shapes/sub_char_shapes/MaleHead'
+import FemaleHead from '../konva_shapes/sub_char_shapes/FemaleHead'
+import Mustache from '../konva_shapes/sub_char_shapes/Mustache'
+import Glasses from '../konva_shapes/sub_char_shapes/Glasses'
+import DrHat from '../konva_shapes/sub_char_shapes/DrHat'
+import { Stage, Layer, Group } from "react-konva";
 import { Modal, Button } from 'react-bootstrap'
 
 const PageWrapper = styled.div`
@@ -241,16 +246,56 @@ export default class PageShow extends Component {
             } else if (character.leg_element) { return (<DinoLegs />) }
         }
 
+        console.log(this.state.enemy)
+
+        const enemyDisplay = (enemy) => {
+            if(enemy.gender === "Male"){
+                if(enemy.prefix === true){
+                    return(
+                        <Group>
+                            <MaleHead/>
+                            <Mustache/>
+                        </Group>
+                    )
+                }{
+                    return (
+                    <MaleHead/>
+                )
+                }
+            } {
+                if(enemy.prefix === true){
+                    return(
+                        <Group>
+                            <FemaleHead/>
+                            <Glasses/>
+                        </Group>
+                    )
+                }{
+                    return (
+                    <FemaleHead/>
+                )
+                }
+            }
+        }
+
         return (
             <div>
-                <PageWrapper>
+                <PageWrapper> 
                     <div className={this.handleCompletedDisplay()}>
                         <div className={`static-modal ${this.handleModalDisplay()}`}>
                             <Modal.Dialog>
                                 <Modal.Header>
                                     <Modal.Title>{this.state.page.number}</Modal.Title>
                                 </Modal.Header>
-                                <Modal.Body>{modalIntro(this.state.page.number)} {this.state.enemy.name}</Modal.Body>
+                                <Modal.Body>
+                                    {modalIntro(this.state.page.number)} 
+                                    <div>{this.state.enemy.name}</div>
+                                    <Stage width={window.innerWidth} height={290}>
+                                        <Layer>
+                                            {enemyDisplay(this.state.enemy)}
+                                        </Layer>
+                                    </Stage>
+                                </Modal.Body>
                                 <Modal.Footer>
                                     <Button onClick={this.changeModalDisplay}>Close</Button>
                                 </Modal.Footer>
@@ -258,7 +303,6 @@ export default class PageShow extends Component {
                         </div>
                         <h2>Page {this.state.page.number}</h2>
                         <h6>{characterDisplay(this.state.characterInUse)}</h6>
-                        <h6>{this.state.enemy.name}</h6>
                         <h4>________________________</h4>
                         {questionDisplay()}
                         <div>Demo que(the answer is {this.state.mathLy.correct_choice + 1})</div>

@@ -60,11 +60,11 @@ import { Shape, Group, Circle } from "react-konva";
               fill="#231B0C"
               shadowBlur={1}
             />
-            <Shape
+           <Shape
               sceneFunc={(context, shape) => {
                 context.beginPath();
-                context.moveTo(17, 45);
-                context.quadraticCurveTo(35, 28, 32, 45)
+                context.moveTo(17, 43);
+                context.quadraticCurveTo(32, 28, 32, 45)
                 context.fillStrokeShape(shape);
               }}
               shadowBlur={2}
@@ -74,7 +74,7 @@ import { Shape, Group, Circle } from "react-konva";
               sceneFunc={(context, shape) => {
                 context.beginPath();
                 context.moveTo(40, 45);
-                context.quadraticCurveTo(40, 28, 55, 45)
+                context.quadraticCurveTo(43, 28, 55, 43)
                 context.fillStrokeShape(shape);
               }}
               shadowBlur={2}

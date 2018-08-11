@@ -159,11 +159,11 @@ export default class StoryShow extends Component {
     }
 
     handleStoryStart = () => {
-        const enemyName = EnemyGenerate()
+        const enemy = EnemyGenerate()
         const themeResult = ThemeGenerate()
         this.state.pages[0].completed = true
         this.setState({
-            enemy: { name: enemyName },
+            enemy: enemy,
             story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult },
         })
     }

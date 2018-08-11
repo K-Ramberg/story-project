@@ -2,7 +2,7 @@ import React from "react";
 import Konva from "konva";
 import { Shape, Group } from "react-konva";
 
- export default class Glasses extends React.Component {
+ export default class DrHat extends React.Component {
     state = {
       color: Konva.Util.getRandomColor()
     };
