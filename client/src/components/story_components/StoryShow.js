@@ -63,7 +63,7 @@ const StoryWrapper = styled.div`
 
 const CarouselWrapper1 = styled.div`
     .carousel-inner {
-        height: 50px;
+        height: 55px;
         text-align:center;
         div {
             margin-top: 3vh;
@@ -72,7 +72,7 @@ const CarouselWrapper1 = styled.div`
         margin-bottom: 2vh;
     }
     .carousel-control{
-        max-height: 50px;
+        max-height: 55px;
     }
     .carousel-indicators{
         display: none;
@@ -81,7 +81,7 @@ const CarouselWrapper1 = styled.div`
 
 const CarouselWrapper2 = styled.div`
     .carousel-inner {
-        height: 350px;
+        height: 359px;
         text-align:center;
         div {
             margin-top: 3vh;
@@ -90,7 +90,7 @@ const CarouselWrapper2 = styled.div`
         margin-bottom: 2vh;
     }
     .carousel-control{
-        max-height: 350px;
+        max-height: 359px;
     }
     .carousel-indicators{
         display: none;

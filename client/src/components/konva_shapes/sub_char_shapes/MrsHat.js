@@ -1,6 +1,6 @@
 import React from "react";
 import Konva from "konva";
-import { Shape, Group, Circle } from "react-konva";
+import { Shape, Group } from "react-konva";
 
  export default class MrsHat extends React.Component {
     state = {

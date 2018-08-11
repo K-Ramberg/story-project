@@ -1,5 +1,4 @@
 import React from "react";
-import Konva from "konva";
 import { Shape, Group } from "react-konva";
 
  export default class FemaleBody extends React.Component {

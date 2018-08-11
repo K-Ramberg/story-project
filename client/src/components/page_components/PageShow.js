@@ -44,6 +44,9 @@ const PageWrapper = styled.div`
         font-size: 2rem;
         color: rgb(100,100,250);
     }
+    .primary-modal {
+        .modal{ z-index: 1000;}
+    }
     a{
         margin-top: 3vh;
         display: block;
@@ -52,9 +55,8 @@ const PageWrapper = styled.div`
     }
     a:hover{
       text-decoration: none;
-      h4{
-        display: inline;
-        font-size: 2rem;
+      h4{ display: inline;
+          font-size: 2rem;
         }
     }
     button {
@@ -90,6 +92,7 @@ const CompletedWrapper = styled.div`
 export default class PageShow extends Component {
 
     state = {
+        storyTitle: '',
         characterInUse: {},
         friend: {},
         page: {},
@@ -101,7 +104,8 @@ export default class PageShow extends Component {
             choices: []
         },
         answerChances: [],
-        modalDisplay: false
+        modalDisplay: false,
+        introDisplay: true
     }
 
     componentDidMount() {
@@ -115,7 +119,9 @@ export default class PageShow extends Component {
             const useCharacter = await this.props.location.state.newState.characterInUse
             const useEnemy = await this.props.location.state.newState.enemy
             const useFriend = await this.props.location.state.newState.friend
+            const story =  await this.props.location.state.newState.story
             this.setState({
+                storyTitle: story.title,
                 characterInUse: useCharacter,
                 enemy: useEnemy,
                 page: pageInfo.data.page,
@@ -123,7 +129,8 @@ export default class PageShow extends Component {
                 pages: allPages.data,
                 mathLy: pageInfo.data.question,
                 answerChances: [],
-                modalDisplay: false
+                modalDisplay: false,
+                introDisplay: true
             })
         } catch (err) {
             console.error(err)
@@ -137,9 +144,9 @@ export default class PageShow extends Component {
             this.setState({ page: newPage })
             await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`, newPage)
             if (this.state.page.number < this.state.pages.length) {
-                const redirect = await this.handleRedirect()
+                await this.handleRedirect()
             } else {
-                const redirect = await this.props.history.push({ pathname: `/users/${this.props.match.params.user_id}/stories/finished`, state: { story: this.props.match.params.story_id } })
+                await this.props.history.push({ pathname: `/users/${this.props.match.params.user_id}/stories/finished`, state: { story: this.props.match.params.story_id } })
             }
         }
     }
@@ -186,6 +193,18 @@ export default class PageShow extends Component {
     changeModalDisplay = () => {
         this.setState({
             modalDisplay: true
+        })
+    }
+
+    handleStoryStartDisplay = () => {
+        if(this.state.page.number === 1 && this.state.introDisplay === true){
+            return "visible"
+        } else { return "invisible"}
+    }
+
+    changeIntroDisplay = () => {
+        this.setState({
+            introDisplay: false
         })
     }
 
@@ -256,14 +275,13 @@ export default class PageShow extends Component {
             } else if (character.leg_element) { return (<DinoLegs />) }
         }
 
-        console.log(this.state.enemy)
-
         const enemyDisplay = (enemy) => {
             if(enemy.gender === "Male"){
                 if(enemy.prefix === true){
                     if(enemy.name.startsWith("Mr.")){
                         return(
                             <Group>
+                                <MaleBody/>
                                 <MaleHead/>
                                 <Mustache/>
                             </Group>
@@ -271,6 +289,7 @@ export default class PageShow extends Component {
                     } else if(enemy.name.startsWith("Dr.")){
                         return(
                             <Group>
+                                <MaleDrBody/>
                                 <MaleHead/>
                                 <MaleDrHat/>
                             </Group>
@@ -278,7 +297,10 @@ export default class PageShow extends Component {
                     }  
                 }{
                     return (
-                    <YoungMaleHead/>
+                        <Group>
+                            <MaleBody/>
+                            <YoungMaleHead/>
+                        </Group>
                 )
                 }
             } {
@@ -286,6 +308,7 @@ export default class PageShow extends Component {
                     if(enemy.name.startsWith("Miss")){
                         return(
                             <Group>
+                                <FemaleBody/>
                                 <FemaleHead/>
                                 <Glasses/>
                             </Group>
@@ -293,6 +316,7 @@ export default class PageShow extends Component {
                     } else if(enemy.name.startsWith("Mrs.")){
                         return(
                             <Group>
+                                <FemaleBody/>
                                 <MrsHead/>
                                 <MrsHat/>
                             </Group>
@@ -300,6 +324,7 @@ export default class PageShow extends Component {
                     } else if(enemy.name.startsWith("Dr.")){
                         return(
                             <Group>
+                                <FemaleDrBody/>
                                 <MrsHead/>
                                 <Glasses/>
                                 <FemaleDrHat/>
@@ -308,24 +333,34 @@ export default class PageShow extends Component {
                     }       
                 }{
                     return (
-                    <FemaleHead/>
+                        <Group>
+                            <FemaleBody/>
+                            <FemaleHead/>
+                        </Group>
                 )
                 }
             }
         }
 
-        const startsTest = (name) => {
-        if(name.startsWith("Dr.") === true){
-            return("It's a dr.")
-        }{
-            return("not a dr.")
-        }
-        }
         return (
             <div>
                 <PageWrapper> 
                     <div className={this.handleCompletedDisplay()}>
-                        <div className={`static-modal ${this.handleModalDisplay()}`}>
+                        <div className={`static-modal ${this.handleStoryStartDisplay()}`}>
+                                <Modal.Dialog>
+                                    <Modal.Header>
+                                        <Modal.Title> Our Story Begins...</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+
+                                        <div>{this.state.enemy.name}</div>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button onClick={this.changeIntroDisplay}>Close</Button>
+                                    </Modal.Footer>
+                                </Modal.Dialog>
+                            </div>
+                        <div className={`static-modal primary-modal ${this.handleModalDisplay()}`}>
                             <Modal.Dialog>
                                 <Modal.Header>
                                     <Modal.Title>{this.state.page.number}</Modal.Title>
