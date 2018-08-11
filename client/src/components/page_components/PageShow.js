@@ -21,8 +21,12 @@ import MaleDrHat from '../konva_shapes/sub_char_shapes/MaleDrHat'
 import MrsHead from '../konva_shapes/sub_char_shapes/MrsHead'
 import MrsHat from '../konva_shapes/sub_char_shapes/MrsHat'
 import YoungMaleHead from '../konva_shapes/sub_char_shapes/YoungMaleHead'
+import MaleBody from '../konva_shapes/sub_char_shapes/MaleBody'
+import FemaleBody from '../konva_shapes/sub_char_shapes/FemaleBody'
+import MaleDrBody from '../konva_shapes/sub_char_shapes/MaleDrBody'
 import { Stage, Layer, Group } from "react-konva";
 import { Modal, Button } from 'react-bootstrap'
+import FemaleDrBody from '../konva_shapes/sub_char_shapes/FemaleDrBody';
 
 const PageWrapper = styled.div`
     margin: 5vw;
