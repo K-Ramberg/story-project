@@ -3,18 +3,10 @@ import Konva from "konva";
 import { Shape, Group } from "react-konva";
 
  export default class MaleDrHat extends React.Component {
-    state = {
-      color: Konva.Util.getRandomColor()
-    };
-    handleClick = () => {
-      this.setState({
-        color: Konva.Util.getRandomColor()
-      });
-    };
     render() {
       return (
         <Group
-          x={220}
+          x={380}
           y={20}
         >
         <Shape
@@ -31,7 +23,6 @@ import { Shape, Group } from "react-konva";
             }}
           fill="white"
           shadowBlur={2}
-          onClick={this.handleClick}
           />
             <Shape
               sceneFunc={(context, shape) => {
@@ -53,7 +44,6 @@ import { Shape, Group } from "react-konva";
               }}
               fill="red"
               shadowBlur={2}
-              onClick={this.handleClick}
             />
         </Group>
       );

@@ -14,7 +14,7 @@ import { Shape, Group } from "react-konva";
     render() {
       return (
         <Group
-          x={220}
+          x={380}
           y={20}
         >
         <Shape

@@ -27,6 +27,10 @@ import MaleDrBody from '../konva_shapes/sub_char_shapes/MaleDrBody'
 import { Stage, Layer, Group } from "react-konva";
 import { Modal, Button } from 'react-bootstrap'
 import FemaleDrBody from '../konva_shapes/sub_char_shapes/FemaleDrBody';
+import CabinDoor from '../konva_shapes/sub_char_shapes/scenario_shapes/CabinDoor'
+import CastleDoor from '../konva_shapes/sub_char_shapes/scenario_shapes/CastleDoor'
+import Muffins from '../konva_shapes/sub_char_shapes/scenario_shapes/Muffins'
+import Pies from '../konva_shapes/sub_char_shapes/scenario_shapes/Muffins'
 
 const PageWrapper = styled.div`
     margin: 5vw;
@@ -218,7 +222,7 @@ export default class PageShow extends Component {
             introDisplay: false
         })
     }
-
+    
     render() {
 
         const modalIntro = (pageNumber) => {
@@ -361,6 +365,22 @@ export default class PageShow extends Component {
             }
         }
 
+        const introDoorMatch = (scenario) => {
+            if(scenario === "forest"){
+                return (<CabinDoor/>)
+            } else if(scenario === "castle"){
+                return (<CastleDoor/>)
+            }
+        }
+
+        const introFoodMatch = (scenario) => {
+            if(scenario === "forest"){
+                return (<Muffins/>)
+            } else if(scenario === "castle"){
+                return (<Pies/>)
+            }
+        }
+
         const occupationResponse = (occupation) => {
             if(this.state.storyScenario === "forest"){
                 if(occupation === "Princess"){
@@ -398,9 +418,14 @@ export default class PageShow extends Component {
                                         One day, when {characterDisplay(this.state.characterInUse)} was walking 
                                         {introTitleMatch(this.state.storyScenario)} "{occupationResponse(this.state.characterInUse.occupation)}
                                         {this.state.enemy.name}"
-                                        <Stage width={window.innerWidth} height={290}>
+                                        <Stage width={window.innerWidth} height={450}>
                                             <Layer>
+                                                {introDoorMatch(this.state.storyScenario)}
                                                 {enemyDisplay(this.state.enemy)}
+                                                {introFoodMatch(this.state.storyScenario)}
+                                                {selectedCharacterBodyDisplay(this.state.characterInUse)}
+                                {selectedCharacterHeadDisplay(this.state.characterInUse)}
+                                {selectedCharacterLegDisplay(this.state.characterInUse)}
                                             </Layer>
                                         </Stage>
                                         

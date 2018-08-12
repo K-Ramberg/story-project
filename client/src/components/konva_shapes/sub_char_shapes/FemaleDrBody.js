@@ -5,8 +5,7 @@ import { Shape, Group } from "react-konva";
     render() {
       return (
         <Group
-          draggable={true}
-          x={220}
+          x={380}
           y={20}
         >
           <Shape

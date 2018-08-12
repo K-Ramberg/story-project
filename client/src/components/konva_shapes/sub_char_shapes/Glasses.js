@@ -3,18 +3,10 @@ import Konva from "konva";
 import { Shape, Group } from "react-konva";
 
  export default class Glasses extends React.Component {
-    state = {
-      color: Konva.Util.getRandomColor()
-    };
-    handleClick = () => {
-      this.setState({
-        color: Konva.Util.getRandomColor()
-      });
-    };
     render() {
       return (
         <Group
-          x={220}
+          x={380}
           y={20}
         >
         <Shape

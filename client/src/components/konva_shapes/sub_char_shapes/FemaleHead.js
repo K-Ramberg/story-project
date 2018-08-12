@@ -6,15 +6,10 @@ import { Shape, Group, Circle } from "react-konva";
     state = {
       color: Konva.Util.getRandomColor()
     };
-    handleClick = () => {
-      this.setState({
-        color: Konva.Util.getRandomColor()
-      });
-    };
     render() {
       return (
         <Group
-          x={220}
+          x={380}
           y={20}
         >
         <Shape
