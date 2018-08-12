@@ -1,5 +1,5 @@
-import React, { Component } from '../../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react'
-import { Link } from '../../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react-router-dom'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios';
 import MathJax from 'react-mathjax-preview'
 import styled from 'styled-components'
