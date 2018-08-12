@@ -1,8 +1,8 @@
-import React from "../../../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react";
+import React from "../../../../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react";
 import Konva from "konva";
-import { Shape, Group, Circle } from "react-konva";
+import { Shape, Group } from "react-konva";
 
- export default class YoungMaleHead extends React.Component {
+ export default class Pies extends React.Component {
     state = {
       color: Konva.Util.getRandomColor()
     };
@@ -17,77 +17,79 @@ import { Shape, Group, Circle } from "react-konva";
           x={220}
           y={20}
         >
-        <Circle
-              height={60}
-              fill={this.state.color}
-              x={35}
-              y={48}
-              shadowBlur={4}
-            />
-            <Shape
+        <Shape
               sceneFunc={(context, shape) => {
                 context.beginPath();
-                context.moveTo(13, 30);
-                context.quadraticCurveTo(4, 20, 5, 50)
-                context.closePath();
-                context.fillStrokeShape(shape);
-              }}
-              fill="#443011"
-              shadowBlur={4}
-            />
-            <Shape
-              sceneFunc={(context, shape) => {
-                context.beginPath();
-                context.moveTo(57, 30);
-                context.quadraticCurveTo(67, 20, 65, 50)
-                context.closePath();
-                context.fillStrokeShape(shape);
-              }}
-              fill="#443011"
-              shadowBlur={2}
-            />
-            <Shape
-              sceneFunc={(context, shape) => {
-                context.beginPath();
-                context.moveTo(8, 30);
-                context.quadraticCurveTo(25, -10, 65, 28)
-                context.closePath();
-                context.fillStrokeShape(shape);
-              }}
-              fill="#443011"
-              shadowBlur={2}
-            />
-            <Shape
-              sceneFunc={(context, shape) => {
-                context.beginPath();
-                context.moveTo(20, 45);
-                context.quadraticCurveTo(25, 27, 35, 45)
-                context.fillStrokeShape(shape);
-              }}
-              shadowBlur={2}
-              fill="Beige"
-            />
-            <Shape
-              sceneFunc={(context, shape) => {
-                context.beginPath();
-                context.moveTo(40, 45);
-                context.quadraticCurveTo(50, 27, 55, 45)
-                context.fillStrokeShape(shape);
-              }}
-              shadowBlur={2}
-              fill="Beige"
-            />
-            <Shape
-              sceneFunc={(context, shape) => {
-                context.beginPath();
-                context.moveTo(30, 63);
-                context.lineTo(36, 67);
-                context.lineTo(45, 63);
+                context.moveTo(-25, 150);
+                context.lineTo(10, 150);
+                context.lineTo(20, 140)
+                context.lineTo(-35, 140)
                 context.closePath();
                 context.fillStrokeShape(shape);
               }}
               shadowBlur={2}
-              fill="black"
+              fill="Silver"
+            />
+            <Shape
+              sceneFunc={(context, shape) => {
+                context.beginPath();
+                context.moveTo(60, 150);
+                context.lineTo(95, 150);
+                context.lineTo(105, 140)
+                context.lineTo(50, 140)
+                context.closePath();
+                context.fillStrokeShape(shape);
+              }}
+              shadowBlur={2}
+              fill="Silver"
+            />
+            <Shape
+              sceneFunc={(context, shape) => {
+                context.beginPath();
+                context.moveTo(-35, 140);
+                context.quadraticCurveTo(-5, 120, 20, 140);
+                context.closePath();
+                context.fillStrokeShape(shape);
+              }}
+              shadowBlur={2}
+              fill="#F5CE7E"
+            />
+            <Shape
+              sceneFunc={(context, shape) => {
+                context.beginPath();
+                context.moveTo(-35, 140);
+                context.lineTo(20, 140);
+                context.lineTo(22, 138)
+                context.lineTo(-37, 138)
+                context.closePath();
+                context.fillStrokeShape(shape);
+              }}
+              shadowBlur={2}
+              fill="#F5CE7E"
+            />
+            <Shape
+              sceneFunc={(context, shape) => {
+                context.beginPath();
+                context.moveTo(50, 140);
+                context.quadraticCurveTo(80, 120, 105, 140);
+                context.closePath();
+                context.fillStrokeShape(shape);
+              }}
+              shadowBlur={2}
+              fill="#F5CE7E"
+            />
+            <Shape
+              sceneFunc={(context, shape) => {
+                context.beginPath();
+                context.moveTo(50, 140);
+                context.lineTo(105, 140);
+                context.lineTo(107, 138)
+                context.lineTo(48, 138)
+                context.closePath();
+                context.fillStrokeShape(shape);
+              }}
+              shadowBlur={2}
+              fill="#F5CE7E"
             />
         </Group>
       );

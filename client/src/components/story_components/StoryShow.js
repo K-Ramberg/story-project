@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import _ from 'lodash'
+import React, { Component } from '../../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react'
+import _ from '../../../../../../../Library/Caches/typescript/2.9/node_modules/@types/lodash'
 import axios from 'axios'
 import { EnemyGenerate, FriendGenerate, ThemeGenerate } from './SubCharacterGenerate';
-import { Link } from 'react-router-dom'
+import { Link } from '../../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react-router-dom'
 import { Carousel } from 'react-bootstrap'
 import styled from 'styled-components'
 import PrincessHead from '../konva_shapes/character_shapes/PrincessHead';

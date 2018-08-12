@@ -1,4 +1,4 @@
-import React from "react";
+import React from "../../../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react";
 import { Shape, Group } from "react-konva";
 
  export default class MaleBody extends React.Component {

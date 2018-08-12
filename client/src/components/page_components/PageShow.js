@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from '../../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react'
+import { Link } from '../../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react-router-dom'
 import axios from 'axios';
 import MathJax from 'react-mathjax-preview'
 import styled from 'styled-components'
@@ -109,8 +109,8 @@ export default class PageShow extends Component {
         storyScenario: ''
     }
 
-    componentDidMount() {
-        this.fetchPageInfo()
+    componentDidMount = async () => {
+       await this.fetchPageInfo()
     }
 
     fetchPageInfo = async () => {
@@ -121,6 +121,7 @@ export default class PageShow extends Component {
             const useEnemy = await this.props.location.state.newState.enemy
             const useFriend = await this.props.location.state.newState.friend
             const story =  await this.props.location.state.newState.story
+            const scenario =  await this.setScenario(story.title)
             this.setState({
                 storyTitle: story.title,
                 characterInUse: useCharacter,
@@ -131,10 +132,19 @@ export default class PageShow extends Component {
                 mathLy: pageInfo.data.question,
                 answerChances: [],
                 modalDisplay: false,
-                introDisplay: true
+                introDisplay: true,
+                storyScenario: scenario
             })
         } catch (err) {
             console.error(err)
+        }
+    }
+
+    setScenario = (title) => {
+        if(title.includes("forest")){
+            return "forest"
+        } else if(title.includes("castle")){
+            return "castle"
         }
     }
 
@@ -343,17 +353,11 @@ export default class PageShow extends Component {
             }
         }
 
-        const introTitleMatch = (title) => {
-            if(title.includes("forest")){
-                return " near the Mathland forest, they sudenly came upon a cabin, from which someone burst through the door, brigning with them a wonderfully savory smell!"
-                this.setState({
-                    storyScenario: "forest"
-                })
-            } else if(title.includes("castle")){
-                return  " about Mathland castle, they were passing the kitchen when the door burst open!"
-                this.setState({
-                    storyScenario: "castle"
-                })
+        const introTitleMatch = (scenario) => {
+            if(scenario === "forest"){
+                return " down a path in the Mathland forest, there appeared a cabin, from which someone burst through the door, brigning with them a wonderfully savory smell! "
+            } else if(scenario === "castle"){
+                return  " about Mathland Castle and nearing the castle's kitchen, the doors suddenly burst open with a sweet aroma! "
             }
         }
 
@@ -363,10 +367,10 @@ export default class PageShow extends Component {
                     return "Hello M'Lady! We NEVER get royalty out here, what brings your highness to this neck of the woods? allow me to introduce myself, I am "
                 }
                 if(occupation === "Wizard"){
-                    return "Good day Wizard! What brings you around to this cabin? Have you also come for the delicious home-baked rolls? I did too. My name is "
+                    return "Good day Wizard! What brings you around to this cabin? Have you come for the delicious home-baked muffins? I did too. My name is "
                 }
                 if(occupation === "Dinosaur"){
-                    return "WHOA! I didn't expect to see walking-talking DINOSAUR today. Did you smell the delicious rolls and come running? i was just stopping by. My name is "
+                    return "WHOA! I didn't expect to see walking-talking DINOSAUR today. Did you smell the delicious muffins and come running? I was just stopping by. My name is "
                 }
             } else if(this.state.storyScenario === "castle"){
                 if(occupation === "Princess"){
@@ -376,7 +380,7 @@ export default class PageShow extends Component {
                     return "Good day Wizard! Stopping by the kitchen? They just finished with a round of pies, but I'm sure you knew that. I'm sure you also remember that I am "
                 }
                 if(occupation === "Dinosaur"){
-                    return "WOW! You must be that castle dinosaur everyone talks about. I bet you smelled the pie didn't you? My friends in teh village won't beleive this! By the way, I am "
+                    return "WOW! You must be that castle dinosaur everyone talks about. I bet you smelled the pie didn't you? My friends in the village won't beleive this! By the way, I am "
                 }
             }
         }
@@ -392,8 +396,14 @@ export default class PageShow extends Component {
                                     </Modal.Header>
                                     <Modal.Body>
                                         One day, when {characterDisplay(this.state.characterInUse)} was walking 
-                                        {introTitleMatch(this.state.storyTitle)} 
-                                        <p>{this.state.enemy.name}</p>
+                                        {introTitleMatch(this.state.storyScenario)} "{occupationResponse(this.state.characterInUse.occupation)}
+                                        {this.state.enemy.name}"
+                                        <Stage width={window.innerWidth} height={290}>
+                                            <Layer>
+                                                {enemyDisplay(this.state.enemy)}
+                                            </Layer>
+                                        </Stage>
+                                        
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <Button onClick={this.changeIntroDisplay}>Close</Button>
