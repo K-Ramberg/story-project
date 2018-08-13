@@ -476,10 +476,35 @@ export default class PageShow extends Component {
                     return "Ah yes, I remember everyone from the village, and I never miss an opportunity to indulge myself on pie days."
                 }
                 if(occupation === "Dinosaur"){
-                    return "RAAAAAAAAWR!"
+                    return "RAAAAAAAWR!"
                 }
             } 
         }
+
+        const characterConfirm = (occupation) => {
+            if(this.state.storyScenario === "forest"){
+                if(occupation === "Princess"){
+                    return "Of course! My stomach won't let me say no!"
+                }
+                if(occupation === "Wizard"){
+                    return "Absolutely! I cannot end this trip empty handed!"
+                }
+                if(occupation === "Dinosaur"){
+                    return "RAAAAAAAWR!"
+                }
+            } else if(this.state.storyScenario === "castle"){
+                if(occupation === "Princess"){
+                    return "I could never say no to a chance for Mathland pie!"
+                }
+                if(occupation === "Wizard"){
+                    return "Yes, Yes! I would wish for nothing more!"
+                }
+                if(occupation === "Dinosaur"){
+                    return "RAAAAAAAWR!"
+                }
+            } 
+        }
+        
 
         return (
             <div>
@@ -494,7 +519,7 @@ export default class PageShow extends Component {
                                         One day, when {characterDisplay(this.state.characterInUse)} was walking 
                                         {introTitleMatch(this.state.storyScenario)} "{occupationResponse(this.state.characterInUse.occupation)}
                                         {this.state.enemy.name}. {enemyPurposeIntro(this.state.enemy)}"
-                                        <Stage width={window.innerWidth} height={450}>
+                                        <Stage width={window.innerWidth} height={290}>
                                             <Layer>
                                                 {introDoorMatch(this.state.storyScenario)}
                                                 {enemyDisplay(this.state.enemy)}
@@ -504,10 +529,13 @@ export default class PageShow extends Component {
                                                 {selectedCharacterLegDisplay(this.state.characterInUse)}
                                             </Layer>
                                         </Stage>
-                                        {characterResponse(this.state.characterInUse.occupation)}
+                                        "{characterResponse(this.state.characterInUse.occupation)}" replied the {this.state.characterInUse.occupation}.
+                                        <div>"Oh but I'm so sorry! These were the last ones," said {this.state.enemy.name} "However, as is customary in Mathland, I would be surely obliged to share some with you if you can answer me a few questions a true Mathlandian such as yourself should know! Are you and your stomach up for it?"</div>
+                                        <div>"{characterConfirm(this.state.characterInUse.occupation)}" {this.state.characterInUse.name} responded.</div>
+                                        <div>"Very well! Let's get started!</div>
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <Button onClick={this.changeIntroDisplay}>Close</Button>
+                                        <Button onClick={this.changeIntroDisplay}>Let's Go!</Button>
                                     </Modal.Footer>
                                 </Modal.Dialog>
                             </div>
