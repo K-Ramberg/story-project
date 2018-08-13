@@ -21,7 +21,8 @@ const StoryWrapper = styled.div`
     color: rgb(30,30,30);
     h2 {
         color: rgb(240,130,130);
-        margin-bottom: 2vh;
+        margin-bottom: 5vh;
+        text-align: center;
     }
     div {
         font-size: 1.5rem;
@@ -32,7 +33,8 @@ const StoryWrapper = styled.div`
         color: rgb(100,100,250);
     }
     a{
-        margin-top: 3vh;
+        margin-top: -3vh;
+        margin-bottom: 3vh;
         display: block;
         font-size: 2rem;
       h4{ display:none;} 
@@ -45,7 +47,12 @@ const StoryWrapper = styled.div`
         }
     }
     button {
-        margin: 1vh auto;
+        margin-top: 1vh;
+        margin-left: 25vw; 
+        text-align: center;
+        @media(min-width:745px){
+            margin-left: 205px;
+        }
     }
     .page-ready {
         background-color: rgb(218, 247, 166);
@@ -63,16 +70,17 @@ const StoryWrapper = styled.div`
 
 const CarouselWrapper1 = styled.div`
     .carousel-inner {
+        margin-top: 3vh;
         height: 55px;
         text-align:center;
         div {
             margin-top: 3vh;
             font-size: 2rem;
         }
-        margin-bottom: 2vh;
+        margin-bottom: 4vh;
     }
     .carousel-control{
-        max-height: 50px;
+        height: 70px;
         margin-top: 0;
     }
     .carousel-indicators{
@@ -85,13 +93,14 @@ const CarouselWrapper2 = styled.div`
         height: 359px;
         text-align:center;
         div {
-            margin-top: 3vh;
+            margin-top: 2vh;
             font-size: 2rem;
         }
         margin-bottom: 2vh;
     }
     .carousel-control{
-        max-height: 359px;
+        margin-top: 2vh;
+        height: 359px;
     }
     .carousel-indicators{
         display: none;
@@ -292,6 +301,7 @@ export default class StoryShow extends Component {
 
         return (
             <StoryWrapper>
+                <Link to={`/users/${this.props.match.params.user_id}/stories`}> Return to stories <h4>></h4></Link>
                 <h2>{this.state.story.title}</h2>
                 <div className="difficulty" >Select the Story Difficulty</div>
                 <CarouselWrapper1>
@@ -323,7 +333,6 @@ export default class StoryShow extends Component {
                 </CarouselWrapper2>        
                 <button onClick={this.handleStoryStart}>{startOrContinue()}</button>
                 <div>{pageMap}</div>
-                <Link to={`/users/${this.props.match.params.user_id}/stories`}> Go back to stories <h4>></h4></Link>
             </StoryWrapper>
         )
     }
