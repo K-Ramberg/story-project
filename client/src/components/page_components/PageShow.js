@@ -566,7 +566,7 @@ export default class PageShow extends Component {
             <div>
                 <PageWrapper> 
                     <div className={this.handleCompletedDisplay()}>
-                        {/* <div className={`static-modal ${this.handleStoryStartDisplay()}`}>
+                        <div className={`static-modal ${this.handleStoryStartDisplay()}`}>
                                 <Modal.Dialog>
                                     <Modal.Header>
                                         <Modal.Title> Our Story Begins...</Modal.Title>
@@ -594,8 +594,8 @@ export default class PageShow extends Component {
                                         <Button onClick={this.changeIntroDisplay}>Let's Go!</Button>
                                     </Modal.Footer>
                                 </Modal.Dialog>
-                            </div> */}
-                        {/* <div className={`static-modal primary-modal ${this.handleModalDisplay()}`}>
+                            </div>
+                        <div className={`static-modal primary-modal ${this.handleModalDisplay()}`}>
                             <Modal.Dialog>
                                 <Modal.Header>
                                     <Modal.Title> Page {this.state.page.number}</Modal.Title>
@@ -615,7 +615,7 @@ export default class PageShow extends Component {
                                     <Button onClick={this.changeModalDisplay}>Close</Button>
                                 </Modal.Footer>
                             </Modal.Dialog>
-                        </div> */}
+                        </div>
                         <h2>Page {this.state.page.number}</h2>
                         {questionDisplay()}
                         <div>Demo que(the answer is option {this.state.mathLy.correct_choice + 1})</div>
