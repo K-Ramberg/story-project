@@ -2,7 +2,7 @@ import React from "react";
 import Konva from "konva";
 import { Shape, Group, Circle } from "react-konva";
 
- export default class PrincessHead extends React.Component {
+ export default class GameLossPrincess extends React.Component {
     state = {
       color: Konva.Util.getRandomColor()
     };
@@ -13,7 +13,7 @@ import { Shape, Group, Circle } from "react-konva";
           x={220}
           y={20}
         >
-        <Shape
+       <Shape
               sceneFunc={(context, shape) => {
                 context.beginPath();
                 context.moveTo(50, 30);
@@ -24,7 +24,7 @@ import { Shape, Group, Circle } from "react-konva";
               }}
               fill="pink"
             />
-        <Circle
+            <Circle
               height={60}
               fill={this.state.color}
               x={35}
@@ -34,8 +34,8 @@ import { Shape, Group, Circle } from "react-konva";
             <Shape
               sceneFunc={(context, shape) => {
                 context.beginPath();
-                context.moveTo(20, 45);
-                context.quadraticCurveTo(30, 25, 35, 45)
+                context.moveTo(20, 50);
+                context.quadraticCurveTo(30, 25, 35, 50)
                 context.fillStrokeShape(shape);
               }}
               shadowBlur={2}
@@ -52,28 +52,28 @@ import { Shape, Group, Circle } from "react-konva";
               fill="pink"
               shadowBlur={1}
             />
-        <Shape
-            sceneFunc={(context, shape) => {
-              context.beginPath();
-              context.moveTo(0,10);
-              context.lineTo(10, 30);
-              context.lineTo(60, 30);
-              context.lineTo(70, 10);
-              context.lineTo(50, 20);
-              context.lineTo(35, 0);
-              context.lineTo(25, 20);
-              context.closePath();
-              context.fillStrokeShape(shape);
-            }}
-          fill="Gold"
-          shadowBlur={2}
-          onClick={this.handleClick}
-          />
             <Shape
               sceneFunc={(context, shape) => {
                 context.beginPath();
-                context.moveTo(40, 45);
-                context.quadraticCurveTo(50, 25, 55, 45)
+                context.moveTo(0, 10);
+                context.lineTo(10, 30);
+                context.lineTo(60, 30);
+                context.lineTo(70, 10);
+                context.lineTo(50, 20);
+                context.lineTo(35, 0);
+                context.lineTo(25, 20);
+                context.closePath();
+                context.fillStrokeShape(shape);
+              }}
+              fill="Gold"
+              shadowBlur={2}
+              onClick={this.handleClick}
+            />
+            <Shape
+              sceneFunc={(context, shape) => {
+                context.beginPath();
+                context.moveTo(40, 50);
+                context.quadraticCurveTo(50, 25, 55, 50)
                 context.fillStrokeShape(shape);
               }}
               shadowBlur={2}
@@ -82,9 +82,9 @@ import { Shape, Group, Circle } from "react-konva";
             <Shape
               sceneFunc={(context, shape) => {
                 context.beginPath();
-                context.moveTo(25, 58);
-                context.lineTo(50, 58);
-                context.quadraticCurveTo(30, 80, 25, 58)
+                context.moveTo(25, 68);
+                context.lineTo(50, 68);
+                context.quadraticCurveTo(40, 58, 25, 68)
                 context.closePath();
                 context.fillStrokeShape(shape);
               }}

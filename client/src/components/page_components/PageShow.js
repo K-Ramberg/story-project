@@ -193,7 +193,7 @@ export default class PageShow extends Component {
 
     handleEndStory = async () => {
         await axios.delete(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`)
-        await this.props.history.push(`/users/${this.props.match.params.user_id}/stories/oops`)
+        await this.props.history.push({ pathname: `/users/${this.props.match.params.user_id}/stories/oops`, state: { newState: this.state } })
     }
 
     handleQuestionAnswer = (index) => {
@@ -250,16 +250,27 @@ export default class PageShow extends Component {
     
     render() {
 
-        const modalIntro = (pageNumber) => {
+        const modalFoodQuestion3 = (scenario) => {
+            if(scenario === "forest"){
+                return " one of my muffins! "   
+            } else if(scenario === "castle"){
+                return " a slice of pie! "
+            }
+        }
+
+        const modalIntro = (pageNumber, scenario) => {
             switch(pageNumber){
                 case 1:
                     return `OK Let's get started. For your first question, ${this.state.characterInUse.name} ...`
                 break;
+                case 2:
+                    return `Wow, not bad for your first try. Let's see how you do with another one, ${this.state.characterInUse.occupation} ...`
+                break;
                 default:
-                    return ("Keep Going")
+                    return `Fantastic! That deserves ${modalFoodQuestion3(scenario)} Now if you want more I have a few questions left!`
                 break;
                 case this.state.pages.length:
-                    return ("Welcome to the last page")
+                    return "Great! Now, I only have one question left, and you can have even more!"
                 break;
             }
         }
@@ -605,7 +616,7 @@ export default class PageShow extends Component {
                                     <Modal.Title> Page {this.state.page.number}</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
-                                    {modalIntro(this.state.page.number)} 
+                                    {modalIntro(this.state.page.number, this.state.storyScenario)} 
                                     <Stage width={400} offsetX={200} height={290}>
                                         <Layer>
                                             {enemyDisplay(this.state.enemy)}
@@ -616,7 +627,7 @@ export default class PageShow extends Component {
                                     {modalQuestion()}
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <Button onClick={this.changeModalDisplay}>Close</Button>
+                                    <Button onClick={this.changeModalDisplay}>Answer</Button>
                                 </Modal.Footer>
                             </Modal.Dialog>
                         </div>
