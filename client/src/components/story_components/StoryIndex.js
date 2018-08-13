@@ -105,8 +105,8 @@ export default class StoryIndex extends Component {
       <StorySort>
         <button onClick={this.buildNewStory}>Add new story</button>
         {storyMap}
-        <CompletionMeter>{this.state.user.name} has finished {this.state.user.stories_completed} {storyPlace()}</CompletionMeter>
-        <button onClick={this.handleGoBack}>Back to Characters</button>
+        <CompletionMeter>{this.state.user.name}User  has finished {this.state.user.stories_completed} {storyPlace()}</CompletionMeter>
+        <button onClick={this.handleGoBack}>Back to Demo Start</button>
       </StorySort>
     )
   }

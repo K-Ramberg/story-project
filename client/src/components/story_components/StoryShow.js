@@ -72,7 +72,8 @@ const CarouselWrapper1 = styled.div`
         margin-bottom: 2vh;
     }
     .carousel-control{
-        max-height: 55px;
+        max-height: 50px;
+        margin-top: 0;
     }
     .carousel-indicators{
         display: none;

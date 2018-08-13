@@ -44,7 +44,7 @@ export default class HomePage extends Component {
 
     const userMap = this.state.users.map((user) => {
         return(
-            <Link key={user.id} to={`/users/${user.id}`}>{user.name} <h4>></h4></Link>
+            <Link key={user.id} to={`/users/${user.id}`}>{user.name} Start <h4>></h4></Link>
         )
     })
 

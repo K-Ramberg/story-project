@@ -64,7 +64,7 @@ export default class CharacterShow extends Component {
 
     characterDelete = async (id) => {
         await axios.delete(`/api/users/${this.props.match.params.user_id}/characters/${id}`)
-        this.props.history.push(`/users/${this.props.match.params.user_id}`)
+        this.props.history.push(`/users/${this.props.match.params.user_id}/characters`)
     }
 
     render() {
@@ -119,7 +119,7 @@ export default class CharacterShow extends Component {
                 </Stage>
                 <Navigations>
                     <Link to={`/users/${this.props.match.params.user_id}/characters/${this.state.character.id}/edit`}>Change up {this.state.character.name} <h4>></h4></Link>
-                    <Link to={`/users/${this.props.match.params.user_id}`}>Go back to your characters <h4>></h4></Link>
+                    <Link to={`/users/${this.props.match.params.user_id}/characters`}>Go back to your characters <h4>></h4></Link>
                     <div><button onClick={() => this.characterDelete(this.state.character.id)}>Remove character</button></div>
                 </Navigations>
             </Welcome>
