@@ -90,10 +90,14 @@ const PageWrapper = styled.div`
     }
     .answer {
         margin: 1.5vh;
-        padding: 0.5vh;
+        padding-bottom: 1.5vh;
+        height: 15vh;
         background-color: #AEFF86;
         width: 10vw;
         border-radius: 10%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; 
     }
     .answer:hover {
         background-color: #86FFDC;
