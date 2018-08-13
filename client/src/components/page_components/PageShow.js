@@ -186,7 +186,7 @@ export default class PageShow extends Component {
             if (this.state.page.number < this.state.pages.length) {
                 await this.handleRedirect()
             } else {
-                await this.props.history.push({ pathname: `/users/${this.props.match.params.user_id}/stories/finished`, state: { story: this.props.match.params.story_id } })
+                await this.props.history.push({ pathname: `/users/${this.props.match.params.user_id}/stories/finished`, state: { newState: this.state, story: this.props.match.params.story_id } })
             }
         }
     }

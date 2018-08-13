@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import GameLossPrincess from '../konva_shapes/character_shapes/GameLossPrincess'
 import GameLossWizard from '../konva_shapes/character_shapes/GameLossWizard'
-import DinoHead from '../konva_shapes/character_shapes/DinoHead'
 import PrincessBody from '../konva_shapes/character_shapes/PrincessBody'
 import WizardBody from '../konva_shapes/character_shapes/WizardBody'
 import PrincessLegs from '../konva_shapes/character_shapes/PrincessLegs'
@@ -55,9 +54,6 @@ export default class StoryOverFail extends Component {
     friend: {},
     enemy: {
         name: ''
-    },
-    mathLy: {
-        choices: []
     }
 }
 
@@ -112,13 +108,14 @@ fetchPageInfo = async () => {
     return (
       <StoryWrapper>
         <h1>Out of chances, Sorry!</h1>
-                        <Stage width={window.innerWidth} height={290}>
-                            <Layer>
-                                {selectedCharacterBodyDisplay(this.state.characterInUse)}
-                                {selectedCharacterHeadDisplay(this.state.characterInUse)}
-                                {selectedCharacterLegDisplay(this.state.characterInUse)}
-                            </Layer>
-                        </Stage>
+            <Stage width={window.innerWidth} height={290}>
+                <Layer>
+                    {selectedCharacterBodyDisplay(this.state.characterInUse)}
+                    {selectedCharacterHeadDisplay(this.state.characterInUse)}
+                    {selectedCharacterLegDisplay(this.state.characterInUse)}
+                </Layer>
+            </Stage>
+        <h1>There will be no snacks today for {this.state.characterInUse.name}</h1>                
         <Link to={`/users/${this.props.match.params.user_id}/stories`}>Back to Stories <h4>></h4></Link>
       </StoryWrapper>
     )
