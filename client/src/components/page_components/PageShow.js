@@ -31,6 +31,8 @@ import CabinDoor from '../konva_shapes/sub_char_shapes/scenario_shapes/CabinDoor
 import CastleDoor from '../konva_shapes/sub_char_shapes/scenario_shapes/CastleDoor'
 import Muffins from '../konva_shapes/sub_char_shapes/scenario_shapes/Muffins'
 import Pies from '../konva_shapes/sub_char_shapes/scenario_shapes/Pies'
+import SlicedPie from '../konva_shapes/sub_char_shapes/scenario_shapes/SlicedPie'
+import EatenMuffins from '../konva_shapes/sub_char_shapes/scenario_shapes/EatenMuffins'
 
 const PageWrapper = styled.div`
     margin: 5vw;
@@ -74,10 +76,27 @@ const PageWrapper = styled.div`
         height: 90vh;
     }
     .modal-content {
-        height: 95vh;
+        height: 93vh;
     }
     .modal-body {
         height: 75vh;
+    }
+    .question-wrapper {
+        text-align: center;
+    }
+    .answer-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+    .answer {
+        margin: 1.5vh;
+        padding: 0.5vh;
+        background-color: #AEFF86;
+        width: 10vw;
+        border-radius: 10%;
+    }
+    .answer:hover {
+        background-color: #86FFDC;
     }
    `
 
@@ -96,6 +115,7 @@ const CompletedWrapper = styled.div`
 export default class PageShow extends Component {
 
     state = {
+        story: {},
         storyTitle: '',
         characterInUse: {},
         friend: {},
@@ -127,6 +147,7 @@ export default class PageShow extends Component {
             const story =  await this.props.location.state.newState.story
             const scenario =  await this.setScenario(story.title)
             this.setState({
+                story: story,
                 storyTitle: story.title,
                 characterInUse: useCharacter,
                 enemy: useEnemy,
@@ -228,7 +249,7 @@ export default class PageShow extends Component {
         const modalIntro = (pageNumber) => {
             switch(pageNumber){
                 case 1:
-                    return ("Welcome to page 1")
+                    return `OK Let's get started. For your first question, ${this.state.characterInUse.name} ...`
                 break;
                 default:
                     return ("Keep Going")
@@ -254,14 +275,22 @@ export default class PageShow extends Component {
 
         const answerMap = this.state.mathLy.choices.map((choice, i) => {
             return (
-                <div key={i} onClick={() => this.handleQuestionAnswer(i)}>{i + 1}. <MathJax math={choice} /></div>
+                <div className="answer" key={i} onClick={() => this.handleQuestionAnswer(i)}><h5>Option {i + 1}.</h5><MathJax math={choice} /></div>
             )
         })
 
         const questionDisplay = () => {
+            return (<div className="question-wrapper">
+                <MathJax math={this.state.mathLy.question} />
+                <dir>Choose {this.state.characterInUse.name}'s correct option to {this.state.enemy.name}'s question above</dir>
+                <h5 className="answer-wrapper">{answerMap}</h5>
+            </div>
+            )
+        }
+
+        const modalQuestion = () => {
             return (<div>
-                What is ...<MathJax math={this.state.mathLy.question} />
-                <h5>{answerMap}</h5>
+                <MathJax math={this.state.mathLy.question}/>
             </div>
             )
         }
@@ -504,13 +533,40 @@ export default class PageShow extends Component {
                 }
             } 
         }
-        
+
+        const questionFoodDisplay = (pageNumber, scenario) => {
+            if(scenario === "forest"){
+                switch(pageNumber){
+                    case 1:
+                        return (<Muffins/>)
+                    break;
+                    case 2:
+                        return (<Muffins/>)
+                    break;
+                    default:
+                        return (<EatenMuffins/>)
+                    break;
+                }    
+            } else if(scenario === "castle"){
+                switch(pageNumber){
+                    case 1:
+                        return (<Pies/>)
+                    break;
+                    case 2:
+                        return (<Pies/>)
+                    break;
+                    default:
+                        return (<Group><Pies/><SlicedPie/></Group>)
+                    break;
+                }
+            }
+        }
 
         return (
             <div>
                 <PageWrapper> 
                     <div className={this.handleCompletedDisplay()}>
-                        <div className={`static-modal ${this.handleStoryStartDisplay()}`}>
+                        {/* <div className={`static-modal ${this.handleStoryStartDisplay()}`}>
                                 <Modal.Dialog>
                                     <Modal.Header>
                                         <Modal.Title> Our Story Begins...</Modal.Title>
@@ -532,37 +588,37 @@ export default class PageShow extends Component {
                                         "{characterResponse(this.state.characterInUse.occupation)}" replied the {this.state.characterInUse.occupation}.
                                         <div>"Oh but I'm so sorry! These were the last ones," said {this.state.enemy.name} "However, as is customary in Mathland, I would be surely obliged to share some with you if you can answer me a few questions a true Mathlandian such as yourself should know! Are you and your stomach up for it?"</div>
                                         <div>"{characterConfirm(this.state.characterInUse.occupation)}" {this.state.characterInUse.name} responded.</div>
-                                        <div>"Very well! Let's get started!</div>
+                                        <div>"Very well!"</div>
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <Button onClick={this.changeIntroDisplay}>Let's Go!</Button>
                                     </Modal.Footer>
                                 </Modal.Dialog>
-                            </div>
-                        <div className={`static-modal primary-modal ${this.handleModalDisplay()}`}>
+                            </div> */}
+                        {/* <div className={`static-modal primary-modal ${this.handleModalDisplay()}`}>
                             <Modal.Dialog>
                                 <Modal.Header>
-                                    <Modal.Title>{this.state.page.number}</Modal.Title>
+                                    <Modal.Title> Page {this.state.page.number}</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
                                     {modalIntro(this.state.page.number)} 
-                                    <div>{this.state.enemy.name}</div>
-                                    <Stage width={window.innerWidth} height={290}>
+                                    <Stage width={400} offsetX={200} height={290}>
                                         <Layer>
                                             {enemyDisplay(this.state.enemy)}
+                                            {questionFoodDisplay(this.state.page.number, this.state.storyScenario)}
                                         </Layer>
                                     </Stage>
+                                    <div>What is: </div>
+                                    {modalQuestion()}
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button onClick={this.changeModalDisplay}>Close</Button>
                                 </Modal.Footer>
                             </Modal.Dialog>
-                        </div>
+                        </div> */}
                         <h2>Page {this.state.page.number}</h2>
-                        <h6>{characterDisplay(this.state.characterInUse)}</h6>
-                        <h4>________________________</h4>
                         {questionDisplay()}
-                        <div>Demo que(the answer is {this.state.mathLy.correct_choice + 1})</div>
+                        <div>Demo que(the answer is option {this.state.mathLy.correct_choice + 1})</div>
                         <Stage width={window.innerWidth} height={290}>
                             <Layer>
                                 {selectedCharacterBodyDisplay(this.state.characterInUse)}

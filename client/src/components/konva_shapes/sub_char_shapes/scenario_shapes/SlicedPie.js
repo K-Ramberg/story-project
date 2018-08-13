@@ -2,7 +2,7 @@ import React from "react";
 import Konva from "konva";
 import { Shape, Group } from "react-konva";
 
- export default class SlicedPies extends React.Component {
+ export default class SlicedPie extends React.Component {
     state = {
       color: Konva.Util.getRandomColor()
     };
