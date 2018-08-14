@@ -35,15 +35,24 @@ import SlicedPie from '../konva_shapes/sub_char_shapes/scenario_shapes/SlicedPie
 import EatenMuffins from '../konva_shapes/sub_char_shapes/scenario_shapes/EatenMuffins'
 
 const PageWrapper = styled.div`
-    margin: 5vw;
+    margin-top: -3vh;
+    background-color: #F9E7AE;
+    padding: 5vw;
     color: rgb(30,30,30);
     h2 {
         color: rgb(240,130,130);
         margin-bottom: 2vh;
         font-size: 2rem;
+        margin-top: 0;
     }
     div {
         font-size: 1.5rem;
+        @media(max-width: 620px){
+            font-size: 2vw;
+        }
+        @media(max-width: 580px){
+            font-size: 2.5vw;
+        }
     }
     .difficulty {
         text-align: center;
@@ -54,6 +63,7 @@ const PageWrapper = styled.div`
         .modal{ z-index: 1000;}
     }
     a{
+        width: 20vw;
         margin-top: 3vh;
         display: block;
         font-size: 2rem;
@@ -75,11 +85,41 @@ const PageWrapper = styled.div`
         width: 94vw;
         height: 90vh;
     }
+    .modal-title {
+        font-size: 3vh;
+        @media(min-width: 520px){
+            font-size: 5vh;
+        }
+    }
+    .modal-header{
+        height: 14vh;
+        background-color: rgb(150,220,150);
+        border-radius: 2%;
+        color: rgb(218, 247, 237);
+        font-family: 'Work Sans', sans-serif;
+        box-shadow: 2px 2px 4px 2px rgb(3,3,3);
+        @media(min-width: 692px){
+            height: 11vh;
+        }
+    }
     .modal-content {
-        height: 93vh;
+        background-color: #F9E7AE;
+        height: 100vh;
+        width: 100vw;
+        margin-top: -1vh;
+        margin-left: -2vw;
+        @media(min-width: 692px){
+            margin-top: -5vh;
+            margin-left: -3vw;
+        }
     }
     .modal-body {
         height: 75vh;
+    }
+    .modal-footer{
+        button{
+            background-color: #AEFF86;
+        }
     }
     .question-wrapper {
         text-align: center;
@@ -98,28 +138,21 @@ const PageWrapper = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: space-between; 
+        box-shadow: 2px 2px 2px 2px rgb(3,3,3);
     }
     .answer:hover {
         background-color: #86FFDC;
-    }
-   `
-
-const CompletedWrapper = styled.div`
-    margin: 5vw;
-    color: rgb(30,30,30);
-    h2 {
-        color: rgb(240,130,130);
-        margin-bottom: 2vh;
-    }
-    .incomplete {
-        display: none;
+        box-shadow: 2px 2px 2px 5px rgb(3,3,3);
     }
    `
 
 export default class PageShow extends Component {
 
     state = {
-        story: {},
+        story: {
+            enemy: '',
+            enemy_gender: ''
+        },
         storyTitle: '',
         characterInUse: {},
         friend: {},
@@ -201,7 +234,7 @@ export default class PageShow extends Component {
             this.handleCompletionChange()
         }
         {
-            if (this.state.answerChances.length < 2) {
+            if (this.state.answerChances.length < 1) {
                 this.state.answerChances.push('wrong')
             } else {
                 this.handleEndStory()
@@ -216,12 +249,6 @@ export default class PageShow extends Component {
             state: { newState: this.state }
         })
         this.fetchPageInfo()
-    }
-
-    handleCompletedDisplay = () => {
-        if (this.state.page.completed === true) {
-            return "completed"
-        } else { return "incomplete" }
     }
 
     handleModalDisplay = () => {
@@ -261,7 +288,7 @@ export default class PageShow extends Component {
         const modalIntro = (pageNumber, scenario) => {
             switch(pageNumber){
                 case 1:
-                    return `OK Let's get started. For your first question, ${this.state.characterInUse.name} ...`
+                    return `OK Let's get started. For your first question, ${this.state.characterInUse.occupation} ...`
                 break;
                 case 2:
                     return `Wow, not bad for your first try. Let's see how you do with another one, ${this.state.characterInUse.occupation} ...`
@@ -471,7 +498,7 @@ export default class PageShow extends Component {
                         return " I finished my weekly village checkups nearby, and decided to get these to celebrate a good, healthy day."
                     }       
                 }{
-                    return " I came by to treat myself with some delcious treats after a hard morning of work in my nearby vilalge."
+                    return " I came by to treat myself with some delcious treats after a hard morning of work in my nearby village."
                 }
             }
           } else if(this.state.storyScenario === "castle"){ 
@@ -580,7 +607,7 @@ export default class PageShow extends Component {
         return (
             <div>
                 <PageWrapper> 
-                    <div className={this.handleCompletedDisplay()}>
+                    <div>
                         <div className={`static-modal ${this.handleStoryStartDisplay()}`}>
                                 <Modal.Dialog>
                                     <Modal.Header>
@@ -590,7 +617,7 @@ export default class PageShow extends Component {
                                         One day, when {characterDisplay(this.state.characterInUse)} was walking 
                                         {introTitleMatch(this.state.storyScenario)} "{occupationResponse(this.state.characterInUse.occupation)}
                                         {this.state.enemy.name}. {enemyPurposeIntro(this.state.enemy)}"
-                                        <Stage width={window.innerWidth} height={290}>
+                                        <Stage width={window.innerWidth} offsetX={120} height={290}>
                                             <Layer>
                                                 {introDoorMatch(this.state.storyScenario)}
                                                 {enemyDisplay(this.state.enemy)}
@@ -644,9 +671,6 @@ export default class PageShow extends Component {
                     </div>
                     <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>Turn Back<h4>!</h4></Link>
                 </PageWrapper>
-                <CompletedWrapper>
-                    <h2 className={this.handleCompletedDisplay()}>Page  {this.state.page.number} has already been completed! Please turn back to the story page to continue the story.</h2>
-                </CompletedWrapper>
             </div>
         )
     }

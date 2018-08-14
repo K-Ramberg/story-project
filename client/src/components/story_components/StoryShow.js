@@ -111,7 +111,10 @@ export default class StoryShow extends Component {
     state = {
         characters: [],
         characterInUse: '',
-        story: {},
+        story: {
+            enemy: '',
+            enemy_gender: ''
+        },
         pages: [],
         firstPage: {},
         enemy: {},
@@ -169,6 +172,7 @@ export default class StoryShow extends Component {
         const enemy = await EnemyGenerate()
         const themeResult = await ThemeGenerate()
         await this.handleDifficultyUpdate()
+        await this.handleStoryEnemyUpdate(enemy)
         this.state.pages[0].completed = await true
         this.setState({
             enemy: enemy,
@@ -177,6 +181,18 @@ export default class StoryShow extends Component {
         await this.props.history.push({ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${this.state.firstPage.id}`,
                                     state: { newState: this.state }
                                 })
+    }
+
+    handleStoryEnemyUpdate = async (enemy) => {
+        const name = enemy.name
+        const gender = enemy.gender
+        const newStory = {...this.state.story}
+        newStory.enemy = name
+        newStory.enemy_gender = gender
+        await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}}`, newStory)
+            this.setState({
+                story: newStory
+            })
     }
 
     handleCharacterSelect = (index) => {
