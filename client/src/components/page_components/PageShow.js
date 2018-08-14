@@ -144,6 +144,13 @@ const PageWrapper = styled.div`
         background-color: #86FFDC;
         box-shadow: 2px 2px 2px 5px rgb(3,3,3);
     }
+    .wrong {
+        display: block;
+        color:red;
+    }
+    .un-answered {
+        display: none;
+    }
    `
 
 export default class PageShow extends Component {
@@ -167,8 +174,9 @@ export default class PageShow extends Component {
         answerChances: [],
         modalDisplay: false,
         introDisplay: true,
-        storyScenario: ''
-    }
+        storyScenario: '',
+        wrongChoice: false
+     }
 
     componentDidMount = async () => {
        await this.fetchPageInfo()
@@ -195,7 +203,8 @@ export default class PageShow extends Component {
                 answerChances: [],
                 modalDisplay: false,
                 introDisplay: true,
-                storyScenario: scenario
+                storyScenario: scenario,
+                wrongChoice: false
             })
         } catch (err) {
             console.error(err)
@@ -229,18 +238,26 @@ export default class PageShow extends Component {
         await this.props.history.push({ pathname: `/users/${this.props.match.params.user_id}/stories/oops`, state: { newState: this.state } })
     }
 
-    handleQuestionAnswer = (index) => {
+    handleQuestionAnswer = async (index) => {
         if (index === this.state.mathLy.correct_choice) {
-            this.handleCompletionChange()
+            await this.handleCompletionChange()
         }
-        {
-            if (this.state.answerChances.length < 1) {
-                this.state.answerChances.push('wrong')
-            } else {
-                this.handleEndStory()
+             else  {
+            if (this.state.answerChances.length < 1 ) {
+                await this.state.answerChances.push('wrong')
+                await this.setState({
+                        wrongChoice: true
+                    })
+            } else if(this.state.answerChances.length === 1){
+                await this.handleEndStory()
             }
         }
+    }
 
+    handleIncorrectAnswer = () => {
+        if (this.state.wrongChoice === false) {
+            return "un-answered"
+        } { return "wrong"}
     }
 
     handleRedirect = () => {
@@ -660,6 +677,7 @@ export default class PageShow extends Component {
                         </div>
                         <h2>Page {this.state.page.number}</h2>
                         {questionDisplay()}
+                        <div className={this.handleIncorrectAnswer()}>"Sorry, but that answer was incorrect. You can try one more time"</div>
                         <div>Demo que(the answer is option {this.state.mathLy.correct_choice + 1})</div>
                         <Stage width={window.innerWidth} height={290}>
                             <Layer>
