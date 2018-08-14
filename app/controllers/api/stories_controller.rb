@@ -28,7 +28,7 @@ class Api::StoriesController < ApplicationController
     private
 
     def story_params
-        params.require(:story).permit(:title, :theme, :difficulty)
+        params.require(:story).permit(:title, :theme, :difficulty, :enemy, :enemy_gender, :enemy_prefix)
     end
 
 end

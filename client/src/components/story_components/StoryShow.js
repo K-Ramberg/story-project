@@ -106,7 +106,10 @@ export default class StoryShow extends Component {
     state = {
         characters: [],
         characterInUse: '',
-        story: {},
+        story: {
+            enemy: '',
+            enemy_gender: ''
+        },
         pages: [],
         firstPage: {},
         enemy: {},
@@ -121,7 +124,6 @@ export default class StoryShow extends Component {
 
     componentDidMount = async () => {
         await this.fetchStoryAndPages()
-        await this.fetchEnemy()
         await this.handleCharacterSelect(0)
     }
 
@@ -140,19 +142,6 @@ export default class StoryShow extends Component {
         } catch (err) {
             console.error(err)
         }
-    }
-
-    fetchEnemy =  async () => {
-        const story = {...this.state.story}
-        this.setState({
-            enemy: {
-                name: story.enemy,
-                gender: story.enemy_gender,
-                prefix: story.enemy_prefix
-            }
-        })
-        console.log(this.state.enemy)
-        console.log(this.state.story)
     }
 
     setFirstPage = () => {
@@ -174,16 +163,36 @@ export default class StoryShow extends Component {
 
     handleStoryStart = async () => {
         if (this.state.firstPage.number === 1) {
-            const themeResult = ThemeGenerate()
-            this.setState({
-                story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult, enemy: this.state.story.enemy, enemy_gender: this.state.story.enemy_gender, enemy_prefix: this.state.story.enemy_prefix },
-            })
+            const enemy = await EnemyGenerate()
+            const themeResult = await ThemeGenerate()
+            await this.handleStoryEnemyUpdate(enemy)
             await this.handleDifficultyUpdate()
+            this.state.pages[0].completed = await true
+            this.setState({
+                enemy: enemy,
+                story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult, enemy: this.state.story.enemy, enemy_gender: this.state.story.enemy_gender, enemy_prefix: this.state.story.enemy_prefix},
+            })
+            console.log(this.state.story)
             await this.props.history.push({
                 pathname: `/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${this.state.firstPage.id}`,
                 state: { newState: this.state }
             })
         } 
+             
+        
+    }
+
+    handleStoryEnemyUpdate = async (enemy) => {
+        const name = await enemy.name
+        const gender = await enemy.gender
+        const prefix = await enemy.prefix
+        const newStory = await { ...this.state.story }
+        newStory.enemy = name
+        newStory.enemy_gender = gender
+        newStory.enemy_prefix = prefix
+        this.setState({
+            story: newStory
+        })
     }
 
     handleCharacterSelect = (index) => {
@@ -194,9 +203,8 @@ export default class StoryShow extends Component {
     }
 
     handleDifficultyUpdate = async () => {
-        console.log(this.state.story)
-        const newStory = { ...this.state.story }
-        await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}}`, newStory)
+        const newDifficulty = { ...this.state.story }
+        await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}}`, newDifficulty)
     }
 
     handleSelect = (selectedIndex, e) => {
