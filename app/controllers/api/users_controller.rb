@@ -18,7 +18,7 @@ class Api::UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:name, :stories_completed)
+        params.require(:user).permit(:name)
     end
 
 end

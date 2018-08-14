@@ -7,6 +7,8 @@ class CreateCharacters < ActiveRecord::Migration[5.2]
       t.integer :body_element
       t.integer :leg_element
       t.integer :color_scheme
+      t.integer :stories_completed
+      t.integer :points
       t.references :user, foreign_key: true
 
       t.timestamps

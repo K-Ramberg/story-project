@@ -1,6 +1,6 @@
 class Api::StoriesController < ApplicationController
     def index
-        @stories = Story.all
+        @stories = Character.find(prarams[:character_id]).stories
         render json: @stories
     end
 
@@ -10,7 +10,8 @@ class Api::StoriesController < ApplicationController
     end
 
     def create
-        @story = Story.create(story_params)
+        @character = Character.find(params[:character_id])
+        @story = @character.stories.create(story_params)
         render json: @story
     end
 

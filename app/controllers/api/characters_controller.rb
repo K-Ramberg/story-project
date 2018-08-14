@@ -29,7 +29,7 @@ class Api::CharactersController < ApplicationController
     private
 
     def character_params
-        params.require(:character).permit(:name, :occupation, :head_element, :body_element, :leg_element, :color_scheme)
+        params.require(:character).permit(:name, :occupation, :head_element, :body_element, :leg_element, :color_scheme, :stories_completed, :points)
     end
 
 end

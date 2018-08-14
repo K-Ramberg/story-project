@@ -7,6 +7,7 @@ class CreateStories < ActiveRecord::Migration[5.2]
       t.string :enemy
       t.string :enemy_gender
       t.boolean :enemy_prefix
+      t.references :character, foreign_key: true
 
       t.timestamps
     end
