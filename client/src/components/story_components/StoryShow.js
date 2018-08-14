@@ -108,7 +108,8 @@ export default class StoryShow extends Component {
         characterInUse: '',
         story: {
             enemy: '',
-            enemy_gender: ''
+            enemy_gender: '',
+            enemy_prefix: ''
         },
         pages: [],
         firstPage: {},
@@ -136,7 +137,12 @@ export default class StoryShow extends Component {
             this.setState({
                 characters: charactersResponse.data,
                 story: storyResponse.data,
-                pages: pagesResponse.data
+                pages: pagesResponse.data,
+                enemy: {
+                    name: storyResponse.data.enemy,
+                    gender: storyResponse.data.enemy_gender,
+                    prefix: storyResponse.data.enemy_prefix
+                }
             })
             await this.setFirstPage()
         } catch (err) {
@@ -172,14 +178,16 @@ export default class StoryShow extends Component {
                 enemy: enemy,
                 story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult, enemy: this.state.story.enemy, enemy_gender: this.state.story.enemy_gender, enemy_prefix: this.state.story.enemy_prefix},
             })
-            console.log(this.state.story)
             await this.props.history.push({
                 pathname: `/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${this.state.firstPage.id}`,
                 state: { newState: this.state }
             })
-        } 
-             
-        
+        } else if (this.state.firstPage.number > 1 ){
+            await this.props.history.push({
+                pathname: `/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${this.state.firstPage.id}`,
+                state: { newState: this.state }
+            })
+        }
     }
 
     handleStoryEnemyUpdate = async (enemy) => {
