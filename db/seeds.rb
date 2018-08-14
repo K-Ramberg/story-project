@@ -41,13 +41,19 @@ demoCharacter3 = Character.create({
 demoStory1 = Story.create({
     title: "a walk through the forest",
     theme: 1,
-    difficulty: "beginner"
+    difficulty: "beginner",
+    enemy: 'Mr. Dave Swanson',
+    enemy_gender: 'Male',
+    enemy_prefix: true
 })
 
 demoStory2 = Story.create({
     title: "strolling the castle",
     theme: 1,
-    difficulty: "beginner"
+    difficulty: "beginner",
+    enemy: 'Dr. Regina Smith',
+    enemy_gender: 'Female',
+    enemy_prefix: true
 })
 
 demoPage1 = Page.create({

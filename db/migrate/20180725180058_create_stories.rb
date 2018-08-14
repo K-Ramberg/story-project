@@ -6,6 +6,7 @@ class CreateStories < ActiveRecord::Migration[5.2]
       t.string :difficulty
       t.string :enemy
       t.string :enemy_gender
+      t.boolean :enemy_prefix
 
       t.timestamps
     end

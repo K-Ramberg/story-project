@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2018_07_25_230118) do
     t.string "difficulty"
     t.string "enemy"
     t.string "enemy_gender"
+    t.boolean "enemy_prefix"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

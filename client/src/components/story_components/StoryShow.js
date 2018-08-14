@@ -106,10 +106,7 @@ export default class StoryShow extends Component {
     state = {
         characters: [],
         characterInUse: '',
-        story: {
-            enemy: '',
-            enemy_gender: ''
-        },
+        story: {},
         pages: [],
         firstPage: {},
         enemy: {},
@@ -124,6 +121,7 @@ export default class StoryShow extends Component {
 
     componentDidMount = async () => {
         await this.fetchStoryAndPages()
+        await this.fetchEnemy()
         await this.handleCharacterSelect(0)
     }
 
@@ -142,6 +140,19 @@ export default class StoryShow extends Component {
         } catch (err) {
             console.error(err)
         }
+    }
+
+    fetchEnemy =  async () => {
+        const story = {...this.state.story}
+        this.setState({
+            enemy: {
+                name: story.enemy,
+                gender: story.enemy_gender,
+                prefix: story.enemy_prefix
+            }
+        })
+        console.log(this.state.enemy)
+        console.log(this.state.story)
     }
 
     setFirstPage = () => {
@@ -163,11 +174,9 @@ export default class StoryShow extends Component {
 
     handleStoryStart = async () => {
         if (this.state.firstPage.number === 1) {
-            const enemy = EnemyGenerate()
             const themeResult = ThemeGenerate()
             this.setState({
-                enemy: enemy,
-                story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult, enemy: enemy.name, enemy_gender: enemy.gender },
+                story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult, enemy: this.state.story.enemy, enemy_gender: this.state.story.enemy_gender, enemy_prefix: this.state.story.enemy_prefix },
             })
             await this.handleDifficultyUpdate()
             await this.props.history.push({
@@ -175,8 +184,6 @@ export default class StoryShow extends Component {
                 state: { newState: this.state }
             })
         } 
-             console.log(this.state.story)
-        
     }
 
     handleCharacterSelect = (index) => {
@@ -187,8 +194,9 @@ export default class StoryShow extends Component {
     }
 
     handleDifficultyUpdate = async () => {
-        const newDifficulty = { ...this.state.story }
-        await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}}`, newDifficulty)
+        console.log(this.state.story)
+        const newStory = { ...this.state.story }
+        await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}}`, newStory)
     }
 
     handleSelect = (selectedIndex, e) => {
@@ -204,17 +212,17 @@ export default class StoryShow extends Component {
         switch (index) {
             case 0:
                 this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: "beginner" }
+                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: "beginner", enemy: this.state.story.enemy, enemy_gender: this.state.story.enemy_gender, enemy_prefix: this.state.story.enemy_prefix }
                 })
                 break;
             case 1:
                 this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: "intermediate" }
+                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: "intermediate", enemy: this.state.story.enemy, enemy_gender: this.state.story.enemy_gender, enemy_prefix: this.state.story.enemy_prefix }
                 })
                 break;
             case 2:
                 this.setState({
-                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: "advanced" }
+                    story: { title: this.state.story.title, theme: this.state.story.theme, difficulty: "advanced", enemy: this.state.story.enemy, enemy_gender: this.state.story.enemy_gender, enemy_prefix: this.state.story.enemy_prefix }
                 })
                 break;
         }
