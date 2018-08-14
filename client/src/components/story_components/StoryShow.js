@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import _ from 'lodash'
 import axios from 'axios'
 import { EnemyGenerate, FriendGenerate, ThemeGenerate } from './SubCharacterGenerate';
 import { Link } from 'react-router-dom'
@@ -152,10 +151,6 @@ export default class StoryShow extends Component {
         this.setState({ firstPage })
     }
 
-    handlePageClass = (page) => {
-        return (page.completed === false ? "page-not-ready" : "page-ready")
-    }
-
     handleFriendAdd = (event) => {
         event.preventDefault()
         if (this.state.friend.name === '') {
@@ -168,14 +163,18 @@ export default class StoryShow extends Component {
         }
     }
 
-    handleStoryStart = () => {
-        const enemy = EnemyGenerate()
-        const themeResult = ThemeGenerate()
-        this.state.pages[0].completed = true
+    handleStoryStart = async () => {
+        const enemy = await EnemyGenerate()
+        const themeResult = await ThemeGenerate()
+        await this.handleDifficultyUpdate()
+        this.state.pages[0].completed = await true
         this.setState({
             enemy: enemy,
             story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult },
         })
+        await this.props.history.push({ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${this.state.firstPage.id}`,
+                                    state: { newState: this.state }
+                                })
     }
 
     handleCharacterSelect = (index) => {
@@ -228,17 +227,6 @@ export default class StoryShow extends Component {
     }
 
     render() {
-        const sortByPageNumber = _.sortBy(this.state.pages,['page','number'])
-        
-        const pageMap = sortByPageNumber.map((page) => {
-            return (
-                    <Link key={page.id} className={this.handlePageClass(page)} onClick={this.handleDifficultyUpdate} to={{ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${page.id}`,
-                                    state: { newState: this.state }
-                                }}>
-                                Page {page.number} <h4>></h4>
-                        </Link>
-                    )
-        })
 
         const selectedCharacterHeadDisplay = (character) => {
             if(character.head_element === 1){
@@ -332,7 +320,6 @@ export default class StoryShow extends Component {
                         </Carousel> 
                 </CarouselWrapper2>        
                 <button onClick={this.handleStoryStart}>{startOrContinue()}</button>
-                <div>{pageMap}</div>
             </StoryWrapper>
         )
     }
