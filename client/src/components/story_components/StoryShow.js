@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { Carousel } from 'react-bootstrap'
 import styled from 'styled-components'
 import PrincessHead from '../konva_shapes/character_shapes/PrincessHead';
-import WizardHead from '../konva_shapes/character_shapes/WizardHead' 
+import WizardHead from '../konva_shapes/character_shapes/WizardHead'
 import DinoHead from '../konva_shapes/character_shapes/DinoHead'
 import PrincessBody from '../konva_shapes/character_shapes/PrincessBody';
 import WizardBody from '../konva_shapes/character_shapes/WizardBody';
@@ -53,12 +53,7 @@ const StoryWrapper = styled.div`
             margin-left: 205px;
         }
     }
-    .page-ready {
-        background-color: rgb(218, 247, 166);
-        padding: 1vh;
-        box-shadow: 2px 2px 4px 2px rgb(3,3,3);
-    }
-    .page-not-ready {
+    .dont_show {
         display: none;
     }
     width: 90vw;
@@ -69,7 +64,7 @@ const StoryWrapper = styled.div`
 
 const CarouselWrapper1 = styled.div`
     .carousel-inner {
-        margin-top: 3vh;
+        margin-top: 2vh;
         height: 55px;
         text-align:center;
         div {
@@ -118,8 +113,6 @@ export default class StoryShow extends Component {
         pages: [],
         firstPage: {},
         enemy: {},
-        enemyName: '',
-        enemyGender: '',
         friend: {
             name: ''
         },
@@ -130,8 +123,8 @@ export default class StoryShow extends Component {
     }
 
     componentDidMount = async () => {
-       await this.fetchStoryAndPages()
-       await this.handleCharacterSelect(0)
+        await this.fetchStoryAndPages()
+        await this.handleCharacterSelect(0)
     }
 
     fetchStoryAndPages = async () => {
@@ -152,7 +145,7 @@ export default class StoryShow extends Component {
     }
 
     setFirstPage = () => {
-        const firstPage = {...this.state.pages[0]}
+        const firstPage = { ...this.state.pages[0] }
         this.setState({ firstPage })
     }
 
@@ -169,43 +162,34 @@ export default class StoryShow extends Component {
     }
 
     handleStoryStart = async () => {
-        const enemy = await EnemyGenerate()
-        const themeResult = await ThemeGenerate()
-        await this.handleDifficultyUpdate()
-        await this.handleStoryEnemyUpdate(enemy)
-        this.state.pages[0].completed = await true
-        this.setState({
-            enemy: enemy,
-            story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult },
-        })
-        await this.props.history.push({ pathname:`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${this.state.firstPage.id}`,
-                                    state: { newState: this.state }
-                                })
-    }
-
-    handleStoryEnemyUpdate = async (enemy) => {
-        const name = enemy.name
-        const gender = enemy.gender
-        const newStory = {...this.state.story}
-        newStory.enemy = name
-        newStory.enemy_gender = gender
-        await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}}`, newStory)
+        if (this.state.firstPage.number === 1) {
+            const enemy = EnemyGenerate()
+            const themeResult = ThemeGenerate()
             this.setState({
-                story: newStory
+                enemy: enemy,
+                story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult, enemy: enemy.name, enemy_gender: enemy.gender },
             })
+            await this.handleDifficultyUpdate()
+            await this.props.history.push({
+                pathname: `/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${this.state.firstPage.id}`,
+                state: { newState: this.state }
+            })
+        } 
+             console.log(this.state.story)
+        
     }
 
     handleCharacterSelect = (index) => {
-        const useCharacter = {...this.state.characters[index]}
+        const useCharacter = { ...this.state.characters[index] }
         this.setState({
             characterInUse: useCharacter
         })
     }
 
     handleDifficultyUpdate = async () => {
-        const newDifficulty = {...this.state.story}
+        const newDifficulty = { ...this.state.story }
         await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}}`, newDifficulty)
-    } 
+    }
 
     handleSelect = (selectedIndex, e) => {
         this.setState({
@@ -236,6 +220,14 @@ export default class StoryShow extends Component {
         }
     }
 
+    handleDifficultyShow = () => {
+        if(this.state.firstPage.number === 1) {
+            return "show"
+        } {
+            return "dont_show"
+        }
+    }
+
     handleSelect2 = async (selectedIndex, e) => {
         this.setState({
             index2: selectedIndex,
@@ -247,60 +239,61 @@ export default class StoryShow extends Component {
     render() {
 
         const selectedCharacterHeadDisplay = (character) => {
-            if(character.head_element === 1){
-                return(<PrincessHead/>)
-            } else if (character.head_element === 2){
-                return(<WizardHead/>)
-            } else if(character.head_element === 3){ return(<DinoHead/>)}
-    }
+            if (character.head_element === 1) {
+                return (<PrincessHead />)
+            } else if (character.head_element === 2) {
+                return (<WizardHead />)
+            } else if (character.head_element === 3) { return (<DinoHead />) }
+        }
 
         const selectedCharacterBodyDisplay = (character) => {
-            if(character.body_element === 1){
-                return(<PrincessBody/>)
-            } else if (character.body_element === 2){
-                return(<WizardBody/>)
-            } else if(character.body_element === 3){ return(<DinoBody/>)}
+            if (character.body_element === 1) {
+                return (<PrincessBody />)
+            } else if (character.body_element === 2) {
+                return (<WizardBody />)
+            } else if (character.body_element === 3) { return (<DinoBody />) }
         }
 
         const selectedCharacterLegDisplay = (character) => {
-            if(character.leg_element === 1){
-                return(<PrincessLegs/>)
-            } else if (character.leg_element === 2){
-                return(<WizardLegs/>)
-            } else if(character.leg_element ){ return(<DinoLegs/>)}
+            if (character.leg_element === 1) {
+                return (<PrincessLegs />)
+            } else if (character.leg_element === 2) {
+                return (<WizardLegs />)
+            } else if (character.leg_element) { return (<DinoLegs />) }
         }
 
-        const characterDisplay = (character) => {if (character.occupation === "Princess") {
-            return(
-              <div key={character.id}>{character.occupation} {character.name}</div>
-            )
-          }
-          else if (character.occupation === "Wizard" || character.occupation === "Dinosaur"){
-            return(
-              <div key={character.id}>{character.name} the {character.occupation}</div>
-            ) 
-          }
+        const characterDisplay = (character) => {
+            if (character.occupation === "Princess") {
+                return (
+                    <div key={character.id}>{character.occupation} {character.name}</div>
+                )
+            }
+            else if (character.occupation === "Wizard" || character.occupation === "Dinosaur") {
+                return (
+                    <div key={character.id}>{character.name} the {character.occupation}</div>
+                )
+            }
         }
 
         const characterMap = this.state.characters.map((character, i) => {
-                    return(
-                        <Carousel.Item key={i}>
-                        <div>{characterDisplay(character)}</div>
-                        <Stage width={window.innerWidth} height={window.innerHeight}>
-                            <Layer>
-                                {selectedCharacterBodyDisplay(character)}
-                                {selectedCharacterHeadDisplay(character)}
-                                {selectedCharacterLegDisplay(character)}
-                            </Layer>
-                        </Stage>
-                        </Carousel.Item>
-                    )
+            return (
+                <Carousel.Item key={i}>
+                    <div>{characterDisplay(character)}</div>
+                    <Stage width={window.innerWidth} height={window.innerHeight}>
+                        <Layer>
+                            {selectedCharacterBodyDisplay(character)}
+                            {selectedCharacterHeadDisplay(character)}
+                            {selectedCharacterLegDisplay(character)}
+                        </Layer>
+                    </Stage>
+                </Carousel.Item>
+            )
         })
 
         const startOrContinue = () => {
-            if(this.state.firstPage.number > 1){
+            if (this.state.firstPage.number > 1) {
                 return 'Continue Story'
-            } else { return 'Start Story'}
+            } else { return 'Start Story' }
         }
 
         const { index, index2, direction, direction2 } = this.state
@@ -309,34 +302,34 @@ export default class StoryShow extends Component {
             <StoryWrapper>
                 <Link to={`/users/${this.props.match.params.user_id}/stories`}> Return to stories <h4>></h4></Link>
                 <h2>{this.state.story.title}</h2>
-                <div className="difficulty" >Select the Story Difficulty</div>
-                <CarouselWrapper1>
-                <Carousel htmlFor="head_element"
-                        activeIndex={index}
-                        direction={direction}
-                        onSelect={this.handleSelect}
-                         >
-                        <Carousel.Item >
-                            <div>Beginner</div>
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <div>Intermediate</div>
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <div>Advanced</div>
-                        </Carousel.Item>
-                     </Carousel>
-                     </CarouselWrapper1>
+                <div className={this.handleDifficultyShow()}>
+                    <div className="difficulty" >Select the Story Difficulty</div>
+                    <CarouselWrapper1>
+                        <Carousel htmlFor="head_element"
+                            activeIndex={index}
+                            direction={direction}
+                            onSelect={this.handleSelect}>
+                            <Carousel.Item >
+                                <div>Beginner</div>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <div>Intermediate</div>
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <div>Advanced</div>
+                            </Carousel.Item>
+                        </Carousel>
+                    </CarouselWrapper1>
+                </div>
                 <div className="difficulty">Choose a Character</div>
                 <CarouselWrapper2>
-                <Carousel htmlFor="head_element"
+                    <Carousel htmlFor="head_element"
                         activeIndex={index2}
                         direction={direction2}
-                        onSelect={this.handleSelect2}   
-                         >
-                         {characterMap}
-                        </Carousel> 
-                </CarouselWrapper2>        
+                        onSelect={this.handleSelect2}>
+                        {characterMap}
+                    </Carousel>
+                </CarouselWrapper2>
                 <button onClick={this.handleStoryStart}>{startOrContinue()}</button>
             </StoryWrapper>
         )

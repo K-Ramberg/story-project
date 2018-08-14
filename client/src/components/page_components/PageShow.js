@@ -677,7 +677,7 @@ export default class PageShow extends Component {
                         </div>
                         <h2>Page {this.state.page.number}</h2>
                         {questionDisplay()}
-                        <div className={this.handleIncorrectAnswer()}>"Sorry, but that answer was incorrect. You can try one more time"</div>
+                        <div className={this.handleIncorrectAnswer()}>Sorry, but that answer was incorrect. You can try one more time</div>
                         <div>Demo que(the answer is option {this.state.mathLy.correct_choice + 1})</div>
                         <Stage width={window.innerWidth} height={290}>
                             <Layer>
