@@ -115,6 +115,8 @@ export default class StoryShow extends Component {
         pages: [],
         firstPage: {},
         enemy: {},
+        enemyName: '',
+        enemyGender: '',
         friend: {
             name: ''
         },

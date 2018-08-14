@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2018_07_25_230118) do
     t.string "title"
     t.integer "theme"
     t.string "difficulty"
+    t.string "enemy"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
