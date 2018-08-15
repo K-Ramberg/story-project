@@ -103,10 +103,10 @@ export default class StoryComplete extends Component {
                 return 10
             break;
         case "intermediate":
-                25
+               return 25
             break;
         case "advanced":
-                50
+               return 50
             break;
     }
   }
