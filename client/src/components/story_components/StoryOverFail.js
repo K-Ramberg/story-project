@@ -78,7 +78,6 @@ fetchPageInfo = async () => {
     }
 }
 
-
   render() {
 
     const selectedCharacterHeadDisplay = (character) => {
@@ -116,7 +115,7 @@ fetchPageInfo = async () => {
                 </Layer>
             </Stage>
         <h1>There will be no snacks today for {this.state.characterInUse.name}</h1>                
-        <Link to={`/users/${this.props.match.params.user_id}/stories`}>Back to Stories <h4>></h4></Link>
+        <Link to={`/users/${this.props.match.params.user_id}/characters/${this.props.match.params.character_id}/stories`}>Back to Stories <h4>></h4></Link>
       </StoryWrapper>
     )
   }

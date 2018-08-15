@@ -27,7 +27,9 @@ export default class CharacterUpdate extends Component {
             head_element: 0,
             body_element: 0,
             leg_element: 0,
-            color_scheme: 0
+            color_scheme: 0,
+            stories_completed: 0,
+            points: 0
         }
     }
 
@@ -39,6 +41,7 @@ export default class CharacterUpdate extends Component {
         const userId =  this.props.match.params.user_id
         try{
             let characterResponse = await axios.get(`/api/users/${userId}/characters/${this.props.match.params.id}`)
+            console.log(characterResponse.data)
             this.setState({
                 character: characterResponse.data
             })

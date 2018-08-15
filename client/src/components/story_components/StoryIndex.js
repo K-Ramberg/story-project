@@ -35,7 +35,7 @@ const CompletionMeter = styled.div`
 export default class StoryIndex extends Component {
     state = {
         stories: [],
-        user: {}
+        character: {}
     }
 
     componentDidMount() {
@@ -43,12 +43,14 @@ export default class StoryIndex extends Component {
     }
 
     fetchStories = async () => {
+        const userId = this.props.match.params.user_id
+        const characterId = this.props.match.params.id
         try{
-            const storiesResponse = await axios.get(`/api/users/${this.props.match.params.user_id}/stories`)
-            const userResponse = await axios.get(`/api/users/${this.props.match.params.user_id}`)
+            const storiesResponse = await axios.get(`/api/users/${userId}/characters/${characterId}/stories`)
+            const characterResponse = await axios.get(`/api/users/${userId}/characters/${characterId}`)
             this.setState({
                 stories: storiesResponse.data,
-                user: userResponse.data
+                character: characterResponse.data
             })
         } catch(err){
             console.error(err)
@@ -59,13 +61,14 @@ export default class StoryIndex extends Component {
         const createStory = {
             title: "strolling the castle again",
             theme: 1,
-            difficulty: "beginner"
+            difficulty: "beginner",
+            character_id: this.state.character.id
         }
         const randomizer = ThemeGenerate()
          if(randomizer === 1){
         createStory.title = "another walk through the forest"
          }
-        await axios.post(`/api/users/${this.props.match.params.user_id}/stories`, createStory)
+        await axios.post(`/api/users/${this.props.match.params.user_id}/characters/${this.props.match.params.id}/stories`, createStory)
         await this.fetchStories()
         await this.handleGivePages(this.state.stories[this.state.stories.length-1].id, 1)
         await this.handleGivePages(this.state.stories[this.state.stories.length-1].id, 2)
@@ -78,23 +81,23 @@ export default class StoryIndex extends Component {
             number: pageNumber,
             completed: false
         }
-        await axios.post(`/api/users/${this.props.match.params.user_id}/stories/${storyId}/pages`, newPage)
+        await axios.post(`/api/users/${this.props.match.params.user_id}/characters/${this.props.match.params.id}/stories/${storyId}/pages`, newPage)
     }
 
     handleGoBack = (event) =>{
         event.preventDefault()
-        this.props.history.push(`/users/${this.props.match.params.user_id}`)
+        this.props.history.push(`/users/${this.props.match.params.user_id}/characters/${this.props.match.params.id}`)
     }
 
   render() {
       const storyMap = this.state.stories.map((story) => {
           return(
-            <div key={story.id}><Link to={`/users/${this.props.match.params.user_id}/stories/${story.id}`}>{story.title} <h4>></h4></Link></div>
+            <div key={story.id}><Link to={`/users/${this.props.match.params.user_id}/characters/${this.props.match.params.id}/stories/${story.id}`}>{story.title} <h4>></h4></Link></div>
           )
       })
 
       const storyPlace = () => {
-          if(this.state.user.stories_completed === 1 ){
+          if(this.state.character.stories_completed === 1 ){
               return "Story"
           }{
               return "Stories"
@@ -105,8 +108,9 @@ export default class StoryIndex extends Component {
       <StorySort>
         <button onClick={this.buildNewStory}>Add new story</button>
         {storyMap}
-        <CompletionMeter>{this.state.user.name}User  has finished {this.state.user.stories_completed} {storyPlace()}</CompletionMeter>
-        <button onClick={this.handleGoBack}>Back to Demo Start</button>
+        <CompletionMeter>{this.state.character.name}  has finished {this.state.character.stories_completed} {storyPlace()}</CompletionMeter>
+        <CompletionMeter> for {this.state.character.points} Points</CompletionMeter>
+        <button onClick={this.handleGoBack}>Back to {this.state.character.name}</button>
       </StorySort>
     )
   }

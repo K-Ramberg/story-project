@@ -23,6 +23,9 @@ const StoryWrapper = styled.div`
         margin-bottom: 5vh;
         text-align: center;
     }
+    h5 {
+        margin-left: 16vw;
+    }
     div {
         font-size: 1.5rem;
     }
@@ -46,8 +49,10 @@ const StoryWrapper = styled.div`
         }
     }
     button {
+        font-size: 2rem;
+        color: rgb(100,100,250);
         margin-top: 1vh;
-        margin-left: 25vw; 
+        margin-left: 27vw; 
         text-align: center;
         @media(min-width:745px){
             margin-left: 205px;
@@ -60,9 +65,12 @@ const StoryWrapper = styled.div`
     @media(min-width: 600px){
         width: 560px;
     }
+    .inline {
+        display: inline;
+    }
 `
 
-const CarouselWrapper1 = styled.div`
+const CarouselWrapper = styled.div`
     .carousel-inner {
         margin-top: 2vh;
         height: 55px;
@@ -82,29 +90,9 @@ const CarouselWrapper1 = styled.div`
     }
 `
 
-const CarouselWrapper2 = styled.div`
-    .carousel-inner {
-        height: 359px;
-        text-align:center;
-        div {
-            margin-top: 2vh;
-            font-size: 2rem;
-        }
-        margin-bottom: 2vh;
-    }
-    .carousel-control{
-        margin-top: 2vh;
-        height: 359px;
-    }
-    .carousel-indicators{
-        display: none;
-    }
-`
-
 export default class StoryShow extends Component {
 
     state = {
-        characters: [],
         characterInUse: '',
         story: {
             enemy: '',
@@ -118,24 +106,23 @@ export default class StoryShow extends Component {
             name: ''
         },
         index: 0,
-        direction: null,
-        index2: 0,
-        direction2: null
+        direction: null
     }
 
     componentDidMount = async () => {
         await this.fetchStoryAndPages()
-        await this.handleCharacterSelect(0)
     }
 
     fetchStoryAndPages = async () => {
         const userId = this.props.match.params.user_id
+        const characterId = this.props.match.params.character_id
+        const storyId = this.props.match.params.id
         try {
-            const storyResponse = await axios.get(`/api/users/${userId}/stories/${this.props.match.params.id}`)
-            const pagesResponse = await axios.get(`/api/users/${userId}/stories/${this.props.match.params.id}/pages`)
-            const charactersResponse = await axios.get(`/api/users/${userId}/characters`)
+            const storyResponse = await axios.get(`/api/users/${userId}/characters/${characterId}/stories/${storyId}`)
+            const pagesResponse = await axios.get(`/api/users/${userId}/characters/${characterId}/stories/${storyId}/pages`)
+            const characterResponse = await axios.get(`/api/users/${userId}/characters/${characterId}`)
             this.setState({
-                characters: charactersResponse.data,
+                characterInUse: characterResponse.data,
                 story: storyResponse.data,
                 pages: pagesResponse.data,
                 enemy: {
@@ -179,12 +166,12 @@ export default class StoryShow extends Component {
                 story: { title: this.state.story.title, difficulty: this.state.story.difficulty, theme: themeResult, enemy: this.state.story.enemy, enemy_gender: this.state.story.enemy_gender, enemy_prefix: this.state.story.enemy_prefix},
             })
             await this.props.history.push({
-                pathname: `/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${this.state.firstPage.id}`,
+                pathname: `/users/${this.props.match.params.user_id}/characters/${this.props.match.params.character_id}/stories/${this.props.match.params.id}/pages/${this.state.firstPage.id}`,
                 state: { newState: this.state }
             })
         } else if (this.state.firstPage.number > 1 ){
             await this.props.history.push({
-                pathname: `/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}/pages/${this.state.firstPage.id}`,
+                pathname: `/users/${this.props.match.params.user_id}/characters/${this.props.match.params.character_id}/stories/${this.props.match.params.id}/pages/${this.state.firstPage.id}`,
                 state: { newState: this.state }
             })
         }
@@ -203,16 +190,9 @@ export default class StoryShow extends Component {
         })
     }
 
-    handleCharacterSelect = (index) => {
-        const useCharacter = { ...this.state.characters[index] }
-        this.setState({
-            characterInUse: useCharacter
-        })
-    }
-
     handleDifficultyUpdate = async () => {
         const newDifficulty = { ...this.state.story }
-        await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.id}}`, newDifficulty)
+        await axios.patch(`/api/users/${this.props.match.params.user_id}/characters/${this.props.match.params.character_id}/stories/${this.props.match.params.id}}`, newDifficulty)
     }
 
     handleSelect = (selectedIndex, e) => {
@@ -252,13 +232,6 @@ export default class StoryShow extends Component {
         }
     }
 
-    handleSelect2 = async (selectedIndex, e) => {
-        this.setState({
-            index2: selectedIndex,
-            direction2: e.direction
-        });
-        await this.handleCharacterSelect(selectedIndex)
-    }
 
     render() {
 
@@ -289,30 +262,15 @@ export default class StoryShow extends Component {
         const characterDisplay = (character) => {
             if (character.occupation === "Princess") {
                 return (
-                    <div key={character.id}>{character.occupation} {character.name}</div>
+                    <div className="inline" key={character.id}>{character.occupation} {character.name}</div>
                 )
             }
             else if (character.occupation === "Wizard" || character.occupation === "Dinosaur") {
                 return (
-                    <div key={character.id}>{character.name} the {character.occupation}</div>
+                    <div className="inline" key={character.id}>{character.name} the {character.occupation}</div>
                 )
             }
         }
-
-        const characterMap = this.state.characters.map((character, i) => {
-            return (
-                <Carousel.Item key={i}>
-                    <div>{characterDisplay(character)}</div>
-                    <Stage width={window.innerWidth} height={window.innerHeight}>
-                        <Layer>
-                            {selectedCharacterBodyDisplay(character)}
-                            {selectedCharacterHeadDisplay(character)}
-                            {selectedCharacterLegDisplay(character)}
-                        </Layer>
-                    </Stage>
-                </Carousel.Item>
-            )
-        })
 
         const startOrContinue = () => {
             if (this.state.firstPage.number > 1) {
@@ -320,15 +278,23 @@ export default class StoryShow extends Component {
             } else { return 'Start Story' }
         }
 
-        const { index, index2, direction, direction2 } = this.state
+        const { index, direction } = this.state
 
         return (
             <StoryWrapper>
-                <Link to={`/users/${this.props.match.params.user_id}/stories`}> Return to stories <h4>></h4></Link>
-                <h2>{this.state.story.title}</h2>
+                <Link to={`/users/${this.props.match.params.user_id}/characters/${this.props.match.params.character_id}/stories`}> Return to stories <h4>></h4></Link>
+                <h2>{this.state.story.title}:</h2>
+                <h5>with {characterDisplay(this.state.characterInUse)}</h5>
+                <Stage width={window.innerWidth} offsetX={50} height={300}>
+                        <Layer>
+                            {selectedCharacterBodyDisplay(this.state.characterInUse)}
+                            {selectedCharacterHeadDisplay(this.state.characterInUse)}
+                            {selectedCharacterLegDisplay(this.state.characterInUse)}
+                        </Layer>
+                    </Stage>
                 <div className={this.handleDifficultyShow()}>
                     <div className="difficulty" >Select the Story Difficulty</div>
-                    <CarouselWrapper1>
+                    <CarouselWrapper>
                         <Carousel htmlFor="head_element"
                             activeIndex={index}
                             direction={direction}
@@ -343,17 +309,8 @@ export default class StoryShow extends Component {
                                 <div>Advanced</div>
                             </Carousel.Item>
                         </Carousel>
-                    </CarouselWrapper1>
+                    </CarouselWrapper>
                 </div>
-                <div className="difficulty">Choose a Character</div>
-                <CarouselWrapper2>
-                    <Carousel htmlFor="head_element"
-                        activeIndex={index2}
-                        direction={direction2}
-                        onSelect={this.handleSelect2}>
-                        {characterMap}
-                    </Carousel>
-                </CarouselWrapper2>
                 <button onClick={this.handleStoryStart}>{startOrContinue()}</button>
             </StoryWrapper>
         )

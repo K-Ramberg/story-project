@@ -4,8 +4,7 @@ User.destroy_all
 Story.destroy_all
 
 demoUser1 = User.create({
-    name: "Demo",
-    stories_completed: 0
+    name: "Demo"
 })
 
 demoCharacter1 = Character.create({
@@ -15,6 +14,8 @@ demoCharacter1 = Character.create({
     body_element: 1,
     leg_element: 1,
     color_scheme: 3,
+    stories_completed: 0,
+    points: 0,
     user_id: demoUser1.id
 })
 
@@ -25,6 +26,8 @@ demoCharacter2 = Character.create({
     body_element: 2,
     leg_element: 2,
     color_scheme: 2,
+    stories_completed: 0,
+    points: 0,
     user_id: demoUser1.id
 })
 
@@ -35,19 +38,23 @@ demoCharacter3 = Character.create({
     body_element: 3,
     leg_element: 3,
     color_scheme: 1,
+    stories_completed: 0,
+    points: 0,
     user_id: demoUser1.id
 })
 
 demoStory1 = Story.create({
     title: "a walk through the forest",
     theme: 1,
-    difficulty: "beginner"
+    difficulty: "beginner",
+    character_id: demoCharacter1.id
 })
 
 demoStory2 = Story.create({
     title: "strolling the castle",
     theme: 1,
-    difficulty: "beginner"
+    difficulty: "beginner",
+    character_id: demoCharacter1.id
 })
 
 demoPage1 = Page.create({

@@ -27,7 +27,9 @@ export default class CharacterCreate extends Component {
             head_element: 1,
             body_element: 1,
             leg_element: 1,
-            color_scheme: 1
+            color_scheme: 1,
+            stories_completed: 0,
+            points: 0
         }
     }
 
@@ -74,7 +76,7 @@ export default class CharacterCreate extends Component {
       <FormPageWrapper>
         <CharacterForm character={this.state.newCharacter} passCharacter={this.passCharacter} submit={this.handleFormSubmit} formChange={this.handleFormChange} user={this.props.match.params.user_id} handleLegIndex={this.handleLegIndex} handleBodyIndex={this.handleBodyIndex} handleHeadIndex={this.handleHeadIndex}></CharacterForm>
         <div>
-            <Link to={`/users/${this.props.match.params.user_id}/characters`}>Nevermind<h4>!</h4></Link>
+            <Link to={`/users/${this.props.match.params.user_id}`}>Nevermind<h4>!</h4></Link>
         </div>
       </FormPageWrapper>
     )

@@ -46,7 +46,6 @@ const CharIndex = styled.div`
         background-color: rgb(218, 247, 166);
         padding: 1vh;
         box-shadow: 2px 2px 4px 2px rgb(3,3,3);
-        
       }
       a:hover{
         text-decoration: none;
@@ -60,7 +59,8 @@ const CharIndex = styled.div`
 export default class UserShow extends Component {
 
   state= {
-    user: {}
+    user: {},
+    characters: []
 }
 
 componentDidMount() {
@@ -68,24 +68,61 @@ componentDidMount() {
 }  
 
 fetchCharacter = async () => {
-    const userId =  this.props.match.params.id
-    try{
-        let userResponse = await axios.get(`/api/users/${userId}`)
-        this.setState({
-            user: userResponse.data,
-        })
-    } catch (err){
-        console.error(err)
-    }
+  const userId =  this.props.match.params.id
+  try{
+      let userResponse = await axios.get(`/api/users/${userId}`)
+      let characterResponse = await axios.get(`/api/users/${userId}/characters`)
+      this.setState({
+          user: userResponse.data,
+          characters: characterResponse.data
+      })
+  } catch (err){
+      console.error(err)
+  }
 }
 
   render() {  
+
+    const selectedCharacterHeadDisplay = (character) => {
+      if(character.head_element === 1){
+          return(<PrincessHead/>)
+      } else if (character.head_element === 2){
+          return(<WizardHead/>)
+      } else if(character.head_element === 3){ return(<DinoHead/>)}
+  }
+
+    const characterMap = this.state.characters.map((char) => {
+      let userId = this.state.user.id
+      if (char.occupation === "Princess") {
+        return(
+          <div className="character" key={char.id}><Link to={`/users/${userId}/characters/${char.id}`}>{char.occupation} {char.name} <h4>></h4></Link>
+          <Stage width={400} height={100}>
+            <Layer>
+                {selectedCharacterHeadDisplay(char)}
+            </Layer>
+          </Stage>
+          </div>
+        )
+      }
+      else if (char.occupation === "Wizard" || char.occupation === "Dinosaur"){
+        return(
+          <div className="character" key={char.id}><Link to={`/users/${userId}/characters/${char.id}`}>{char.name} the {char.occupation} <h4>></h4></Link>
+          <Stage width={400} height={115}>
+            <Layer>
+              {selectedCharacterHeadDisplay(char)}
+            </Layer>
+          </Stage>
+          </div>
+        ) 
+      }
+    })
+
     return (
       <Welcome>
-        <CharIndex>
-          <h3>{this.state.user.name} User</h3>  
-          <div><Link className="storyNav" to={`/users/${this.state.user.id}/characters`}>Go to Characters <h4>></h4></Link></div> 
-          <div><Link className="storyNav" to={`/users/${this.state.user.id}/stories`}>Go to Stories <h4>></h4></Link></div>       
+       <CharIndex>
+          <h3>{this.state.user.name} Characters</h3>  
+          <div><Link to={`/users/${this.state.user.id}/characters/new`}>Create a new Character <h4>></h4></Link></div>
+          {characterMap} 
         </CharIndex>
       </Welcome>
     )

@@ -56,7 +56,6 @@ const StoryWrapper = styled.div`
 export default class StoryComplete extends Component {
 
   state = {
-    user: {},
     story: {
       title:''
     },
@@ -73,13 +72,11 @@ export default class StoryComplete extends Component {
 
   fetchEndInfo = async () => {
     try {
-      const userResponse = await axios.get(`/api/users/${this.props.match.params.user_id}`)
       const useCharacter = await this.props.location.state.newState.characterInUse
       const useEnemy = await this.props.location.state.newState.enemy
       const useFriend = await this.props.location.state.newState.friend
       const story =  await this.props.location.state.newState.story
         this.setState({
-          user: userResponse.data,
           story: story,
           characterInUse: useCharacter,
           enemy: useEnemy,
@@ -91,11 +88,27 @@ export default class StoryComplete extends Component {
   }
 
   handleEndOfStory = async () => {
-    const updateUser = {...this.state.user}
-    updateUser.stories_completed = updateUser.stories_completed + 1
-    await axios.patch(`/api/users/${this.state.user.id}`, updateUser)
-    await axios.delete(`/api/users/${this.props.match.params.user_id}/stories/${this.props.location.state.story}`)
-    await this.props.history.push(`/users/${this.props.match.params.user_id}/stories`)
+    const updateCharacter = {...this.state.characterInUse}
+    const pointsEarned = this.handlePointsAwarded(this.state.story.difficulty)
+    updateCharacter.stories_completed = updateCharacter.stories_completed + 1
+    updateCharacter.points = updateCharacter.points + pointsEarned
+    await axios.patch(`/api/users/${this.props.match.params.user_id}/characters/${updateCharacter.id}`, updateCharacter)
+    await axios.delete(`/api/users/${this.props.match.params.user_id}/characters/${updateCharacter.id}/stories/${this.props.location.state.story}`)
+    await this.props.history.push(`/users/${this.props.match.params.user_id}/characters/${updateCharacter.id}/stories`)
+  }
+
+  handlePointsAwarded = (difficulty) => {
+    switch (difficulty) {
+        case "beginner":
+                return 10
+            break;
+        case "intermediate":
+                25
+            break;
+        case "advanced":
+                50
+            break;
+    }
   }
 
   render() {
@@ -132,8 +145,6 @@ export default class StoryComplete extends Component {
     }
 }
 
-console.log(this.state)
-
     return (
       <StoryWrapper>
         <h1>WELL DONE!</h1>
@@ -146,7 +157,7 @@ console.log(this.state)
                 </Layer>
             </Stage>
         <h1>{this.state.characterInUse.name} will get enjoy this treat!</h1>    
-        <button onClick={this.handleEndOfStory}>Back to Stories</button>
+        <button onClick={this.handleEndOfStory}>The End!</button>
       </StoryWrapper>
     )
   }

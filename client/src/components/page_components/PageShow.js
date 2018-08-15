@@ -184,8 +184,8 @@ export default class PageShow extends Component {
 
     fetchPageInfo = async () => {
         try {
-            const pageInfo = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`)
-            const allPages = await axios.get(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages`)
+            const pageInfo = await axios.get(`/api/users/${this.props.match.params.user_id}/characters/${this.props.match.params.character_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`)
+            const allPages = await axios.get(`/api/users/${this.props.match.params.user_id}/characters/${this.props.match.params.character_id}/stories/${this.props.match.params.story_id}/pages`)
             const useCharacter = await this.props.location.state.newState.characterInUse
             const useEnemy = await this.props.location.state.newState.enemy
             const useFriend = await this.props.location.state.newState.friend
@@ -224,18 +224,18 @@ export default class PageShow extends Component {
         if (newPage.completed === false) {
             newPage.completed = !newPage.completed
             this.setState({ page: newPage })
-            await axios.patch(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`, newPage)
+            await axios.patch(`/api/users/${this.props.match.params.user_id}/characters/${this.props.match.params.character_id}/stories/${this.props.match.params.story_id}/pages/${this.props.match.params.id}`, newPage)
             if (this.state.page.number < this.state.pages.length) {
                 await this.handleRedirect()
             } else {
-                await this.props.history.push({ pathname: `/users/${this.props.match.params.user_id}/stories/finished`, state: { newState: this.state, story: this.props.match.params.story_id } })
+                await this.props.history.push({ pathname: `/users/${this.props.match.params.user_id}/characters/${this.props.match.params.character_id}/stories/finished`, state: { newState: this.state, story: this.props.match.params.story_id } })
             }
         }
     }
 
     handleEndStory = async () => {
-        await axios.delete(`/api/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`)
-        await this.props.history.push({ pathname: `/users/${this.props.match.params.user_id}/stories/oops`, state: { newState: this.state } })
+        await axios.delete(`/api/users/${this.props.match.params.user_id}/characters/${this.props.match.params.character_id}/stories/${this.props.match.params.story_id}`)
+        await this.props.history.push({ pathname: `/users/${this.props.match.params.user_id}/characters/${this.props.match.params.character_id}/stories/oops`, state: { newState: this.state } })
     }
 
     handleQuestionAnswer = async (index) => {
@@ -262,7 +262,7 @@ export default class PageShow extends Component {
 
     handleRedirect = () => {
         this.props.history.push({
-            pathname: `/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}/pages/${this.state.page.id + 1}`,
+            pathname: `/users/${this.props.match.params.user_id}/characters/${this.props.match.params.character_id}/stories/${this.props.match.params.story_id}/pages/${this.state.page.id + 1}`,
             state: { newState: this.state }
         })
         this.fetchPageInfo()
@@ -687,7 +687,7 @@ export default class PageShow extends Component {
                             </Layer>
                         </Stage>
                     </div>
-                    <Link to={`/users/${this.props.match.params.user_id}/stories/${this.props.match.params.story_id}`}>Turn Back<h4>!</h4></Link>
+                    <Link to={`/users/${this.props.match.params.user_id}/characters/${this.props.match.params.character_id}/stories/${this.props.match.params.story_id}`}>Turn Back<h4>!</h4></Link>
                 </PageWrapper>
             </div>
         )

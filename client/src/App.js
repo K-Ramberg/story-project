@@ -12,7 +12,6 @@ import PageShow from './components/page_components/PageShow';
 import StoryOverFail from './components/story_components/StoryOverFail';
 import StoryComplete from './components/story_components/StoryComplete';
 import { Navbar } from 'react-bootstrap'
-import CharacterIndex from './components/character_components/CharacterIndex';
 
 const StyledNav= styled(Navbar)`
   background-color: rgb(150,220,150);
@@ -55,15 +54,14 @@ class App extends Component {
         <Switch>
             <Route exact path='/' component={HomePage}/>
             <Route exact path='/users/:id' component={UserShow}/>
-            <Route exact path='/users/:id/characters' component={CharacterIndex}/>
             <Route exact path='/users/:user_id/characters/new' component={CharacterCreate}/>
             <Route exact path='/users/:user_id/characters/:id' component={CharacterShow}/>
             <Route exact path='/users/:user_id/characters/:id/edit' component={CharacterUpdate}/>
-            <Route exact path='/users/:user_id/stories' component={StoryIndex}/>
-            <Route exact path='/users/:user_id/stories/oops' component={StoryOverFail}/>
-            <Route exact path='/users/:user_id/stories/finished' component={StoryComplete}/>
-            <Route exact path='/users/:user_id/stories/:id' component={StoryShow}/>
-            <Route exact path='/users/:user_id/stories/:story_id/pages/:id' component={PageShow}/>
+            <Route exact path='/users/:user_id/characters/:id/stories' component={StoryIndex}/>
+            <Route exact path='/users/:user_id/characters/:character_id/stories/oops' component={StoryOverFail}/>
+            <Route exact path='/users/:user_id/characters/:character_id/stories/finished' component={StoryComplete}/>
+            <Route exact path='/users/:user_id/characters/:character_id/stories/:id' component={StoryShow}/>
+            <Route exact path='/users/:user_id/characters/:character_id/stories/:story_id/pages/:id' component={PageShow}/>
           </Switch>
         </div>
       </Router>

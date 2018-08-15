@@ -1,6 +1,6 @@
 class Api::StoriesController < ApplicationController
     def index
-        @stories = Character.find(prarams[:character_id]).stories
+        @stories = Character.find(params[:character_id]).stories
         render json: @stories
     end
 
